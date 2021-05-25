@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "lab.app.authentication.enabled",
+      "type": "java.lang.Boolean",
+      "description": "authentication switch."
+    },
+    {
+      "name": "lab.app.url.whitelist",
+      "type": "java.util.List",
+      "description": "authentication url whitelist."
+    }
+  ]
+}

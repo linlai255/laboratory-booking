@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycourlee.ms.labbooking.mapper.BookingRecordMapper">
+  <resultMap id="BaseResultMap" type="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity">
+    <!--@mbg.generated-->
+    <!--@Table t_booking_record-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="lab_id" jdbcType="INTEGER" property="labId" />
+    <result column="lab_name" jdbcType="INTEGER" property="labName" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="course_name" jdbcType="INTEGER" property="courseName" />
+    <result column="memo" jdbcType="LONGVARCHAR" property="memo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="create_username" jdbcType="INTEGER" property="createUsername" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+    <result column="update_username" jdbcType="INTEGER" property="updateUsername" />
+    <result column="is_delete" jdbcType="BOOLEAN" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, lab_id, lab_name, course_id, course_name, memo, create_time, create_user_id, 
+    create_username, update_time, update_user_id, update_username, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_booking_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from t_booking_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_booking_record (lab_id, lab_name, course_id, 
+      course_name, memo, create_time, 
+      create_user_id, create_username, update_time, 
+      update_user_id, update_username, is_delete
+      )
+    values (#{labId,jdbcType=INTEGER}, #{labName,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{courseName,jdbcType=INTEGER}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=INTEGER}, #{isDelete,jdbcType=BOOLEAN}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_booking_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="labId != null">
+        lab_id,
+      </if>
+      <if test="labName != null">
+        lab_name,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createUsername != null">
+        create_username,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="updateUsername != null">
+        update_username,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="labId != null">
+        #{labId,jdbcType=INTEGER},
+      </if>
+      <if test="labName != null">
+        #{labName,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUsername != null">
+        #{createUsername,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUsername != null">
+        #{updateUsername,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity">
+    <!--@mbg.generated-->
+    update t_booking_record
+    <set>
+      <if test="labId != null">
+        lab_id = #{labId,jdbcType=INTEGER},
+      </if>
+      <if test="labName != null">
+        lab_name = #{labName,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUsername != null">
+        create_username = #{createUsername,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUsername != null">
+        update_username = #{updateUsername,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity">
+    <!--@mbg.generated-->
+    update t_booking_record
+    set lab_id = #{labId,jdbcType=INTEGER},
+      lab_name = #{labName,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=INTEGER},
+      course_name = #{courseName,jdbcType=INTEGER},
+      memo = #{memo,jdbcType=LONGVARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      create_username = #{createUsername,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=INTEGER},
+      update_username = #{updateUsername,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
