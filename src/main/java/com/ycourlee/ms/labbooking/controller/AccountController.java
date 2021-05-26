@@ -20,7 +20,7 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/verify-code/{type:[1-2]]}/{phone:[0-9]{11}}")
+    @GetMapping("/verify-code/{type:[1-2]}/{phone:[0-9]{11}}")
     public ApiResponse verifyCode(@PathVariable("type") Integer type,
                                   @PathVariable("phone") String phone) {
         accountService.verifyCode(type, phone);
