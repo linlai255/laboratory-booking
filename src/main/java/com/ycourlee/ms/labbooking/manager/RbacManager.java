@@ -1,8 +1,21 @@
 package com.ycourlee.ms.labbooking.manager;
 
+import com.ycourlee.ms.labbooking.enums.EAccountType;
+import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.*;
+import com.ycourlee.ms.labbooking.model.entity.AdminEntity;
+import com.ycourlee.ms.labbooking.model.entity.TeacherEntity;
+import com.ycourlee.ms.labbooking.model.entity.UserEntity;
+import com.ycourlee.ms.labbooking.model.entity.UserRoleEntity;
+import com.ycourlee.ms.labbooking.util.BizAssert;
+import com.ycourlee.root.util.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author yongjiang
@@ -10,6 +23,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RbacManager {
 
+    @Autowired
+    private AdminMapper        adminMapper;
+    @Autowired
+    private TeacherMapper      teacherMapper;
     @Autowired
     private UserMapper         userMapper;
     @Autowired
@@ -20,10 +37,65 @@ public class RbacManager {
     private UserRoleMapper     userRoleMapper;
     @Autowired
     private RoleResourceMapper roleResourceMapper;
+    @Value("${lab.registration.default-role-id.admin:1}")
+    private List<Integer>      defaultAdminRoleId;
+    @Value("${lab.registration.default-role-id.teacher:2}")
+    private List<Integer>      defaultTeacherRoleId;
 
+    @Transactional(rollbackFor = Exception.class)
+    public void createUser(Integer type, String phone, String password) {
+        int primaryId;
+        if (EAccountType.TEACHER.getCode() == type) {
+            primaryId = createTeacher(phone);
+        } else if (EAccountType.ADMINISTRATOR.getCode() == type) {
+            primaryId = createAdmin(phone);
+        } else {
+            throw new IllegalArgumentException();
+        }
+        UserEntity user = new UserEntity();
+        user.setPhone(phone);
+        user.setPassword(password);
+        user.setRefId(primaryId);
+        user.setType(type.byteValue());
+        userMapper.insertSelective(user);
 
-    public void createUser(String username, String verifyCode) {
-
+        if (EAccountType.TEACHER.getCode() == type) {
+            bindRolesToUser(user.getId(), defaultAdminRoleId);
+        } else {
+            bindRolesToUser(user.getId(), defaultTeacherRoleId);
+        }
     }
 
+    /*----------BELOW---------- private methods ----------BELOW----------*/
+
+    private void bindRolesToUser(int userId, List<Integer> roleIds) {
+        BizAssert.that(CollectionUtil.isNotEmpty(roleIds), Errors.INTERNAL_CONFIGURATION_ERROR);
+        List<UserRoleEntity> userRoleEntityList = new ArrayList<>(roleIds.size());
+        for (Integer roleId : roleIds) {
+            UserRoleEntity userRoleEntity = new UserRoleEntity();
+            userRoleEntity.setUserId(userId);
+            userRoleEntity.setRoleId(roleId);
+            userRoleEntityList.add(userRoleEntity);
+        }
+        if (userRoleEntityList.size() == 1) {
+            userRoleMapper.insertSelective(userRoleEntityList.get(0));
+        }
+        userRoleMapper.batchInsertFcl(userRoleEntityList);
+    }
+
+    private int createAdmin(String phone) {
+        TeacherEntity entity = new TeacherEntity();
+        entity.setName("教师" + phone);
+        entity.setNickname("教师" + phone);
+        teacherMapper.insertSelective(entity);
+        return entity.getId();
+    }
+
+    private int createTeacher(String phone) {
+        AdminEntity entity = new AdminEntity();
+        entity.setName("管理员" + phone);
+        entity.setNickname("管理员" + phone);
+        adminMapper.insertSelective(entity);
+        return entity.getId();
+    }
 }

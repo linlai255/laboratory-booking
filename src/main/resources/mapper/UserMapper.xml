@@ -164,4 +164,12 @@
       is_delete = #{isDelete,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByPhoneTypeFcl" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user
+    where type = #{type}
+      and phone = #{phone}
+  </select>
 </mapper>

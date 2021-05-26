@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <version>2.3.6.RELEASE</version>
-    <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.6.RELEASE</version>
   </parent>
 
   <groupId>com.ycourlee.ms</groupId>
@@ -25,7 +25,7 @@
     <pagehelper-spring-boot.version>1.2.13</pagehelper-spring-boot.version>
     <mybatis-spring-boot.version>2.1.2</mybatis-spring-boot.version>
     <swagger-spring-boot.version>1.9.1.RELEASE</swagger-spring-boot.version>
-    <yonn.version>1.0.7.RELEASE</yonn.version>
+    <yonn.version>1.0.8.RELEASE</yonn.version>
   </properties>
 
   <dependencies>
@@ -84,6 +84,47 @@
       <version>${yonn.version}</version>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>public</id>
+      <name>aliyun nexus</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>yalden github releases</id>
+      <name>GitHub yalden Apache Maven releases Packages</name>
+      <url>https://maven.pkg.github.com/yalden/package-releases</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>public</id>
+      <name>aliyun nexus</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
   <build>
     <plugins>

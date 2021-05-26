@@ -10,6 +10,7 @@ import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  * @author yongjiang
  */
@@ -18,8 +19,7 @@ public class AliyunDysms {
     private static final Logger log = LoggerFactory.getLogger(AliyunDysms.class);
 
     private AliyunDysmsProperties properties;
-
-    private Client clientSingleton;
+    private Client                clientSingleton;
 
     public AliyunDysms(AliyunDysmsProperties properties) {
         this.properties = properties;

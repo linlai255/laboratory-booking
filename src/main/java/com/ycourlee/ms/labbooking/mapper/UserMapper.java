@@ -1,12 +1,13 @@
 package com.ycourlee.ms.labbooking.mapper;
 
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author yongjiang
  */
 public interface UserMapper {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(UserEntity record);
@@ -18,4 +19,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(UserEntity record);
 
     int updateByPrimaryKey(UserEntity record);
+
+    UserEntity selectByPhoneTypeFcl(@Param("type") Integer type, @Param("phone") String phone);
 }

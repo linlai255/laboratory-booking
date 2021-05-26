@@ -9,6 +9,21 @@
       "name": "lab.app.url.whitelist",
       "type": "java.util.List",
       "description": "authentication url whitelist."
+    },
+    {
+      "name": "lab.registration.administrator.phone-whitelist",
+      "type": "java.util.List",
+      "description": "the phone whitelist of administrator registration."
+    },
+    {
+      "name": "lab.registration.default-role-id.admin",
+      "type": "java.lang.Integer",
+      "description": "default role ids binding admin when registration."
+    },
+    {
+      "name": "lab.registration.default-role-id.teacher",
+      "type": "java.lang.Integer",
+      "description": "default role ids binding teacher when registration."
     }
   ]
 }

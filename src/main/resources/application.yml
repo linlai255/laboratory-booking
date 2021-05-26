@@ -14,10 +14,20 @@ spring:
 
 logging:
   level: info
+
 lab:
   app:
     authentication:
       enabled: true
     url:
       whitelist:
-        -/api
+        - /api
+  registration:
+    administrator:
+      phone-whitelist:
+        - 13115611802
+    default-role-id:
+      admin:
+        - 1
+      teacher:
+        - 2

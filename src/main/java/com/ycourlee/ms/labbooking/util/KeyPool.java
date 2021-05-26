@@ -9,7 +9,7 @@ public class KeyPool {
         return "TOKEN:" + username;
     }
 
-    public static String verifyCode(String phone) {
+    public static String code(String phone) {
         return "CODE:" + phone;
     }
 }

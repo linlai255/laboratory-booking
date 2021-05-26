@@ -104,4 +104,11 @@
       is_delete = #{isDelete,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="batchInsertFcl">
+    <foreach collection="entityList" item="entity" separator=";">
+      insert into t_user_role(user_id, role_id)
+      VALUES (#{entity.userId}, #{entity.roleId})
+    </foreach>
+  </insert>
 </mapper>
