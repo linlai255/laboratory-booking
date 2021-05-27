@@ -1,5 +1,6 @@
 package com.ycourlee.ms.labbooking.manager;
 
+import com.ycourlee.ms.labbooking.config.properties.DefaultRoleProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.*;
@@ -10,10 +11,10 @@ import com.ycourlee.ms.labbooking.model.entity.UserRoleEntity;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.root.util.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,23 +25,23 @@ import java.util.List;
 public class RbacManager {
 
     @Autowired
-    private AdminMapper        adminMapper;
+    private AdminMapper           adminMapper;
     @Autowired
-    private TeacherMapper      teacherMapper;
+    private TeacherMapper         teacherMapper;
     @Autowired
-    private UserMapper         userMapper;
+    private UserMapper            userMapper;
     @Autowired
-    private RoleMapper         roleMapper;
+    private RoleMapper            roleMapper;
     @Autowired
-    private ResourceMapper     resourceMapper;
+    private ResourceMapper        resourceMapper;
     @Autowired
-    private UserRoleMapper     userRoleMapper;
+    private UserRoleMapper        userRoleMapper;
     @Autowired
-    private RoleResourceMapper roleResourceMapper;
-    @Value("${lab.registration.default-role-id.admin:1}")
-    private List<Integer>      defaultAdminRoleId;
-    @Value("${lab.registration.default-role-id.teacher:2}")
-    private List<Integer>      defaultTeacherRoleId;
+    private RoleResourceMapper    roleResourceMapper;
+    @Resource(name = "adminDefaultRole")
+    private DefaultRoleProperties defaultAdminRoleId;
+    @Resource(name = "teacherDefaultRole")
+    private DefaultRoleProperties defaultTeacherRoleId;
 
     @Transactional(rollbackFor = Exception.class)
     public void createUser(Integer type, String phone, String password) {
@@ -60,9 +61,9 @@ public class RbacManager {
         userMapper.insertSelective(user);
 
         if (EAccountType.TEACHER.getCode() == type) {
-            bindRolesToUser(user.getId(), defaultAdminRoleId);
+            bindRolesToUser(user.getId(), defaultAdminRoleId.getDefaultRoleId());
         } else {
-            bindRolesToUser(user.getId(), defaultTeacherRoleId);
+            bindRolesToUser(user.getId(), defaultTeacherRoleId.getDefaultRoleId());
         }
     }
 
@@ -85,7 +86,6 @@ public class RbacManager {
 
     private int createAdmin(String phone) {
         TeacherEntity entity = new TeacherEntity();
-        entity.setName("教师" + phone);
         entity.setNickname("教师" + phone);
         teacherMapper.insertSelective(entity);
         return entity.getId();
@@ -93,7 +93,6 @@ public class RbacManager {
 
     private int createTeacher(String phone) {
         AdminEntity entity = new AdminEntity();
-        entity.setName("管理员" + phone);
         entity.setNickname("管理员" + phone);
         adminMapper.insertSelective(entity);
         return entity.getId();

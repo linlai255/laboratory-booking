@@ -1,6 +1,6 @@
 package com.ycourlee.ms.labbooking.service.impl;
 
-import com.ycourlee.ms.labbooking.autoconfig.AliyunDysmsProperties;
+import com.ycourlee.ms.labbooking.config.properties.AliyunDysmsProperties;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.manager.AccountManager;
 import com.ycourlee.ms.labbooking.manager.AliyunDysms;
@@ -42,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
         accountManager.adminFilter(type, phone);
         BizAssert.that(accountManager.noAliveCodeCurrentPhone(phone), "验证码只能每60s获取一次");
         String code = aliyunDysms.sendCacheVerifyCodeWhenRegister(phone);
-        redis.setEx(KeyPool.code(phone), accountManager.bindType(type, code), properties.getVerifyCodeAliveTimeout(), TimeUnit.SECONDS);
+        redis.setEx(KeyPool.code(phone), accountManager.bindType(type, code), aliyunDysms.getProperties().getVerifyCodeAliveTimeout(), TimeUnit.SECONDS);
     }
 
     @Override

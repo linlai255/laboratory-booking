@@ -1,5 +1,6 @@
 package com.ycourlee.ms.labbooking.manager;
 
+import com.ycourlee.ms.labbooking.config.properties.AppRegistrationProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.UserMapper;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -29,8 +31,8 @@ public class AccountManager {
     /**
      * todo apollo
      */
-    @Value("${lab.registration.administrator.phone-whitelist}")
-    private List<String> adminWhitelist;
+    @Autowired
+    private AppRegistrationProperties properties;
 
     public boolean noAliveCodeCurrentPhone(String phone) {
         return StringUtil.isNotEmpty(redis.get(KeyPool.code(phone)));
@@ -50,7 +52,7 @@ public class AccountManager {
 
     public void adminFilter(Integer type, String phone) {
         if (type.compareTo(EAccountType.ADMINISTRATOR.getCode()) == 0) {
-            if (!adminWhitelist.contains(phone)) {
+            if (!properties.getAdminPhoneWhitelist().contains(phone)) {
                 throw new BusinessException(Errors.YOU_ARE_NOT_ADMIN);
             }
         }

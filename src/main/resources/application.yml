@@ -2,7 +2,8 @@ server:
   port: 8000
   servlet:
     context-path: /api
-
+  error:
+    path: /api
 
 spring:
   application:
@@ -11,23 +12,10 @@ spring:
     host: localhost
     database: 0
     port: 6380
+  profiles:
+    include: datasource,app
 
 logging:
-  level: info
+  level:
+    root: info
 
-lab:
-  app:
-    authentication:
-      enabled: true
-    url:
-      whitelist:
-        - /api
-  registration:
-    administrator:
-      phone-whitelist:
-        - 13115611802
-    default-role-id:
-      admin:
-        - 1
-      teacher:
-        - 2

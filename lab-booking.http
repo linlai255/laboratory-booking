@@ -1,0 +1,5 @@
+###
+POST {{host}}/api/test
+
+###
+POST {{host}}/api/test2/hello

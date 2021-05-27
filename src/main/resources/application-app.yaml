@@ -1,0 +1,6 @@
+lab:
+  app:
+    authentication:
+      enabled: true
+      path-whitelist:
+        - /api
