@@ -8,6 +8,7 @@ import com.ycourlee.ms.labbooking.model.entity.AdminEntity;
 import com.ycourlee.ms.labbooking.model.entity.TeacherEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserRoleEntity;
+import com.ycourlee.ms.labbooking.model.vo.RoleVO;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.root.util.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,5 +97,9 @@ public class RbacManager {
         entity.setNickname("管理员" + phone);
         adminMapper.insertSelective(entity);
         return entity.getId();
+    }
+
+    public List<RoleVO> roleInfo(Integer userId) {
+        return null;
     }
 }

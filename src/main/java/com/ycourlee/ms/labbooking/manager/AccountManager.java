@@ -12,11 +12,8 @@ import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.util.RandomUtil;
 import com.ycourlee.root.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author yongjiang
@@ -50,7 +47,7 @@ public class AccountManager {
         return registerKey;
     }
 
-    public void adminFilter(Integer type, String phone) {
+    public void adminFilter(Byte type, String phone) {
         if (type.compareTo(EAccountType.ADMINISTRATOR.getCode()) == 0) {
             if (!properties.getAdminPhoneWhitelist().contains(phone)) {
                 throw new BusinessException(Errors.YOU_ARE_NOT_ADMIN);
@@ -58,7 +55,7 @@ public class AccountManager {
         }
     }
 
-    public UserEntity queryUserBy(Integer type, String phone) {
+    public UserEntity queryUserBy(Byte type, String phone) {
         return userMapper.selectByPhoneTypeFcl(type, phone);
     }
 
@@ -75,5 +72,12 @@ public class AccountManager {
         String[] unbindType = unbindType(composeValue);
         BizAssert.that(unbindType[1].equals(request.getRegisterKey()), Errors.PLEASE_NOT_HACK_REGISTRATION);
         request.setType(Integer.parseInt(unbindType[0]));
+    }
+
+    public UserEntity verifyAccountAndPassword(Byte type, String phone, String password) {
+        UserEntity userEntity = userMapper.selectByPhoneTypeFcl(type, phone);
+        BizAssert.that(userEntity != null, Errors.PHONE_NOT_EXISTS);
+        BizAssert.that(userEntity.getPassword().equals(password), Errors.PHONE_OR_PASSWORD_ERROR);
+        return userEntity;
     }
 }

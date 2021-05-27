@@ -21,7 +21,7 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping("/verify-code/{type:[1-2]}/{phone:[0-9]{11}}")
-    public ApiResponse verifyCode(@PathVariable("type") Integer type,
+    public ApiResponse verifyCode(@PathVariable("type") Byte type,
                                   @PathVariable("phone") String phone) {
         accountService.verifyCode(type, phone);
         return ApiResponse.success();

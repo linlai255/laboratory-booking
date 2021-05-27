@@ -22,6 +22,8 @@ public enum Errors implements CmReturn {
     YOU_ARE_NOT_ADMIN(10021, "您还不是管理员, 无法注册"),
     PHONE_NUMBER_ALREADY_EXISTS(10022, "手机号已被注册"),
     PLEASE_NOT_HACK_REGISTRATION(10023, "请不要非法地注册账号"),
+    PHONE_NOT_EXISTS(10024, "手机号不存在"),
+    PHONE_OR_PASSWORD_ERROR(10025, "手机号或密码错误"),
     ;
 
     private final int    code;

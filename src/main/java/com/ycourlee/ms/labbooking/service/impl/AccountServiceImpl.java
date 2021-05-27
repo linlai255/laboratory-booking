@@ -9,6 +9,9 @@ import com.ycourlee.ms.labbooking.manager.Redis;
 import com.ycourlee.ms.labbooking.model.bo.request.LoginRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.RegisterRequest;
 import com.ycourlee.ms.labbooking.model.bo.response.CheckVerifyCodeResponse;
+import com.ycourlee.ms.labbooking.model.bo.response.LoginResponse;
+import com.ycourlee.ms.labbooking.model.entity.UserEntity;
+import com.ycourlee.ms.labbooking.model.vo.RoleVO;
 import com.ycourlee.ms.labbooking.service.AccountService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.ms.labbooking.util.KeyPool;
@@ -16,6 +19,7 @@ import com.ycourlee.ms.labbooking.util.RegexUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
     private Redis                 redis;
 
     @Override
-    public void verifyCode(Integer type, String phone) {
+    public void verifyCode(Byte type, String phone) {
         BizAssert.that(RegexUtil.isPhone(phone), "手机号格式不正确");
         BizAssert.isNull(accountManager.queryUserBy(type, phone), Errors.PHONE_NUMBER_ALREADY_EXISTS);
         accountManager.adminFilter(type, phone);
@@ -59,8 +63,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
+        UserEntity userEntity = accountManager.verifyAccountAndPassword(request.getType(), request.getPhone(), request.getPassword());
+        List<RoleVO> roleVO = rbacManager.roleInfo(userEntity.getId());
 
+        // todo jjwt token.
+
+        return new LoginResponse();
     }
 
     @Override

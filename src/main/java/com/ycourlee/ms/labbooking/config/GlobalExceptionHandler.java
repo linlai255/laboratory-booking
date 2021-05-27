@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         StringBuffer sb = new StringBuffer();
         e.getFieldErrors().forEach(fieldError ->
                 sb.append(fieldError.getField())
-                        .append("=")
+                        .append("-")
                         .append(fieldError.getDefaultMessage())
                         .append(";"));
         return ApiResponse.error(-1, sb.toString(), null);
