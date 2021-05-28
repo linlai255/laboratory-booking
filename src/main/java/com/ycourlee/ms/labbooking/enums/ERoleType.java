@@ -7,19 +7,19 @@ import java.util.Objects;
 /**
  * @author yongjiang
  */
-public enum ERoleId {
+public enum ERoleType {
 
     /**
-     * admin
+     * 1.admin 2.teacher
      */
     ADMIN_ROLE(1, "admin"),
     TEACHER_ROLE(2, "teacher"),
     ;
 
-    private static final Map<Integer, ERoleId> ALL = new HashMap<>();
+    private static final Map<Integer, ERoleType> ALL = new HashMap<>();
 
     static {
-        for (ERoleId item : ERoleId.values()) {
+        for (ERoleType item : ERoleType.values()) {
             ALL.put(item.getCode(), item);
         }
     }
@@ -27,12 +27,12 @@ public enum ERoleId {
     private final int    code;
     private final String name;
 
-    ERoleId(int code, String name) {
+    ERoleType(int code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static ERoleId instanceOf(int code) {
+    public static ERoleType instanceOf(int code) {
         return ALL.get(code);
     }
 

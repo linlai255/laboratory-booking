@@ -4,3 +4,8 @@ lab:
       enabled: true
       path-whitelist:
         - /api
+    registration:
+      admin:
+        default-role-id:
+          - 1
+          - 2

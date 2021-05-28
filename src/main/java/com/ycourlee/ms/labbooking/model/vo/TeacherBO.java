@@ -10,7 +10,11 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class RoleVO {
+public class TeacherBO {
 
-
+    private Integer id;
+    private String name;
+    private String nickname;
+    private String academy;
+    private String department;
 }

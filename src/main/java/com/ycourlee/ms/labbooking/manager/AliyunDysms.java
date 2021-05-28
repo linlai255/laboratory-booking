@@ -61,9 +61,9 @@ public class AliyunDysms {
 
     private Client createClient() throws Exception {
 
-        Assert.isNotEmpty(properties.getAccessKeyId());
-        Assert.isNotEmpty(properties.getAccessKeySecret());
-        Assert.isNotEmpty(properties.getEndpoint());
+        Assert.notEmpty(properties.getAccessKeyId());
+        Assert.notEmpty(properties.getAccessKeySecret());
+        Assert.notEmpty(properties.getEndpoint());
 
         Config config = new Config()
                 .setAccessKeyId(properties.getAccessKeyId())

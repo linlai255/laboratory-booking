@@ -26,7 +26,7 @@
     <pagehelper-spring-boot.version>1.2.13</pagehelper-spring-boot.version>
     <mybatis-spring-boot.version>2.1.2</mybatis-spring-boot.version>
     <swagger-spring-boot.version>1.9.1.RELEASE</swagger-spring-boot.version>
-    <yonn.version>1.0.8.RELEASE</yonn.version>
+    <yonn.version>1.0.9-SNAPSHOT</yonn.version>
   </properties>
 
   <dependencies>
@@ -114,6 +114,7 @@
       </releases>
       <snapshots>
         <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
       </snapshots>
     </repository>
   </repositories>

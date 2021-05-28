@@ -29,4 +29,10 @@ public interface UserRoleMapper {
      * @return effected rows.
      */
     int batchInsertFcl(@Param("entityList") List<UserRoleEntity> userRoleEntityList);
+
+    int removeByRoleId(Integer roleId);
+
+    List<UserRoleEntity> listByUserId(Integer userId);
+
+    List<Integer> listRoleIdByUserId(Integer userId);
 }

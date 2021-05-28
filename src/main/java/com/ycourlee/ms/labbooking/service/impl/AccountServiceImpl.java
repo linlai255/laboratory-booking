@@ -10,8 +10,8 @@ import com.ycourlee.ms.labbooking.model.bo.request.LoginRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.RegisterRequest;
 import com.ycourlee.ms.labbooking.model.bo.response.CheckVerifyCodeResponse;
 import com.ycourlee.ms.labbooking.model.bo.response.LoginResponse;
+import com.ycourlee.ms.labbooking.model.entity.RoleEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
-import com.ycourlee.ms.labbooking.model.vo.RoleVO;
 import com.ycourlee.ms.labbooking.service.AccountService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.ms.labbooking.util.KeyPool;
@@ -59,13 +59,13 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void register(RegisterRequest request) {
         accountManager.checkRegisterKey(request);
-        rbacManager.createUser(request.getType(), request.getPhone(), request.getPassword());
+        rbacManager.saveUser(request.getType(), request.getPhone(), request.getPassword());
     }
 
     @Override
     public LoginResponse login(LoginRequest request) {
         UserEntity userEntity = accountManager.verifyAccountAndPassword(request.getType(), request.getPhone(), request.getPassword());
-        List<RoleVO> roleVO = rbacManager.roleInfo(userEntity.getId());
+        List<RoleEntity> role = rbacManager.listRole(userEntity.getId());
 
         // todo jjwt token.
 

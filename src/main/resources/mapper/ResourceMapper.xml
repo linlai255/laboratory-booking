@@ -5,9 +5,11 @@
     <!--@mbg.generated-->
     <!--@Table t_resource-->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="route" jdbcType="VARCHAR" property="route" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="contain_path_var" jdbcType="BOOLEAN" property="containPathVar" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -16,8 +18,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `name`, `type`, parent_id, contain_path_var, memo, create_time, update_time, 
-    is_delete
+    id, parent_id, `name`, `type`, route, `path`, contain_path_var, memo, create_time, 
+    update_time, is_delete
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -33,25 +35,33 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.ResourceEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into t_resource (`name`, `type`, parent_id, 
-      contain_path_var, memo, create_time, 
-      update_time, is_delete)
-    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{parentId,jdbcType=INTEGER}, 
-      #{containPathVar,jdbcType=BOOLEAN}, #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BOOLEAN})
+    insert into t_resource (parent_id, `name`, `type`, 
+      route, `path`, contain_path_var, 
+      memo, create_time, update_time, 
+      is_delete)
+    values (#{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
+      #{route,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{containPathVar,jdbcType=BOOLEAN}, 
+      #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=BOOLEAN})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.ResourceEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into t_resource
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        parent_id,
+      </if>
       <if test="name != null">
         `name`,
       </if>
       <if test="type != null">
         `type`,
       </if>
-      <if test="parentId != null">
-        parent_id,
+      <if test="route != null">
+        route,
+      </if>
+      <if test="path != null">
+        `path`,
       </if>
       <if test="containPathVar != null">
         contain_path_var,
@@ -70,14 +80,20 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=TINYINT},
       </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=INTEGER},
+      <if test="route != null">
+        #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
       </if>
       <if test="containPathVar != null">
         #{containPathVar,jdbcType=BOOLEAN},
@@ -100,14 +116,20 @@
     <!--@mbg.generated-->
     update t_resource
     <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         `type` = #{type,jdbcType=TINYINT},
       </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=INTEGER},
+      <if test="route != null">
+        route = #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
       </if>
       <if test="containPathVar != null">
         contain_path_var = #{containPathVar,jdbcType=BOOLEAN},
@@ -130,14 +152,54 @@
   <update id="updateByPrimaryKey" parameterType="com.ycourlee.ms.labbooking.model.entity.ResourceEntity">
     <!--@mbg.generated-->
     update t_resource
-    set `name` = #{name,jdbcType=VARCHAR},
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=TINYINT},
-      parent_id = #{parentId,jdbcType=INTEGER},
+      route = #{route,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
       contain_path_var = #{containPathVar,jdbcType=BOOLEAN},
       memo = #{memo,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="listByIdCollection" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_resource where id in
+    <foreach collection="idCollection" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+    and is_delete = 0
+  </select>
+
+  <update id="batchUpdateParentIdByIdCollection">
+    update t_resource set parent_id = #{id}
+    where id in
+    <foreach collection="idCollection" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+
+  <select id="countByIdCollection" resultType="int">
+    select count(1)
+    from t_resource where id in
+    <foreach collection="idCollection" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+    and is_delete = 0
+  </select>
+
+  <select id="listResIdByParentResId" resultType="java.lang.Integer">
+    select id
+    from t_resource
+    where parent_id = #{parentId}
+    and is_delete = 0
+  </select>
+
+  <update id="removeFromResourceAndParentResource">
+    update t_resource set is_delete = 1
+    where id = #{id} or parent_id = #{id}
   </update>
 </mapper>

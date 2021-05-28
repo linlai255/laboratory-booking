@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class AdminVO {
+public class AdminBO {
 
     private Integer id;
     private String name;

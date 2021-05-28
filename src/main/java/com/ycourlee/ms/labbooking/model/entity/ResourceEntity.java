@@ -23,6 +23,12 @@ public class ResourceEntity {
     private Integer id;
 
     /**
+     * 父id
+     */
+    @ApiModelProperty(value = "父id")
+    private Integer parentId;
+
+    /**
      * 资源名
      */
     @ApiModelProperty(value = "资源名")
@@ -35,10 +41,16 @@ public class ResourceEntity {
     private Byte type;
 
     /**
-     * 父id
+     * page route.
      */
-    @ApiModelProperty(value = "父id")
-    private Integer parentId;
+    @ApiModelProperty(value = "page route.")
+    private String route;
+
+    /**
+     * API path.
+     */
+    @ApiModelProperty(value = "API path.")
+    private String path;
 
     /**
      * 包含path variable.

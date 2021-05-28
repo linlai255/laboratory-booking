@@ -104,4 +104,32 @@
       is_delete = #{isDelete,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="batchInsertFcl">
+    <foreach collection="entityList" item="entity" separator=";">
+      insert into t_role_resource(role_id, resource_id)
+      values (#{entity.roleId}, #{entity.resourceId})
+    </foreach>
+  </insert>
+
+  <update id="removeByRoleId">
+    update t_role_resource
+    set is_delete = 1
+    where role_id = #{roleId}
+  </update>
+
+  <select id="listByRoleId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_role_resource
+    where role_id = #{roleId}
+      and is_delete = 0
+  </select>
+
+  <select id="listResIdByRoleId" resultType="java.lang.Integer">
+    select resource_id
+    from t_role_resource
+    where role_id = #{roleId}
+      and is_delete = 0
+  </select>
 </mapper>

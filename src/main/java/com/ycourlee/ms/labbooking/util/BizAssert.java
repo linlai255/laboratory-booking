@@ -28,6 +28,12 @@ public class BizAssert extends Assert {
         }
     }
 
+    public static void impossible(boolean expr, CmReturn error) {
+        if (expr) {
+            throw new BusinessException(error);
+        }
+    }
+
     /**
      * @param obj   object.
      * @param error Errors, {@link Errors}

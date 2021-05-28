@@ -10,11 +10,11 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class UserVO {
+public class UserBO {
 
     private Integer id;
-    private String username;
-    private String email;
-    private String wechat;
-    private Byte   refId;
+    private String  username;
+    private String  email;
+    private String  wechat;
+    private Integer refId;
 }
