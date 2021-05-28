@@ -1,4 +1,4 @@
-package com.ycourlee.ms.labbooking.model.vo;
+package com.ycourlee.ms.labbooking.model.bo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +10,8 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class AdminBO {
+public class RoleBO {
 
     private Integer id;
-    private String name;
-    private String nickname;
+    private String  name;
 }

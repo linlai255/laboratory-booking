@@ -1,6 +1,6 @@
 package com.ycourlee.ms.labbooking.manager;
 
-import com.ycourlee.ms.labbooking.config.properties.DefaultRoleProperties;
+import com.ycourlee.ms.labbooking.config.properties.LabDefaultRoleProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.enums.EDigit;
 import com.ycourlee.ms.labbooking.enums.EResourceType;
@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author yongjiang
@@ -39,11 +40,11 @@ public class RbacManager {
     @Autowired
     private UserRoleMapper        userRoleMapper;
     @Autowired
-    private RoleResourceMapper    roleResourceMapper;
+    private RoleResourceMapper       roleResourceMapper;
     @Resource(name = "adminDefaultRole")
-    private DefaultRoleProperties defaultAdminRoleId;
+    private LabDefaultRoleProperties defaultAdminRoleId;
     @Resource(name = "teacherDefaultRole")
-    private DefaultRoleProperties defaultTeacherRoleId;
+    private LabDefaultRoleProperties defaultTeacherRoleId;
 
     @Transactional(rollbackFor = Exception.class)
     public void saveUser(Integer type, String phone, String password) {
@@ -78,10 +79,10 @@ public class RbacManager {
         return record.getId();
     }
 
-    public List<RoleEntity> listRole(Integer userId) {
-
-
-        return null;
+    public List<RoleEntity> listRole(int userId) {
+        List<UserRoleEntity> userRoleEntityList = userRoleMapper.listByUserId(userId);
+        List<Integer> roleIdList = userRoleEntityList.stream().map(UserRoleEntity::getRoleId).collect(Collectors.toList());
+        return roleMapper.listByIdCollection(roleIdList);
     }
 
     public void updateRoleName(int id, String name) {

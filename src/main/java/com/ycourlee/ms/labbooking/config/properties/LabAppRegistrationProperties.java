@@ -10,10 +10,10 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class AppRegistrationProperties {
+public class LabAppRegistrationProperties {
 
     /**
-     * the phone list of administrators.
+     * the phone list of administrators. Phone cannot be registered as administrator before write here.
      */
     private List<String> adminPhoneWhitelist;
 }

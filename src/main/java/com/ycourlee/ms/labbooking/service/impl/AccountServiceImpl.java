@@ -3,9 +3,9 @@ package com.ycourlee.ms.labbooking.service.impl;
 import com.ycourlee.ms.labbooking.config.properties.AliyunDysmsProperties;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.manager.AccountManager;
-import com.ycourlee.ms.labbooking.manager.AliyunDysms;
+import com.ycourlee.ms.labbooking.manager.spec.AliyunDysms;
 import com.ycourlee.ms.labbooking.manager.RbacManager;
-import com.ycourlee.ms.labbooking.manager.Redis;
+import com.ycourlee.ms.labbooking.manager.spec.Redis;
 import com.ycourlee.ms.labbooking.model.bo.request.LoginRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.RegisterRequest;
 import com.ycourlee.ms.labbooking.model.bo.response.CheckVerifyCodeResponse;
@@ -67,7 +67,7 @@ public class AccountServiceImpl implements AccountService {
         UserEntity userEntity = accountManager.verifyAccountAndPassword(request.getType(), request.getPhone(), request.getPassword());
         List<RoleEntity> role = rbacManager.listRole(userEntity.getId());
 
-        // todo jjwt token.
+
 
         return new LoginResponse();
     }

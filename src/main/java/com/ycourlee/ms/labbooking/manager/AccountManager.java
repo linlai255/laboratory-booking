@@ -1,8 +1,9 @@
 package com.ycourlee.ms.labbooking.manager;
 
-import com.ycourlee.ms.labbooking.config.properties.AppRegistrationProperties;
+import com.ycourlee.ms.labbooking.config.properties.LabAppRegistrationProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
+import com.ycourlee.ms.labbooking.manager.spec.Redis;
 import com.ycourlee.ms.labbooking.mapper.UserMapper;
 import com.ycourlee.ms.labbooking.model.bo.request.RegisterRequest;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
@@ -22,14 +23,14 @@ import org.springframework.stereotype.Component;
 public class AccountManager {
 
     @Autowired
-    private UserMapper   userMapper;
+    private UserMapper                userMapper;
     @Autowired
-    private Redis        redis;
+    private Redis                        redis;
     /**
      * todo apollo
      */
     @Autowired
-    private AppRegistrationProperties properties;
+    private LabAppRegistrationProperties properties;
 
     public boolean noAliveCodeCurrentPhone(String phone) {
         return StringUtil.isNotEmpty(redis.get(KeyPool.code(phone)));

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 public class AliyunDysmsProperties {
 
-    public static final String PREFIX = "aliyun.dysms";
+    public static final String PREFIX = "lab.aliyun.dysms";
 
     private Boolean enabled;
     private String  accessKeyId;

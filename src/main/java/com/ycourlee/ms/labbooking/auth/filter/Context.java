@@ -1,7 +1,7 @@
 package com.ycourlee.ms.labbooking.auth.filter;
 
-import com.ycourlee.ms.labbooking.model.vo.AdminBO;
-import com.ycourlee.ms.labbooking.model.vo.TeacherBO;
+import com.ycourlee.ms.labbooking.model.bo.AdminBO;
+import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
 import lombok.Builder;
 
 /**

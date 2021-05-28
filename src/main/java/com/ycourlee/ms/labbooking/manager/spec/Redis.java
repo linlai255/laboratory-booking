@@ -1,4 +1,4 @@
-package com.ycourlee.ms.labbooking.manager;
+package com.ycourlee.ms.labbooking.manager.spec;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

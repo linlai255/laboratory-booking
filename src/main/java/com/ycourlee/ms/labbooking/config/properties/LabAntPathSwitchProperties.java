@@ -10,8 +10,14 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class AntPathSwitchProperties {
+public class LabAntPathSwitchProperties {
 
+    /**
+     * switch of authentication or authorization.
+     */
     private boolean      enabled = true;
+    /**
+     * whitelist of authentication or authorization.
+     */
     private List<String> pathWhitelist;
 }

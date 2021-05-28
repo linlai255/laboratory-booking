@@ -1,4 +1,4 @@
-package com.ycourlee.ms.labbooking.manager;
+package com.ycourlee.ms.labbooking.manager.spec;
 
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
@@ -11,7 +11,6 @@ import com.ycourlee.root.util.Assert;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,7 +21,6 @@ public class AliyunDysms {
 
     private static final Logger                log = LoggerFactory.getLogger(AliyunDysms.class);
     @Getter
-    @Autowired
     private              AliyunDysmsProperties properties;
     private              Client                clientSingleton;
 

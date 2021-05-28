@@ -1,6 +1,6 @@
 package com.ycourlee.ms.labbooking.auth.filter;
 
-import com.ycourlee.ms.labbooking.config.properties.AntPathSwitchProperties;
+import com.ycourlee.ms.labbooking.config.properties.LabAntPathSwitchProperties;
 import com.ycourlee.ms.labbooking.exception.AuthenticationException;
 import com.ycourlee.root.util.CollectionUtil;
 import com.ycourlee.root.util.StringUtil;
@@ -29,7 +29,7 @@ public class AuthenticationFilter implements Filter {
 
     @Autowired
     @Qualifier("authenticationProperties")
-    public AntPathSwitchProperties authenticationProperties;
+    public LabAntPathSwitchProperties authenticationProperties;
 
     @Autowired
     private HandlerExceptionResolver handlerExceptionResolver;

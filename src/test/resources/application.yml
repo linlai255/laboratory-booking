@@ -1,0 +1,21 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /api
+  error:
+    path: /api
+
+spring:
+  application:
+    name: laboratory booking management system
+  redis:
+    host: localhost
+    database: 0
+    port: 6380
+  profiles:
+    include: datasource,app
+
+logging:
+  level:
+    root: info
+

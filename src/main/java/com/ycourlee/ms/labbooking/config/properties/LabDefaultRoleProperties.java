@@ -10,10 +10,10 @@ import java.util.Set;
  */
 @Setter
 @Getter
-public class DefaultRoleProperties {
+public class LabDefaultRoleProperties {
 
     /**
-     * default role id binding to the teacher or admin when they has created.
+     * default role id binding to the teacher or admin when they were created.
      */
     private Set<Integer> defaultRoleId;
 }

@@ -1,4 +1,4 @@
-package com.ycourlee.ms.labbooking.model.vo;
+package com.ycourlee.ms.labbooking.model.bo;
 
 import lombok.Getter;
 import lombok.Setter;
