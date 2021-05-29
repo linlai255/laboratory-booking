@@ -32,4 +32,6 @@ public interface ResourceMapper {
     List<Integer> listResIdByParentResId(Integer parentId);
 
     int removeFromResourceAndParentResource(Integer id);
+
+    ResourceEntity selectByApiPath(String uri);
 }

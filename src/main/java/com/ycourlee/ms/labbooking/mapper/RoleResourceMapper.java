@@ -35,4 +35,6 @@ public interface RoleResourceMapper {
     List<RoleResourceEntity> listByRoleId(Integer roleId);
 
     List<Integer> listResIdByRoleId(Integer roleId);
+
+    List<Integer> listOrderedRoleIdByResId(Integer resId);
 }

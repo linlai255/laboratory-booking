@@ -44,7 +44,7 @@ public class JwtIssuer {
         return ((String) claimsOf(jwt).get(properties.getClaimName()));
     }
 
-    public boolean check(String jwt) {
+    public boolean unknown(String jwt) {
         try {
             Claims claims = claimsOf(jwt);
             Assert.that(claims.getIssuer().equals(properties.getIssuer()), "[ jwt ] unknown issuer. it's: " + jwt);

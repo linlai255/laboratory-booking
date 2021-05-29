@@ -1,15 +1,20 @@
 lab-app:
-  authentication:
-    enabled: true
+  auth:
     path-whitelist:
-      - /api
-  registration:
-    admin:
-      default-role-id:
-        - 1
-        - 2
-    teacher:
-      default-role-id:
-        - 3
-  jwt:
-    default-duration:
+      - /api/swagger-ui.html
+      - /api/v2/api-docs
+      - /api/swagger-resources/**
+      - /api/webjars/**
+      - /api/v1/verify-code/**
+      - /api/v1/check-verify-code/**
+      - /api/v1/login
+      - /api/v1/register
+      - /api/v1/sign-up
+
+aliyun:
+  dysms:
+    access-key-id: @sms.aki@
+    access-key-secret: @sms.aks@
+    enabled: true
+    verify-code-alive-timeout: 60
+    endpoint: dysmsapi.aliyuncs.com

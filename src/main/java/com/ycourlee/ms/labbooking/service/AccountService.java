@@ -17,6 +17,4 @@ public interface AccountService {
     void register(RegisterRequest request);
 
     LoginResponse login(LoginRequest request);
-
-    Boolean checkAccount();
 }

@@ -51,7 +51,7 @@ public class LabJwtProperties {
      * default expiration time in seconds.
      */
     @DurationUnit(ChronoUnit.SECONDS)
-    private Duration defaultDuration = Duration.ofSeconds(60L * 60 * 3);
+    private Duration defaultDuration = Duration.ofSeconds(60L * 60 * 3 + 60);
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;

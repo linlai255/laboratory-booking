@@ -1,11 +1,16 @@
 package com.ycourlee.ms.labbooking.manager;
 
+import com.alibaba.fastjson.JSON;
 import com.ycourlee.ms.labbooking.config.properties.LabAppRegistrationProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
+import com.ycourlee.ms.labbooking.manager.spec.JwtIssuer;
 import com.ycourlee.ms.labbooking.manager.spec.Redis;
 import com.ycourlee.ms.labbooking.mapper.UserMapper;
+import com.ycourlee.ms.labbooking.model.bo.ClaimValueBO;
+import com.ycourlee.ms.labbooking.model.bo.RoleBO;
 import com.ycourlee.ms.labbooking.model.bo.request.RegisterRequest;
+import com.ycourlee.ms.labbooking.model.entity.RoleEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.ms.labbooking.util.KeyPool;
@@ -15,6 +20,9 @@ import com.ycourlee.root.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 /**
  * @author yongjiang
@@ -23,12 +31,13 @@ import org.springframework.stereotype.Component;
 public class AccountManager {
 
     @Autowired
-    private UserMapper                userMapper;
+    private RbacManager                  rbacManager;
+    @Autowired
+    private UserMapper                   userMapper;
     @Autowired
     private Redis                        redis;
-    /**
-     * todo apollo
-     */
+    @Autowired
+    private JwtIssuer                    jwtIssuer;
     @Autowired
     private LabAppRegistrationProperties properties;
 
@@ -80,5 +89,41 @@ public class AccountManager {
         BizAssert.that(userEntity != null, Errors.PHONE_NOT_EXISTS);
         BizAssert.that(userEntity.getPassword().equals(password), Errors.PHONE_OR_PASSWORD_ERROR);
         return userEntity;
+    }
+
+    public String pullUpLoginStatus(Integer userId) {
+        UserEntity userEntity = getUser(userId);
+        List<RoleEntity> roleEntityList = rbacManager.listRole(userEntity.getId());
+        return cacheLoginStatus(buildJsonClaimValue(userEntity, roleEntityList), null);
+    }
+
+    public String buildJsonClaimValue(UserEntity userEntity, List<RoleEntity> roleEntityList) {
+        return JSON.toJSONString(ClaimValueBO.builder()
+                .userId(userEntity.getId())
+                .refId(userEntity.getRefId())
+                .roles(roleEntityList.stream()
+                        .map(entity -> RoleBO.builder()
+                                .id(entity.getId())
+                                .name(entity.getName()).build())
+                        .collect(Collectors.toList()))
+                .build());
+    }
+
+    public String cacheLoginStatus(String jsonClaimValue, Boolean rememberMe) {
+        String token = jwtIssuer.issue(jsonClaimValue);
+        if (rememberMe != null && rememberMe) {
+            redis.setEx(KeyPool.token(token), jsonClaimValue, KeyPool.days7InSeconds());
+            return token;
+        }
+
+
+        redis.setEx(KeyPool.token(token), jsonClaimValue, KeyPool.defaultTokenExpireTime());
+        return token;
+    }
+
+
+
+    public UserEntity getUser(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
     }
 }

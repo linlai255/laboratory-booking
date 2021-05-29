@@ -1,3 +1,12 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Mac ###
+**/.DS_Store
+
 ### STS ###
 .apt_generated
 .classpath
@@ -25,11 +34,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Maven Wrapper ###
-!**/.mvn/wrapper/maven-wrapper.jar
-
-# Created by ycourlee
-**/target/
-**/*.iml
-**/.DS_Store

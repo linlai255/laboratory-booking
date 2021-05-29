@@ -18,6 +18,12 @@ public class BeanConfiguration {
     }
 
     @Bean
+    @ConfigurationProperties(prefix = LabAuthProperties.PREFIX)
+    public LabAuthProperties labAuthProperties() {
+        return new LabAuthProperties();
+    }
+
+    @Bean
     @ConfigurationProperties(prefix = LabJwtProperties.PREFIX)
     public LabJwtProperties labJwtProperties() {
         return new LabJwtProperties();
@@ -25,14 +31,14 @@ public class BeanConfiguration {
 
     @Bean("authenticationProperties")
     @ConfigurationProperties(prefix = "lab-app.authentication")
-    public LabAntPathSwitchProperties authenticationProperties() {
-        return new LabAntPathSwitchProperties();
+    public LabSwitchProperties labAuthenticationSwitchProperties() {
+        return new LabSwitchProperties();
     }
 
     @Bean("authorizationProperties")
     @ConfigurationProperties(prefix = "lab-app.authorization")
-    public LabAntPathSwitchProperties authorizationProperties() {
-        return new LabAntPathSwitchProperties();
+    public LabSwitchProperties labAuthorizationProperties() {
+        return new LabSwitchProperties();
     }
 
     @Bean

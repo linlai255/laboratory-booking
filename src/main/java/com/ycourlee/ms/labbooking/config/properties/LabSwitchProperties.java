@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class LabAntPathSwitchProperties {
+public class LabSwitchProperties {
 
     /**
      * switch of authentication or authorization.

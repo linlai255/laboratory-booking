@@ -15,6 +15,6 @@ public class TeacherBO {
     private Integer id;
     private String name;
     private String nickname;
-    private String academy;
     private String department;
+    private String academy;
 }

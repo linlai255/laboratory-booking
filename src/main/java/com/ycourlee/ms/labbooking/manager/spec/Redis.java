@@ -27,6 +27,10 @@ public class Redis {
         stringRedisTemplate.opsForValue().set(key, value, timeout, timeUnit);
     }
 
+    public void setEx(String key, String value, long timeout) {
+        stringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
+    }
+
     public String get(String key) {
         return stringRedisTemplate.opsForValue().get(key);
     }

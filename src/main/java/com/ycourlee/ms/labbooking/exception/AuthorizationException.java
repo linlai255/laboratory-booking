@@ -7,13 +7,13 @@ import com.ycourlee.root.core.context.CmReturn;
 /**
  * @author yongjiang
  */
-public class AuthenticationException extends BusinessException {
+public class AuthorizationException extends BusinessException {
 
-    public AuthenticationException() {
-        super(Errors.CANNOT_AUTHENTICATE);
+    public AuthorizationException() {
+        super(Errors.CANNOT_AUTHORIZATION);
     }
 
-    public AuthenticationException(CmReturn cmReturn) {
+    public AuthorizationException(CmReturn cmReturn) {
         super(cmReturn);
     }
 }

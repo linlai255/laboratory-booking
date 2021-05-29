@@ -19,15 +19,21 @@ public final class CookieUtil {
      * @param name     cookie name
      * @param value    cookie value
      * @param maxAge   cookie timeout in seconds.
+     * @param domain cookie domain.
      */
-    public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
+    public static void addCookie(HttpServletResponse response, String name, String value, int maxAge, String domain) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
+        if (domain != null) {
+            cookie.setDomain(domain);
+        }
         if (maxAge > 0) {
             cookie.setMaxAge(maxAge);
         }
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
     }
+
 
     /**
      * @param request http request.

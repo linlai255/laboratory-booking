@@ -202,4 +202,12 @@
     update t_resource set is_delete = 1
     where id = #{id} or parent_id = #{id}
   </update>
+
+  <select id="selectByApiPath" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_resource
+    where path = #{uri}
+      and is_delete = 0
+  </select>
 </mapper>

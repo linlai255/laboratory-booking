@@ -1,4 +1,4 @@
-package com.ycourlee.ms.labbooking.auth.filter;
+package com.ycourlee.ms.labbooking.auth;
 
 import com.ycourlee.ms.labbooking.model.bo.AdminBO;
 import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
@@ -12,7 +12,7 @@ public class Context {
 
     private static final ThreadLocal<Context> VAR = new ThreadLocal<>();
 
-    public void clean() {
+    public static void clean() {
         VAR.remove();
     }
 
@@ -27,12 +27,11 @@ public class Context {
 
     private Context() {}
 
-    private Context(Integer userId, String username, String name, String phone, Integer refId, AdminBO adminBO, TeacherBO teacherBO) {
+    private Context(Integer userId, String username, String name, String phone, AdminBO adminBO, TeacherBO teacherBO) {
         this.userId = userId;
         this.username = username;
         this.name = name;
         this.phone = phone;
-        this.refId = refId;
         this.adminBO = adminBO;
         this.teacherBO = teacherBO;
         this.setContext(this);
@@ -48,7 +47,6 @@ public class Context {
      */
     private String    name;
     private String    phone;
-    private Integer   refId;
     private AdminBO   adminBO;
     private TeacherBO teacherBO;
 }

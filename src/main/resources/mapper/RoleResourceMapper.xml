@@ -132,4 +132,12 @@
     where role_id = #{roleId}
       and is_delete = 0
   </select>
+
+  <select id="listOrderedRoleIdByResId" resultType="java.lang.Integer">
+    select role_id
+    from t_role_resource
+    where resource_id = #{resId}
+      and is_delete = 0
+    order by role_id asc
+  </select>
 </mapper>

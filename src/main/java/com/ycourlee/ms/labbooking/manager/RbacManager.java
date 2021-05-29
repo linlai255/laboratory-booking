@@ -6,6 +6,8 @@ import com.ycourlee.ms.labbooking.enums.EDigit;
 import com.ycourlee.ms.labbooking.enums.EResourceType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.*;
+import com.ycourlee.ms.labbooking.model.bo.AdminBO;
+import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
 import com.ycourlee.ms.labbooking.model.bo.request.ApiResCreateRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.ApiResUpdateRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.MenuResCreateRequest;
@@ -28,17 +30,17 @@ import java.util.stream.Collectors;
 public class RbacManager {
 
     @Autowired
-    private AdminMapper           adminMapper;
+    private AdminMapper              adminMapper;
     @Autowired
-    private TeacherMapper         teacherMapper;
+    private TeacherMapper            teacherMapper;
     @Autowired
-    private UserMapper            userMapper;
+    private UserMapper               userMapper;
     @Autowired
-    private RoleMapper            roleMapper;
+    private RoleMapper               roleMapper;
     @Autowired
-    private ResourceMapper        resourceMapper;
+    private ResourceMapper           resourceMapper;
     @Autowired
-    private UserRoleMapper        userRoleMapper;
+    private UserRoleMapper           userRoleMapper;
     @Autowired
     private RoleResourceMapper       roleResourceMapper;
     @Resource(name = "adminDefaultRole")
@@ -262,5 +264,42 @@ public class RbacManager {
         userRoleEntity.setUserId(userId);
         userRoleEntity.setRoleId(roleId);
         return userRoleEntity;
+    }
+
+    public AdminBO getAdminBo(int id) {
+        AdminEntity adminEntity = adminMapper.selectByPrimaryKey(id);
+        if (adminEntity == null) {
+            return null;
+        }
+        AdminBO adminBO = new AdminBO();
+        adminBO.setId(adminEntity.getId());
+        adminBO.setName(adminEntity.getName());
+        adminBO.setNickname(adminEntity.getNickname());
+        return adminBO;
+    }
+
+    public TeacherBO getTeacherBo(int id) {
+        TeacherEntity teacherEntity = teacherMapper.selectByPrimaryKey(id);
+        if (teacherEntity == null) {
+            return null;
+        }
+        TeacherBO teacherBO = new TeacherBO();
+        teacherBO.setId(teacherEntity.getId());
+        teacherBO.setName(teacherEntity.getName());
+        teacherBO.setNickname(teacherEntity.getNickname());
+        teacherBO.setDepartment(teacherBO.getDepartment());
+        teacherBO.setAcademy(teacherBO.getAcademy());
+        return teacherBO;
+    }
+
+    public boolean apiCheckErrored(String uri, List<Integer> roleIdList, int userId) {
+        ResourceEntity resourceEntity = resourceMapper.selectByApiPath(uri);
+        List<Integer> haveAccessAbilityRoleIdList = roleResourceMapper.listOrderedRoleIdByResId(resourceEntity.getId());
+        for (Integer roleId : roleIdList) {
+            if (Collections.binarySearch(haveAccessAbilityRoleIdList, roleId)>=0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

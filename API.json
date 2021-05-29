@@ -1,0 +1,1753 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Title",
+    "description": "Title",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "account-controller",
+      "description": "Account Controller"
+    },
+    {
+      "name": "basic-error-controller",
+      "description": "Basic Error Controller"
+    },
+    {
+      "name": "rbac-controller",
+      "description": "Rbac Controller"
+    },
+    {
+      "name": "remain-test-controller",
+      "description": "Remain Test Controller"
+    }
+  ],
+  "paths": {
+    "/api": {
+      "get": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "head": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "options": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/test": {
+      "post": {
+        "tags": [
+          "remain-test-controller"
+        ],
+        "summary": "test",
+        "operationId": "testUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse",
+              "originalRef": "ApiResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/test2/{name}": {
+      "post": {
+        "tags": [
+          "remain-test-controller"
+        ],
+        "summary": "test2",
+        "operationId": "test2UsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse",
+              "originalRef": "ApiResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/check-verify-code/{phone}/{verifyCode}": {
+      "get": {
+        "tags": [
+          "account-controller"
+        ],
+        "summary": "checkVerifyCode",
+        "operationId": "checkVerifyCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "phone",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "verifyCode",
+            "in": "path",
+            "description": "verifyCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«CheckVerifyCodeResponse»",
+              "originalRef": "ApiResponse«CheckVerifyCodeResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/login": {
+      "post": {
+        "tags": [
+          "account-controller"
+        ],
+        "summary": "login",
+        "operationId": "loginUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest",
+              "originalRef": "LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«LoginResponse»",
+              "originalRef": "ApiResponse«LoginResponse»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/api/create": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "apiCreate",
+        "operationId": "apiCreateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiResCreateRequest",
+              "originalRef": "ApiResCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«int»",
+              "originalRef": "ApiResponse«int»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/api/update": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "apiUpdate",
+        "operationId": "apiUpdateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiResUpdateRequest",
+              "originalRef": "ApiResUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/menu/bind": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "menuBindRes",
+        "operationId": "menuBindResUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuBindResRequest",
+              "originalRef": "MenuBindResRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«int»",
+              "originalRef": "ApiResponse«int»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/menu/create": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "menuCreate",
+        "operationId": "menuCreateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuResCreateRequest",
+              "originalRef": "MenuResCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«int»",
+              "originalRef": "ApiResponse«int»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/menu/update": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "menuUpdate",
+        "operationId": "menuUpdateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuResUpdateRequest",
+              "originalRef": "MenuResUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/resource/delete/{id}": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "resourceDelete",
+        "operationId": "resourceDeleteUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/role/bind": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "roleBind",
+        "operationId": "roleBindUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleBindResRequest",
+              "originalRef": "RoleBindResRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«int»",
+              "originalRef": "ApiResponse«int»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/role/create/{name}": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "roleCreate",
+        "operationId": "roleCreateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«int»",
+              "originalRef": "ApiResponse«int»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/role/delete/{id}": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "roleDeleteId",
+        "operationId": "roleDeleteIdUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/role/update": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "roleUpdate",
+        "operationId": "roleUpdateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleUpdateRequest",
+              "originalRef": "RoleUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/user/bind": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "userBind",
+        "operationId": "userBindUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserBindRoleRequest",
+              "originalRef": "UserBindRoleRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«int»",
+              "originalRef": "ApiResponse«int»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/register": {
+      "post": {
+        "tags": [
+          "account-controller"
+        ],
+        "summary": "register",
+        "operationId": "registerUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest",
+              "originalRef": "RegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/sign-up": {
+      "post": {
+        "tags": [
+          "account-controller"
+        ],
+        "summary": "register",
+        "operationId": "registerUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest",
+              "originalRef": "RegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/verify-code/{type}/{phone}": {
+      "get": {
+        "tags": [
+          "account-controller"
+        ],
+        "summary": "verifyCode",
+        "operationId": "verifyCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "phone",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "type",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "name": "TOKEN",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "ApiResCreateRequest": {
+      "type": "object",
+      "properties": {
+        "containPathVar": {
+          "type": "integer",
+          "format": "int32",
+          "description": "是否包含路径变量 0.否 1.是"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "名"
+        },
+        "path": {
+          "type": "string",
+          "description": "uri"
+        }
+      },
+      "title": "ApiResCreateRequest"
+    },
+    "ApiResUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "containPathVar": {
+          "type": "integer",
+          "format": "int32",
+          "description": "是否包含路径变量 0.否 1.是"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "API id"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "名"
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "父id"
+        },
+        "path": {
+          "type": "string",
+          "description": "uri"
+        }
+      },
+      "title": "ApiResUpdateRequest"
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse"
+    },
+    "ApiResponse«CheckVerifyCodeResponse»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/CheckVerifyCodeResponse",
+          "originalRef": "CheckVerifyCodeResponse"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«CheckVerifyCodeResponse»"
+    },
+    "ApiResponse«LoginResponse»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/LoginResponse",
+          "originalRef": "LoginResponse"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«LoginResponse»"
+    },
+    "ApiResponse«boolean»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«boolean»"
+    },
+    "ApiResponse«int»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«int»"
+    },
+    "CheckVerifyCodeResponse": {
+      "type": "object",
+      "properties": {
+        "registerKey": {
+          "type": "string",
+          "description": "注册key"
+        }
+      },
+      "title": "CheckVerifyCodeResponse"
+    },
+    "LoginRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "密码sha1"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "rememberMe": {
+          "type": "boolean",
+          "description": "自动登录"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "账户类型 1.管理员 2.教师",
+          "minimum": -128,
+          "maximum": 127
+        }
+      },
+      "title": "LoginRequest"
+    },
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "凭证"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "账户类型",
+          "minimum": -128,
+          "maximum": 127
+        }
+      },
+      "title": "LoginResponse"
+    },
+    "MenuBindResRequest": {
+      "type": "object",
+      "properties": {
+        "menuId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "菜单id"
+        },
+        "subResIdSet": {
+          "type": "array",
+          "description": "子资源id",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "title": "MenuBindResRequest"
+    },
+    "MenuResCreateRequest": {
+      "type": "object",
+      "properties": {
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "名"
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "父id"
+        },
+        "route": {
+          "type": "string",
+          "description": "页面路由"
+        }
+      },
+      "title": "MenuResCreateRequest"
+    },
+    "MenuResUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "菜单id"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "名"
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "父id"
+        },
+        "route": {
+          "type": "string",
+          "description": "页面路由"
+        }
+      },
+      "title": "MenuResUpdateRequest"
+    },
+    "ModelAndView": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "object"
+        },
+        "modelMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "reference": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "100 CONTINUE",
+            "101 SWITCHING_PROTOCOLS",
+            "102 PROCESSING",
+            "103 CHECKPOINT",
+            "200 OK",
+            "201 CREATED",
+            "202 ACCEPTED",
+            "203 NON_AUTHORITATIVE_INFORMATION",
+            "204 NO_CONTENT",
+            "205 RESET_CONTENT",
+            "206 PARTIAL_CONTENT",
+            "207 MULTI_STATUS",
+            "208 ALREADY_REPORTED",
+            "226 IM_USED",
+            "300 MULTIPLE_CHOICES",
+            "301 MOVED_PERMANENTLY",
+            "302 FOUND",
+            "302 MOVED_TEMPORARILY",
+            "303 SEE_OTHER",
+            "304 NOT_MODIFIED",
+            "305 USE_PROXY",
+            "307 TEMPORARY_REDIRECT",
+            "308 PERMANENT_REDIRECT",
+            "400 BAD_REQUEST",
+            "401 UNAUTHORIZED",
+            "402 PAYMENT_REQUIRED",
+            "403 FORBIDDEN",
+            "404 NOT_FOUND",
+            "405 METHOD_NOT_ALLOWED",
+            "406 NOT_ACCEPTABLE",
+            "407 PROXY_AUTHENTICATION_REQUIRED",
+            "408 REQUEST_TIMEOUT",
+            "409 CONFLICT",
+            "410 GONE",
+            "411 LENGTH_REQUIRED",
+            "412 PRECONDITION_FAILED",
+            "413 PAYLOAD_TOO_LARGE",
+            "413 REQUEST_ENTITY_TOO_LARGE",
+            "414 URI_TOO_LONG",
+            "414 REQUEST_URI_TOO_LONG",
+            "415 UNSUPPORTED_MEDIA_TYPE",
+            "416 REQUESTED_RANGE_NOT_SATISFIABLE",
+            "417 EXPECTATION_FAILED",
+            "418 I_AM_A_TEAPOT",
+            "419 INSUFFICIENT_SPACE_ON_RESOURCE",
+            "420 METHOD_FAILURE",
+            "421 DESTINATION_LOCKED",
+            "422 UNPROCESSABLE_ENTITY",
+            "423 LOCKED",
+            "424 FAILED_DEPENDENCY",
+            "425 TOO_EARLY",
+            "426 UPGRADE_REQUIRED",
+            "428 PRECONDITION_REQUIRED",
+            "429 TOO_MANY_REQUESTS",
+            "431 REQUEST_HEADER_FIELDS_TOO_LARGE",
+            "451 UNAVAILABLE_FOR_LEGAL_REASONS",
+            "500 INTERNAL_SERVER_ERROR",
+            "501 NOT_IMPLEMENTED",
+            "502 BAD_GATEWAY",
+            "503 SERVICE_UNAVAILABLE",
+            "504 GATEWAY_TIMEOUT",
+            "505 HTTP_VERSION_NOT_SUPPORTED",
+            "506 VARIANT_ALSO_NEGOTIATES",
+            "507 INSUFFICIENT_STORAGE",
+            "508 LOOP_DETECTED",
+            "509 BANDWIDTH_LIMIT_EXCEEDED",
+            "510 NOT_EXTENDED",
+            "511 NETWORK_AUTHENTICATION_REQUIRED"
+          ]
+        },
+        "view": {
+          "$ref": "#/definitions/View",
+          "originalRef": "View"
+        },
+        "viewName": {
+          "type": "string"
+        }
+      },
+      "title": "ModelAndView"
+    },
+    "RegisterRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "密码sha1"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "registerKey": {
+          "type": "string",
+          "description": "注册key"
+        }
+      },
+      "title": "RegisterRequest"
+    },
+    "RoleBindResRequest": {
+      "type": "object",
+      "properties": {
+        "resIdSet": {
+          "type": "array",
+          "description": "资源id列表",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "roleId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "角色id"
+        }
+      },
+      "title": "RoleBindResRequest"
+    },
+    "RoleUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "角色id"
+        },
+        "name": {
+          "type": "string",
+          "description": "角色name"
+        }
+      },
+      "title": "RoleUpdateRequest"
+    },
+    "UserBindRoleRequest": {
+      "type": "object",
+      "properties": {
+        "roleIdSet": {
+          "type": "array",
+          "description": "绑定的角色id",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "用户id"
+        }
+      },
+      "title": "UserBindRoleRequest"
+    },
+    "View": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string"
+        }
+      },
+      "title": "View"
+    }
+  }
+}

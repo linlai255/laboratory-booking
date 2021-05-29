@@ -1,11 +1,13 @@
 package com.ycourlee.ms.labbooking;
 
+import com.spring4all.swagger.EnableSwagger2Doc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author jiangyong
  */
+@EnableSwagger2Doc
 @SpringBootApplication
 public class LabBookingApplication {
 

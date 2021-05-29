@@ -11,10 +11,22 @@ public enum Errors implements CmReturn {
      * 通用
      */
     UNKNOWN(-1, "不好意思, 出错了"),
-    CANNOT_AUTHENTICATE(10001, "无法认证"),
-    OPERATION_TOO_FAST(10002, "操作太快了"),
-    INTERNAL_CONFIGURATION_ERROR(10003, "内部配置错误"),
-    INTERNAL_DATA_ERROR(10003, "内部数据错误"),
+    OPERATION_TOO_FAST(10000, "操作太快了"),
+    INTERNAL_CONFIGURATION_ERROR(10001, "内部配置错误"),
+    INTERNAL_DATA_ERROR(10002, "内部数据错误"),
+
+
+    /**
+     * 认证和鉴权
+     */
+    CANNOT_AUTHENTICATE(11000, "无法认证"),
+    TOKEN_NOT_FOUND(11001, "找不到token"),
+    UNAVAILABLE_TOKEN(11002, "token不可用"),
+    TOKEN_EXPIRED(11003, "token已过期"),
+    CANNOT_AUTHORIZATION(11004, "无法鉴权"),
+    UNKNOWN_ACCOUNT_TYPE(11005, "未知账户类型"),
+    AUTHORIZATION_FAILED(11006, "鉴权失败"),
+    UNKNOWN_USER(11007, "未知用户"),
 
     /**
      * 账号相关

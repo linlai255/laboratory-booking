@@ -1,10 +1,9 @@
 package com.ycourlee.ms.labbooking.service.impl;
 
-import com.ycourlee.ms.labbooking.config.properties.AliyunDysmsProperties;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.manager.AccountManager;
-import com.ycourlee.ms.labbooking.manager.spec.AliyunDysms;
 import com.ycourlee.ms.labbooking.manager.RbacManager;
+import com.ycourlee.ms.labbooking.manager.spec.AliyunDysms;
 import com.ycourlee.ms.labbooking.manager.spec.Redis;
 import com.ycourlee.ms.labbooking.model.bo.request.LoginRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.RegisterRequest;
@@ -14,6 +13,7 @@ import com.ycourlee.ms.labbooking.model.entity.RoleEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
 import com.ycourlee.ms.labbooking.service.AccountService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
+import com.ycourlee.ms.labbooking.util.CookieUtil;
 import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.ms.labbooking.util.RegexUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author yongjiang
@@ -34,8 +35,6 @@ public class AccountServiceImpl implements AccountService {
     private RbacManager           rbacManager;
     @Autowired
     private AliyunDysms           aliyunDysms;
-    @Autowired
-    private AliyunDysmsProperties properties;
     @Autowired
     private Redis                 redis;
 
@@ -65,15 +64,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public LoginResponse login(LoginRequest request) {
         UserEntity userEntity = accountManager.verifyAccountAndPassword(request.getType(), request.getPhone(), request.getPassword());
-        List<RoleEntity> role = rbacManager.listRole(userEntity.getId());
-
-
-
-        return new LoginResponse();
-    }
-
-    @Override
-    public Boolean checkAccount() {
-        return null;
+        List<RoleEntity> roleEntityList = rbacManager.listRole(userEntity.getId());
+        return LoginResponse.builder()
+                .token(accountManager.cacheLoginStatus(accountManager.buildJsonClaimValue(userEntity, roleEntityList),
+                        request.getRememberMe()))
+                .type(userEntity.getType())
+                .roles(roleEntityList.stream()
+                        .map(RoleEntity::getName)
+                        .collect(Collectors.toList()))
+                .build();
     }
 }
