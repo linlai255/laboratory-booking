@@ -13,8 +13,8 @@ lab-app:
 
 aliyun:
   dysms:
-    access-key-id: @sms.aki@
-    access-key-secret: @sms.aks@
+    access-key-id:
+    access-key-secret:
     enabled: true
     verify-code-alive-timeout: 60
     endpoint: dysmsapi.aliyuncs.com

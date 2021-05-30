@@ -1,5 +1,6 @@
 package com.ycourlee.ms.labbooking.manager.spec;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponseBody;
@@ -14,8 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
+ * aliyun dysms application was denied. Deprecated the way of registration.
+ *
  * @author yongjiang
  */
+@Deprecated
 @Component
 public class AliyunDysms {
 
@@ -28,7 +32,7 @@ public class AliyunDysms {
         this.properties = properties;
     }
 
-    public String sendCacheVerifyCodeWhenRegister(String phone) {
+    public String sendVerifyCodeWhenRegister(String phone) {
         try {
             initClient();
             return sendSms(phone);
@@ -41,6 +45,11 @@ public class AliyunDysms {
         SendSmsRequest sendSmsRequest = new SendSmsRequest()
                 .setPhoneNumbers(phone);
         SendSmsResponseBody body = clientSingleton.sendSms(sendSmsRequest).getBody();
+        log.info("JSON.toJSONString(body) = {}", JSON.toJSONString(body));
+        if (body == null || !"OK".equals(body.getCode())) {
+            log.error("sms service error, message: {}", body == null ? "null" : body.getMessage());
+            throw new BusinessException(Errors.SMS_SEND_FAILED);
+        }
         if (log.isDebugEnabled()) {
             log.debug("phone: {}, sms response body: {}", phone, body.toMap());
         }
@@ -63,9 +72,11 @@ public class AliyunDysms {
         Assert.notEmpty(properties.getAccessKeySecret());
         Assert.notEmpty(properties.getEndpoint());
 
+        log.info("here");
+
         Config config = new Config()
                 .setAccessKeyId(properties.getAccessKeyId())
-                .setAccessKeyId(properties.getAccessKeySecret())
+                .setAccessKeySecret(properties.getAccessKeySecret())
                 .setEndpoint(properties.getEndpoint());
         return new Client(config);
     }

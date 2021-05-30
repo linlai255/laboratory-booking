@@ -13,7 +13,6 @@ import com.ycourlee.ms.labbooking.model.entity.RoleEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
 import com.ycourlee.ms.labbooking.service.AccountService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
-import com.ycourlee.ms.labbooking.util.CookieUtil;
 import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.ms.labbooking.util.RegexUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class AccountServiceImpl implements AccountService {
         BizAssert.isNull(accountManager.queryUserBy(type, phone), Errors.PHONE_NUMBER_ALREADY_EXISTS);
         accountManager.adminFilter(type, phone);
         BizAssert.that(accountManager.noAliveCodeCurrentPhone(phone), "验证码只能每60s获取一次");
-        String code = aliyunDysms.sendCacheVerifyCodeWhenRegister(phone);
+        String code = aliyunDysms.sendVerifyCodeWhenRegister(phone);
         redis.setEx(KeyPool.code(phone), accountManager.bindType(type, code), aliyunDysms.getProperties().getVerifyCodeAliveTimeout(), TimeUnit.SECONDS);
     }
 
