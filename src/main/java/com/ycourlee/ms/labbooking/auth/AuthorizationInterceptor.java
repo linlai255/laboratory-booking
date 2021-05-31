@@ -1,13 +1,11 @@
 package com.ycourlee.ms.labbooking.auth;
 
 import com.alibaba.fastjson.JSON;
-import com.ycourlee.ms.labbooking.config.properties.LabAuthProperties;
 import com.ycourlee.ms.labbooking.config.properties.LabSwitchProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.exception.AuthorizationException;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.manager.RbacManager;
-import com.ycourlee.ms.labbooking.manager.spec.JwtIssuer;
 import com.ycourlee.ms.labbooking.manager.spec.Redis;
 import com.ycourlee.ms.labbooking.model.bo.AdminBO;
 import com.ycourlee.ms.labbooking.model.bo.ClaimValueBO;
@@ -44,7 +42,7 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (disabled()||greenLight(request.getRequestURI())) {
+        if (disabled() || greenLight(request.getRequestURI())) {
             return true;
         }
 

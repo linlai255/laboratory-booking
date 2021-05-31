@@ -15,5 +15,5 @@ public class LabAppRegistrationProperties {
     /**
      * the phone list of administrators. Phone cannot be registered as administrator before write here.
      */
-    private List<String> adminPhoneWhitelist;
+    private List<String> adminWhitelist;
 }

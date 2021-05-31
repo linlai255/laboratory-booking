@@ -19,10 +19,8 @@ import java.util.Base64;
 @Getter
 public class LabJwtProperties {
 
-    private static final Logger log = LoggerFactory.getLogger(LabJwtProperties.class);
-
     public static final String PREFIX = "lab-app.jwt";
-
+    private static final Logger log = LoggerFactory.getLogger(LabJwtProperties.class);
     /**
      * subject of issuing jwt.
      */
@@ -53,15 +51,15 @@ public class LabJwtProperties {
     @DurationUnit(ChronoUnit.SECONDS)
     private Duration defaultDuration = Duration.ofSeconds(60L * 60 * 3 + 60);
 
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-        this.base64EncodedSecretKey = Base64.getEncoder().encode(secretKey.getBytes(StandardCharsets.UTF_8));
-    }
-
     public String getSecretKey() {
         if (log.isWarnEnabled()) {
             log.warn("Unsafe access to secret key.");
         }
         return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+        this.base64EncodedSecretKey = Base64.getEncoder().encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 }

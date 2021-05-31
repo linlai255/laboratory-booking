@@ -31,7 +31,11 @@ public class KeyPool {
         return 60L * 60 * 24 * 7;
     }
 
-    public static String code(String phone) {
-        return "CODE:" + phone;
+    public static String registerCodeApplyFrequencyLock(String account) {
+        return "REGISTER_CODE:LOCK:" + account;
+    }
+
+    public static String registerCode(String account) {
+        return "REGISTER_CODE:" + account;
     }
 }

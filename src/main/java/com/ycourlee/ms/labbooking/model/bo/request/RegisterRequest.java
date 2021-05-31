@@ -13,17 +13,19 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @Getter
 @ToString
-public class RegisterRequest {
+public class RegisterRequest extends BaseDiffAccountModeRequest {
 
     @NotEmpty
-    @ApiModelProperty("手机号")
-    private String  phone;
-    @NotEmpty
     @ApiModelProperty("密码sha1")
-    private String  password;
+    private String password;
     @NotEmpty
     @ApiModelProperty("注册key")
-    private String  registerKey;
+    private String registerKey;
+
     @ApiModelProperty(value = "注册的用户类型 1.管理员 2.教师", hidden = true)
     private Integer type;
+    @ApiModelProperty(value = "手机号", hidden = true)
+    private String  phone;
+    @ApiModelProperty(value = "邮箱", hidden = true)
+    private String  email;
 }

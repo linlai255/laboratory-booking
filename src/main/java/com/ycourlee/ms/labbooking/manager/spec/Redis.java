@@ -23,8 +23,16 @@ public class Redis {
         return stringRedisTemplate.opsForValue().setIfAbsent(key, value);
     }
 
-    public void setEx(String key, String value, long timeout, TimeUnit timeUnit) {
-        stringRedisTemplate.opsForValue().set(key, value, timeout, timeUnit);
+    public Boolean setNx(String key, String value, long timeout) {
+        return stringRedisTemplate.opsForValue().setIfAbsent(key, value, timeout, TimeUnit.SECONDS);
+    }
+
+    public Boolean setNx(String key, String value, long timeout, TimeUnit unit) {
+        return stringRedisTemplate.opsForValue().setIfAbsent(key, value, timeout, unit);
+    }
+
+    public void setEx(String key, String value, long timeout, TimeUnit unit) {
+        stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
     }
 
     public void setEx(String key, String value, long timeout) {
@@ -33,5 +41,9 @@ public class Redis {
 
     public String get(String key) {
         return stringRedisTemplate.opsForValue().get(key);
+    }
+
+    public Boolean delete(String key) {
+        return stringRedisTemplate.delete(key);
     }
 }

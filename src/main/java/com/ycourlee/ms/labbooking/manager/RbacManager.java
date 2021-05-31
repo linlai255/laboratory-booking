@@ -14,7 +14,9 @@ import com.ycourlee.ms.labbooking.model.bo.request.MenuResCreateRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.MenuResUpdateRequest;
 import com.ycourlee.ms.labbooking.model.entity.*;
 import com.ycourlee.ms.labbooking.util.BizAssert;
+import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.util.CollectionUtil;
+import com.ycourlee.root.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,17 +51,18 @@ public class RbacManager {
     private LabDefaultRoleProperties defaultTeacherRoleId;
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveUser(Integer type, String phone, String password) {
+    public void saveUser(Integer type, String phone, String email, String password) {
         int primaryId;
         if (EAccountType.TEACHER.getCode() == type) {
-            primaryId = createTeacher(phone);
+            primaryId = createTeacher();
         } else if (EAccountType.ADMINISTRATOR.getCode() == type) {
-            primaryId = createAdmin(phone);
+            primaryId = createAdmin();
         } else {
             throw new IllegalArgumentException();
         }
         UserEntity user = new UserEntity();
         user.setPhone(phone);
+        user.setEmail(email);
         user.setPassword(password);
         user.setRefId(primaryId);
         user.setType(type.byteValue());
@@ -241,16 +244,16 @@ public class RbacManager {
         return roleMapper.selectByPrimaryKey(roleId);
     }
 
-    public int createAdmin(String phone) {
+    public int createTeacher() {
         TeacherEntity entity = new TeacherEntity();
-        entity.setNickname("教师" + phone);
+        entity.setNickname("教师" + RandomUtil.RANDOM.nextInt(1000));
         teacherMapper.insertSelective(entity);
         return entity.getId();
     }
 
-    public int createTeacher(String phone) {
+    public int createAdmin() {
         AdminEntity entity = new AdminEntity();
-        entity.setNickname("管理员" + phone);
+        entity.setNickname("管理员" + RandomUtil.RANDOM.nextInt(1000));
         adminMapper.insertSelective(entity);
         return entity.getId();
     }
@@ -296,10 +299,24 @@ public class RbacManager {
         ResourceEntity resourceEntity = resourceMapper.selectByApiPath(uri);
         List<Integer> haveAccessAbilityRoleIdList = roleResourceMapper.listOrderedRoleIdByResId(resourceEntity.getId());
         for (Integer roleId : roleIdList) {
-            if (Collections.binarySearch(haveAccessAbilityRoleIdList, roleId)>=0) {
+            if (Collections.binarySearch(haveAccessAbilityRoleIdList, roleId) >= 0) {
                 return true;
             }
         }
         return false;
+    }
+
+    public String getName(Byte type, int refId) {
+        if (EAccountType.TEACHER.getCode() == type) {
+            TeacherEntity teacherEntity = teacherMapper.selectByPrimaryKey(refId);
+            BizAssert.impossible(teacherEntity == null, Errors.TEACHER_NOT_FOUND);
+            return teacherEntity.getName();
+        } else if (EAccountType.ADMINISTRATOR.getCode() == type) {
+            AdminEntity adminEntity = adminMapper.selectByPrimaryKey(refId);
+            BizAssert.impossible(adminEntity == null, Errors.ADMIN_NOT_FOUND);
+            return adminEntity.getName();
+        } else {
+            throw new BusinessException(Errors.DATA_ERROR);
+        }
     }
 }

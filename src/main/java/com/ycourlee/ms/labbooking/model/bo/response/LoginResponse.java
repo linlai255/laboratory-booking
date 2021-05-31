@@ -16,10 +16,16 @@ import java.util.List;
 @AllArgsConstructor
 public class LoginResponse {
 
+    @ApiModelProperty("用户名")
+    private String       username;
+    @ApiModelProperty("姓名")
+    private String       name;
+    @ApiModelProperty("昵称")
+    private String       nickname;
     @ApiModelProperty("凭证")
-    private String token;
+    private String       token;
     @ApiModelProperty("账户类型")
-    private Byte   type;
+    private Byte         type;
     @ApiModelProperty("拥有的角色")
     private List<String> roles;
 }

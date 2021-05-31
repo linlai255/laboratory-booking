@@ -15,11 +15,8 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @ToString
-public class LoginRequest {
+public class LoginRequest extends BaseDiffAccountModeRequest {
 
-    @NotEmpty
-    @ApiModelProperty("手机号")
-    private String  phone;
     @NotEmpty
     @ApiModelProperty("密码sha1")
     private String  password;
@@ -28,7 +25,7 @@ public class LoginRequest {
      */
     @NotNull
     @ApiModelProperty("账户类型 1.管理员 2.教师")
-    private Byte    type;
+    private Byte    registerType;
     @ApiModelProperty("自动登录")
     private Boolean rememberMe;
 }

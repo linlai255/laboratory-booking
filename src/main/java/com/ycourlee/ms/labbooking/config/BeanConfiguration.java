@@ -47,6 +47,12 @@ public class BeanConfiguration {
         return new LabAppRegistrationProperties();
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "lab-app.login")
+    public LabAppLoginProperties appLoginProperties() {
+        return new LabAppLoginProperties();
+    }
+
     @Bean("adminDefaultRole")
     @ConfigurationProperties(prefix = "lab-app.registration.admin")
     public LabDefaultRoleProperties adminDefaultRole() {

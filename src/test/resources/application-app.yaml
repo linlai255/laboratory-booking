@@ -18,4 +18,9 @@ aliyun:
     enabled: true
     verify-code-alive-timeout: 60
     endpoint: dysmsapi.aliyuncs.com
-
+spring:
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: ycourlee@qq.com
+    password: sxtekwdirjuebcff

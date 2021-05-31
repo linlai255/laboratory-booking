@@ -16,20 +16,20 @@ public enum EResourceType {
     API(((byte) 2), "API"),
     ;
 
-    private final byte   code;
-    private final String name;
-
-    EResourceType(byte code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
     private static final Map<Byte, EResourceType> ALL = new HashMap<Byte, EResourceType>();
 
     static {
         for (EResourceType item : EResourceType.values()) {
             ALL.put(item.getCode(), item);
         }
+    }
+
+    private final byte   code;
+    private final String name;
+
+    EResourceType(byte code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
     public static EResourceType instanceOf(int code) {

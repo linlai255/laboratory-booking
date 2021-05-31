@@ -80,6 +80,10 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <exclusions>
         <exclusion>
@@ -107,6 +111,11 @@
       <artifactId>yonn-core</artifactId>
       <version>${yonn.version}</version>
     </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.ycourlee.starter</groupId>-->
+<!--      <artifactId>yonn-javamail-starter</artifactId>-->
+<!--      <version>${yonn.version}</version>-->
+<!--    </dependency>-->
   </dependencies>
 
   <repositories>
@@ -132,7 +141,7 @@
       </releases>
       <snapshots>
         <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
+        <updatePolicy>never</updatePolicy>
       </snapshots>
     </repository>
   </repositories>

@@ -19,7 +19,7 @@ public final class CookieUtil {
      * @param name     cookie name
      * @param value    cookie value
      * @param maxAge   cookie timeout in seconds.
-     * @param domain cookie domain.
+     * @param domain   cookie domain.
      */
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge, String domain) {
         Cookie cookie = new Cookie(name, value);

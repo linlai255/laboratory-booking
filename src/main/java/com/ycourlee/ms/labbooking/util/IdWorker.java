@@ -80,14 +80,6 @@ public class IdWorker {
         this.workerId = getMaxWorkerId(datacenterId, MAX_WORKER_ID);
     }
 
-    public static void main(String[] args) {
-        // 特  26万个不重复的ID
-        IdWorker idWorker = new IdWorker(0, 0);
-        for (int i = 0; i < 1000000; i++) {
-            System.out.println(idWorker.nextId());
-        }
-    }
-
     /**
      * @param workerId     工作机器ID
      * @param datacenterId 序列号
@@ -101,6 +93,14 @@ public class IdWorker {
         }
         this.workerId = workerId;
         this.datacenterId = datacenterId;
+    }
+
+    public static void main(String[] args) {
+        // 特  26万个不重复的ID
+        IdWorker idWorker = new IdWorker(0, 0);
+        for (int i = 0; i < 1000000; i++) {
+            System.out.println(idWorker.nextId());
+        }
     }
 
     /**

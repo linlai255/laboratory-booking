@@ -4,45 +4,46 @@
   <resultMap id="BaseResultMap" type="com.ycourlee.ms.labbooking.model.entity.UserEntity">
     <!--@mbg.generated-->
     <!--@Table t_user-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="ref_id" jdbcType="INTEGER" property="refId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="is_delete" jdbcType="BOOLEAN" property="isDelete" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+    <result column="password" jdbcType="VARCHAR" property="password"/>
+    <result column="email" jdbcType="VARCHAR" property="email"/>
+    <result column="wechat" jdbcType="VARCHAR" property="wechat"/>
+    <result column="phone" jdbcType="VARCHAR" property="phone"/>
+    <result column="type" jdbcType="TINYINT" property="type"/>
+    <result column="ref_id" jdbcType="INTEGER" property="refId"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="is_delete" jdbcType="BOOLEAN" property="isDelete"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, username, `password`, email, wechat, phone, `type`, ref_id, create_time, update_time, 
+    id, username, `password`, email, wechat, phone, `type`, ref_id, create_time, update_time,
     is_delete
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from t_user
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from t_user
+    delete
+    from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.UserEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into t_user (username, `password`, email, 
-      wechat, phone, `type`, 
-      ref_id, create_time, update_time, 
-      is_delete)
-    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{wechat,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
-      #{refId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{isDelete,jdbcType=BOOLEAN})
+    insert into t_user (username, `password`, email,
+                        wechat, phone, `type`,
+                        ref_id, create_time, update_time,
+                        is_delete)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+            #{wechat,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+            #{refId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+            #{isDelete,jdbcType=BOOLEAN})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.UserEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -152,25 +153,30 @@
   <update id="updateByPrimaryKey" parameterType="com.ycourlee.ms.labbooking.model.entity.UserEntity">
     <!--@mbg.generated-->
     update t_user
-    set username = #{username,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      wechat = #{wechat,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      `type` = #{type,jdbcType=TINYINT},
-      ref_id = #{refId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_delete = #{isDelete,jdbcType=BOOLEAN}
+    set username    = #{username,jdbcType=VARCHAR},
+        `password`  = #{password,jdbcType=VARCHAR},
+        email       = #{email,jdbcType=VARCHAR},
+        wechat      = #{wechat,jdbcType=VARCHAR},
+        phone       = #{phone,jdbcType=VARCHAR},
+        `type`      = #{type,jdbcType=TINYINT},
+        ref_id      = #{refId,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        is_delete   = #{isDelete,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByPhoneTypeFcl" resultMap="BaseResultMap">
+  <select id="selectByTypeDclPhoneEmail" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_user
-    where type = #{type}
+            where type = #{type}
+    <if test="phone != null and phone != ''">
       and phone = #{phone}
-      and is_delete = 0
+    </if>
+    <if test="email != null and email != ''">
+      and email = #{email}
+    </if>
+    and is_delete = 0
   </select>
 </mapper>

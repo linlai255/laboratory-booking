@@ -13,8 +13,8 @@ import lombok.ToString;
 public class TeacherBO {
 
     private Integer id;
-    private String name;
-    private String nickname;
-    private String department;
-    private String academy;
+    private String  name;
+    private String  nickname;
+    private String  department;
+    private String  academy;
 }

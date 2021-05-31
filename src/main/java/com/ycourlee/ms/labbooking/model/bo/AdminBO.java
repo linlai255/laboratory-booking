@@ -13,6 +13,6 @@ import lombok.ToString;
 public class AdminBO {
 
     private Integer id;
-    private String name;
-    private String nickname;
+    private String  name;
+    private String  nickname;
 }

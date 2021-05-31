@@ -10,6 +10,8 @@ lab-app:
       - /api/v1/login
       - /api/v1/register
       - /api/v1/sign-up
+  login:
+    email-mode-enabled: true
 
 aliyun:
   dysms:
@@ -18,3 +20,10 @@ aliyun:
     enabled: true
     verify-code-alive-timeout: 60
     endpoint: dysmsapi.aliyuncs.com
+
+spring:
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: ycourlee@qq.com
+    password: sxtekwdirjuebcff

@@ -20,5 +20,7 @@ public interface UserMapper {
 
     int updateByPrimaryKey(UserEntity record);
 
-    UserEntity selectByPhoneTypeFcl(@Param("type") Byte type, @Param("phone") String phone);
+    UserEntity selectByTypeDclPhoneEmail(@Param("type") Byte type,
+                                         @Param("phone") String phone,
+                                         @Param("email") String email);
 }

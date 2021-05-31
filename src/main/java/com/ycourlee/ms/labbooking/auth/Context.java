@@ -11,19 +11,18 @@ import lombok.Builder;
 public class Context {
 
     private static final ThreadLocal<Context> VAR = new ThreadLocal<>();
-
-    public static void clean() {
-        VAR.remove();
-    }
-
-    public void setContext(Context context) {
-        VAR.remove();
-        VAR.set(context);
-    }
-
-    public Context threadInstance() {
-        return VAR.get();
-    }
+    private              Integer              userId;
+    /**
+     * 用户名
+     */
+    private              String               username;
+    /**
+     * 真实姓名
+     */
+    private              String               name;
+    private              String               phone;
+    private              AdminBO              adminBO;
+    private              TeacherBO            teacherBO;
 
     private Context() {}
 
@@ -37,16 +36,16 @@ public class Context {
         this.setContext(this);
     }
 
-    private Integer   userId;
-    /**
-     * 用户名
-     */
-    private String    username;
-    /**
-     * 真实姓名
-     */
-    private String    name;
-    private String    phone;
-    private AdminBO   adminBO;
-    private TeacherBO teacherBO;
+    public static void clean() {
+        VAR.remove();
+    }
+
+    public void setContext(Context context) {
+        VAR.remove();
+        VAR.set(context);
+    }
+
+    public Context threadInstance() {
+        return VAR.get();
+    }
 }

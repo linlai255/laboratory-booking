@@ -45,6 +45,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = Exception.class)
     public ApiResponse exception(Exception exception) {
+        exception.printStackTrace();
         return ApiResponse.error(Errors.UNKNOWN.getCode(), Errors.UNKNOWN.getMsg(), exception.getMessage());
     }
 }
