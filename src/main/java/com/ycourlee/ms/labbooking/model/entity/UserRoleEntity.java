@@ -44,5 +44,5 @@ public class UserRoleEntity {
      * 已删除
      */
     @ApiModelProperty(value = "已删除")
-    private Boolean isDelete;
+    private Integer isDelete;
 }

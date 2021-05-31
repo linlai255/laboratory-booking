@@ -44,7 +44,7 @@ public class BookingRecordTimeEntity {
      * 1.等待上课 2.已下课 3.被取消
      */
     @ApiModelProperty(value = "1.等待上课 2.已下课 3.被取消")
-    private Byte status;
+    private Integer status;
 
     /**
      * 创建时间
@@ -62,5 +62,5 @@ public class BookingRecordTimeEntity {
      * 已删除
      */
     @ApiModelProperty(value = "已删除")
-    private Boolean isDelete;
+    private Integer isDelete;
 }

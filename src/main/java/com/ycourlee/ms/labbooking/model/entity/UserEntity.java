@@ -58,7 +58,7 @@ public class UserEntity {
      * 用户类型
      */
     @ApiModelProperty(value = "用户类型")
-    private Byte type;
+    private Integer type;
 
     /**
      * 用户详细id
@@ -82,5 +82,5 @@ public class UserEntity {
      * 已删除
      */
     @ApiModelProperty(value = "已删除")
-    private Boolean isDelete;
+    private Integer isDelete;
 }

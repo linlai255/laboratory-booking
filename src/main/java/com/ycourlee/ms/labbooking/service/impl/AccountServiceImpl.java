@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
     private VerifyCodeSender verifyCodeSender;
 
     @Override
-    public void verifyCode(Byte type, String phone) {
+    public void verifyCode(Integer type, String phone) {
         BizAssert.that(RegexUtil.isPhone(phone), "手机号格式不正确");
         BizAssert.isNull(accountManager.queryUserBy(type, phone, null), Errors.PHONE_NUMBER_ALREADY_EXISTS);
         accountManager.adminFilter(type, phone);
@@ -43,7 +43,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void verifyCodeByEmail(Byte type, String email) {
+    public void verifyCodeByEmail(Integer type, String email) {
         BizAssert.that(RegexUtil.isEmail(email), "邮箱格式不正确");
         BizAssert.isNull(accountManager.queryUserBy(type, null, email), Errors.EMAIL_ALREADY_EXISTS);
         accountManager.adminFilter(type, email);

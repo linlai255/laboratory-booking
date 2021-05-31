@@ -24,10 +24,10 @@ public enum ERoleType {
         }
     }
 
-    private final int    code;
-    private final String name;
+    private final Integer code;
+    private final String  name;
 
-    ERoleType(int code, String name) {
+    ERoleType(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -40,7 +40,7 @@ public enum ERoleType {
         return Objects.nonNull(instanceOf(code)) ? instanceOf(code).getName() : "";
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 

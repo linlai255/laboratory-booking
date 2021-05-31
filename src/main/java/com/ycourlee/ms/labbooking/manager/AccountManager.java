@@ -63,7 +63,7 @@ public class AccountManager {
         return registerKey;
     }
 
-    public void adminFilter(Byte type, String phone) {
+    public void adminFilter(Integer type, String phone) {
         if (type.compareTo(EAccountType.ADMINISTRATOR.getCode()) == 0) {
             if (!properties.getAdminWhitelist().contains(phone)) {
                 throw new BusinessException(Errors.YOU_ARE_NOT_ADMIN);
@@ -71,7 +71,7 @@ public class AccountManager {
         }
     }
 
-    public UserEntity queryUserBy(Byte type, String phone, String email) {
+    public UserEntity queryUserBy(Integer type, String phone, String email) {
         return userMapper.selectByTypeDclPhoneEmail(type, phone, email);
     }
 
@@ -90,14 +90,14 @@ public class AccountManager {
         request.setType(Integer.parseInt(unbindType[0]));
     }
 
-    public UserEntity verifyAccountAndPasswordByPhone(Byte type, String password, String phone) {
+    public UserEntity verifyAccountAndPasswordByPhone(Integer type, String password, String phone) {
         UserEntity userEntity = userMapper.selectByTypeDclPhoneEmail(type, phone, null);
         BizAssert.that(userEntity != null, Errors.PHONE_NOT_EXISTS);
         BizAssert.that(userEntity.getPassword().equals(password), Errors.PHONE_OR_PASSWORD_ERROR);
         return userEntity;
     }
 
-    public UserEntity verifyAccountAndPasswordByEmail(Byte type, String password, String email) {
+    public UserEntity verifyAccountAndPasswordByEmail(Integer type, String password, String email) {
         UserEntity userEntity = userMapper.selectByTypeDclPhoneEmail(type, null, email);
         BizAssert.that(userEntity != null, Errors.EMAIL_NOT_EXISTS);
         BizAssert.that(userEntity.getPassword().equals(password), Errors.EMAIL_OR_PASSWORD_ERROR);

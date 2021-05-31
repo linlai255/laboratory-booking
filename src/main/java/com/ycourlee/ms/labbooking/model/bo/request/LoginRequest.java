@@ -25,7 +25,7 @@ public class LoginRequest extends BaseDiffAccountModeRequest {
      */
     @NotNull
     @ApiModelProperty("账户类型 1.管理员 2.教师")
-    private Byte    registerType;
+    private Integer registerType;
     @ApiModelProperty("自动登录")
     private Boolean rememberMe;
 }

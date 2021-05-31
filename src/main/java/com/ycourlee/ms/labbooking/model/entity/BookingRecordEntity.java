@@ -68,7 +68,7 @@ public class BookingRecordEntity {
      * 创建人name
      */
     @ApiModelProperty(value = "创建人name")
-    private Integer createUsername;
+    private String createUsername;
 
     /**
      * 更新时间
@@ -86,11 +86,11 @@ public class BookingRecordEntity {
      * 更新人name
      */
     @ApiModelProperty(value = "更新人name")
-    private Integer updateUsername;
+    private String updateUsername;
 
     /**
      * 已删除
      */
     @ApiModelProperty(value = "已删除")
-    private Boolean isDelete;
+    private Integer isDelete;
 }

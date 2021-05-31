@@ -42,7 +42,7 @@ public class AccountController {
     private LabAppLoginProperties loginProperties;
 
     @GetMapping("/verify-code/{account:.+}/{registerType:[1-2]}/{mode:[0-1]}")
-    public ApiResponse<Boolean> verifyCode(@PathVariable("registerType") Byte registerType,
+    public ApiResponse<Boolean> verifyCode(@PathVariable("registerType") Integer registerType,
                                            @PathVariable("account") String account,
                                            @PathVariable(value = "mode", required = false) Integer mode) {
         if (EDigit.ONE.getCode().equals(mode)) {

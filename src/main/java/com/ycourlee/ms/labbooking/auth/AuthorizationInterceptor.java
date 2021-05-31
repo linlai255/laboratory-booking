@@ -77,6 +77,7 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
                     .phone(user.getPhone())
                     .username(user.getUsername())
                     .name(adminBO.getName())
+                    .type(EAccountType.ADMINISTRATOR.getCode())
                     .adminBO(adminBO)
                     .build();
             return true;
@@ -87,6 +88,7 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
                     .phone(user.getPhone())
                     .username(user.getUsername())
                     .name(teacherBO.getName())
+                    .type(EAccountType.TEACHER.getCode())
                     .teacherBO(teacherBO)
                     .build();
             return true;

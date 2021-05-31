@@ -16,7 +16,7 @@ public enum EDigit {
 
     private final Integer code;
 
-    EDigit(int code) {
+    EDigit(Integer code) {
         this.code = code;
     }
 

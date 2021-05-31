@@ -56,7 +56,7 @@ public class CourseEntity {
      * 未预约实验室
      */
     @ApiModelProperty(value = "未预约实验室")
-    private Boolean noBooking;
+    private Integer noBooking;
 
     /**
      * 备注
@@ -74,7 +74,7 @@ public class CourseEntity {
      * 创建人id
      */
     @ApiModelProperty(value = "创建人id")
-    private Integer createUserId;
+    private String createUserId;
 
     /**
      * 创建人name
@@ -98,11 +98,11 @@ public class CourseEntity {
      * 更新人name
      */
     @ApiModelProperty(value = "更新人name")
-    private Integer updateUsername;
+    private String updateUsername;
 
     /**
      * 已删除
      */
     @ApiModelProperty(value = "已删除")
-    private Boolean isDelete;
+    private Integer isDelete;
 }

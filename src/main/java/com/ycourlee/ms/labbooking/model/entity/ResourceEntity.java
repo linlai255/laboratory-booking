@@ -23,12 +23,6 @@ public class ResourceEntity {
     private Integer id;
 
     /**
-     * 父id
-     */
-    @ApiModelProperty(value = "父id")
-    private Integer parentId;
-
-    /**
      * 资源名
      */
     @ApiModelProperty(value = "资源名")
@@ -38,7 +32,7 @@ public class ResourceEntity {
      * 类型 1.菜单 2.API
      */
     @ApiModelProperty(value = "类型 1.菜单 2.API")
-    private Byte type;
+    private Integer type;
 
     /**
      * page route.
@@ -53,10 +47,16 @@ public class ResourceEntity {
     private String path;
 
     /**
+     * 父id
+     */
+    @ApiModelProperty(value = "父id")
+    private Integer parentId;
+
+    /**
      * 包含path variable.
      */
     @ApiModelProperty(value = "包含path variable.")
-    private Boolean containPathVar;
+    private Integer containPathVar;
 
     /**
      * 备注
@@ -80,5 +80,5 @@ public class ResourceEntity {
      * 已删除
      */
     @ApiModelProperty(value = "已删除")
-    private Boolean isDelete;
+    private Integer isDelete;
 }

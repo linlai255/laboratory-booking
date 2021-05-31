@@ -2,7 +2,6 @@ package com.ycourlee.ms.labbooking.manager;
 
 import com.ycourlee.ms.labbooking.config.properties.LabDefaultRoleProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
-import com.ycourlee.ms.labbooking.enums.EDigit;
 import com.ycourlee.ms.labbooking.enums.EResourceType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.*;
@@ -65,7 +64,7 @@ public class RbacManager {
         user.setEmail(email);
         user.setPassword(password);
         user.setRefId(primaryId);
-        user.setType(type.byteValue());
+        user.setType(type);
         userMapper.insertSelective(user);
 
         if (EAccountType.TEACHER.getCode() == type) {
@@ -155,7 +154,7 @@ public class RbacManager {
         ResourceEntity record = new ResourceEntity();
         record.setType(EResourceType.API.getCode());
         record.setPath(request.getPath());
-        record.setContainPathVar(request.getContainPathVar().equals(EDigit.ONE.getCode()));
+        record.setContainPathVar(request.getContainPathVar());
         record.setName(request.getName());
         record.setMemo(request.getMemo());
         resourceMapper.insertSelective(record);
@@ -177,7 +176,7 @@ public class RbacManager {
         record.setId(request.getId());
         record.setType(EResourceType.API.getCode());
         record.setPath(request.getPath());
-        record.setContainPathVar(request.getContainPathVar().equals(EDigit.ONE.getCode()));
+        record.setContainPathVar(request.getContainPathVar());
         record.setName(request.getName());
         record.setMemo(request.getMemo());
         resourceMapper.updateByPrimaryKeySelective(record);
@@ -306,7 +305,7 @@ public class RbacManager {
         return false;
     }
 
-    public String getName(Byte type, int refId) {
+    public String getName(Integer type, int refId) {
         if (EAccountType.TEACHER.getCode() == type) {
             TeacherEntity teacherEntity = teacherMapper.selectByPrimaryKey(refId);
             BizAssert.impossible(teacherEntity == null, Errors.TEACHER_NOT_FOUND);

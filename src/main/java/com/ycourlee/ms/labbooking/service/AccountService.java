@@ -8,9 +8,9 @@ import com.ycourlee.ms.labbooking.model.bo.response.CheckVerifyCodeResponse;
  */
 public interface AccountService {
 
-    void verifyCode(Byte type, String phone);
+    void verifyCode(Integer type, String phone);
 
-    void verifyCodeByEmail(Byte type, String email);
+    void verifyCodeByEmail(Integer type, String email);
 
     CheckVerifyCodeResponse checkVerifyCode(String account, String verifyCode);
 

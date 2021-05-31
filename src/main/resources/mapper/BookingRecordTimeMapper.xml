@@ -4,14 +4,14 @@
   <resultMap id="BaseResultMap" type="com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity">
     <!--@mbg.generated-->
     <!--@Table t_booking_record_time-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="booking_record_id" jdbcType="INTEGER" property="bookingRecordId" />
-    <result column="week_no" jdbcType="INTEGER" property="weekNo" />
-    <result column="section_no" jdbcType="INTEGER" property="sectionNo" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="is_delete" jdbcType="BOOLEAN" property="isDelete" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="booking_record_id" jdbcType="INTEGER" property="bookingRecordId"/>
+    <result column="week_no" jdbcType="INTEGER" property="weekNo"/>
+    <result column="section_no" jdbcType="INTEGER" property="sectionNo"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -19,8 +19,8 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from t_booking_record_time
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -31,12 +31,12 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into t_booking_record_time (booking_record_id, week_no, section_no, 
-      `status`, create_time, update_time, 
-      is_delete)
-    values (#{bookingRecordId,jdbcType=INTEGER}, #{weekNo,jdbcType=INTEGER}, #{sectionNo,jdbcType=INTEGER}, 
-      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{isDelete,jdbcType=BOOLEAN})
+    insert into t_booking_record_time (booking_record_id, week_no, section_no,
+    `status`, create_time, update_time,
+    is_delete)
+    values (#{bookingRecordId,jdbcType=INTEGER}, #{weekNo,jdbcType=INTEGER}, #{sectionNo,jdbcType=INTEGER},
+    #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+    #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -75,7 +75,7 @@
         #{sectionNo,jdbcType=INTEGER},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -84,7 +84,7 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDelete != null">
-        #{isDelete,jdbcType=BOOLEAN},
+        #{isDelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -102,7 +102,7 @@
         section_no = #{sectionNo,jdbcType=INTEGER},
       </if>
       <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
+        `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -111,7 +111,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=BOOLEAN},
+        is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -120,12 +120,21 @@
     <!--@mbg.generated-->
     update t_booking_record_time
     set booking_record_id = #{bookingRecordId,jdbcType=INTEGER},
-      week_no = #{weekNo,jdbcType=INTEGER},
-      section_no = #{sectionNo,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_delete = #{isDelete,jdbcType=BOOLEAN}
+    week_no = #{weekNo,jdbcType=INTEGER},
+    section_no = #{sectionNo,jdbcType=INTEGER},
+    `status` = #{status,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listByBookingRecordIdList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_booking_record_time
+    where id in
+    <foreach collection="bookingRecordIdList" item="recordId" open="(" separator="," close=")">
+      #{recordId}
+    </foreach>
+  </select>
 </mapper>

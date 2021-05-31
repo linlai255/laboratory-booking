@@ -4,14 +4,14 @@
   <resultMap id="BaseResultMap" type="com.ycourlee.ms.labbooking.model.entity.TeacherEntity">
     <!--@mbg.generated-->
     <!--@Table t_teacher-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="academy" jdbcType="VARCHAR" property="academy" />
-    <result column="department" jdbcType="VARCHAR" property="department" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="is_delete" jdbcType="BOOLEAN" property="isDelete" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+    <result column="academy" jdbcType="VARCHAR" property="academy"/>
+    <result column="department" jdbcType="VARCHAR" property="department"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -23,7 +23,6 @@
     <include refid="Base_Column_List"/>
     from t_teacher
     where id = #{id,jdbcType=INTEGER}
-      and is_delete = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
@@ -32,12 +31,12 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.TeacherEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into t_teacher (`name`, nickname, academy, 
-      department, create_time, update_time, 
-      is_delete)
-    values (#{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{academy,jdbcType=VARCHAR}, 
-      #{department,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{isDelete,jdbcType=BOOLEAN})
+    insert into t_teacher (`name`, nickname, academy,
+    department, create_time, update_time,
+    is_delete)
+    values (#{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{academy,jdbcType=VARCHAR},
+    #{department,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+    #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.TeacherEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -85,7 +84,7 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDelete != null">
-        #{isDelete,jdbcType=BOOLEAN},
+        #{isDelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -112,7 +111,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=BOOLEAN},
+        is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -121,12 +120,12 @@
     <!--@mbg.generated-->
     update t_teacher
     set `name` = #{name,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      academy = #{academy,jdbcType=VARCHAR},
-      department = #{department,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_delete = #{isDelete,jdbcType=BOOLEAN}
+    nickname = #{nickname,jdbcType=VARCHAR},
+    academy = #{academy,jdbcType=VARCHAR},
+    department = #{department,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

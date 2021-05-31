@@ -19,20 +19,20 @@ import java.util.Base64;
 @Getter
 public class LabJwtProperties {
 
-    public static final String PREFIX = "lab-app.jwt";
-    private static final Logger log = LoggerFactory.getLogger(LabJwtProperties.class);
+    public static final  String PREFIX    = "lab-app.jwt";
+    private static final Logger log       = LoggerFactory.getLogger(LabJwtProperties.class);
     /**
      * subject of issuing jwt.
      */
-    private String subject   = "Lab booking system token";
+    private              String subject   = "Lab booking system token";
     /**
      * jwt issuer.
      */
-    private String issuer    = "Lab booking system";
+    private              String issuer    = "Lab booking system";
     /**
      * sign secret key.
      */
-    private String secretKey = "iam fine";
+    private              String secretKey = "iam fine";
 
     @Setter(AccessLevel.NONE)
     private byte[] base64EncodedSecretKey = Base64.getEncoder().encode(secretKey.getBytes(StandardCharsets.UTF_8));

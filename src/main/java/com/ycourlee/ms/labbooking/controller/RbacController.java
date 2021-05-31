@@ -62,6 +62,9 @@ public class RbacController {
 
     @PostMapping("/api/create")
     public ApiResponse<Integer> apiCreate(@Validated @RequestBody ApiResCreateRequest request) {
+        if (request.getContainPathVar() == null) {
+            request.setContainPathVar(0);
+        }
         return ApiResponse.success(rbacService.apiCreate(request));
     }
 

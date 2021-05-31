@@ -17,14 +17,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class VerifyCodeSender {
 
-    public static final long VERIFY_CODE_TIMEOUT_IN_SECONDS = 60 * 5;
-    public static final long APPLY_VERIFY_CODE_INTERVAL_IN_SECONDS = 60;
-    public static final String VERIFY_CODE_EMAIL_TEXT_FORMAT = " 欢迎您注册并使用【Lab-Booking】系统，您的注册验证码为：%s。该验证码5分钟内有效，请勿泄漏于他人。";
-    private static final Logger log = LoggerFactory.getLogger(VerifyCodeSender.class);
+    public static final  long       VERIFY_CODE_TIMEOUT_IN_SECONDS        = 60 * 5;
+    public static final  long       APPLY_VERIFY_CODE_INTERVAL_IN_SECONDS = 60;
+    public static final  String     VERIFY_CODE_EMAIL_TEXT_FORMAT         = " 欢迎您注册并使用【Lab-Booking】系统，您的注册验证码为：%s。该验证码5分钟内有效，请勿泄漏于他人。";
+    private static final Logger     log                                   = LoggerFactory.getLogger(VerifyCodeSender.class);
     @Autowired
-    private MailSender mailSender;
+    private              MailSender mailSender;
     @Autowired
-    private Redis      redis;
+    private              Redis      redis;
 
     public String sendEmailVerifyCodeWhenRegistration(String email) {
         String code = String.valueOf(RandomUtil.RANDOM.nextInt(1000000));

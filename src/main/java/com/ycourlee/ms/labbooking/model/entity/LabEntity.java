@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author yongjiang
  */
-@ApiModel(value = "com-ycourlee-ms-labbooking-entity-Lab")
+@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-Lab")
 @Getter
 @Setter
 @ToString
@@ -44,19 +44,13 @@ public class LabEntity {
      * 仪器备注
      */
     @ApiModelProperty(value = "仪器备注")
-    private Integer instrumentMemo;
+    private String instrumentMemo;
 
     /**
-     * 是否空闲
-     */
-    @ApiModelProperty(value = "是否空闲")
-    private Boolean isIdle;
-
-    /**
-     * 是否可用
+     * 状态 0正常 其他
      */
     @ApiModelProperty(value = "是否可用")
-    private Boolean isAvailable;
+    private Integer status;
 
     /**
      * 实验室位置
@@ -98,7 +92,7 @@ public class LabEntity {
      * 创建人name
      */
     @ApiModelProperty(value = "创建人name")
-    private Integer createUsername;
+    private String createUsername;
 
     /**
      * 更新时间
@@ -116,11 +110,11 @@ public class LabEntity {
      * 更新人name
      */
     @ApiModelProperty(value = "更新人name")
-    private Integer updateUsername;
+    private String updateUsername;
 
     /**
      * 已删除
      */
     @ApiModelProperty(value = "已删除")
-    private Boolean isDelete;
+    private Integer isDelete;
 }

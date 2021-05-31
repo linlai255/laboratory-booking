@@ -12,11 +12,11 @@ public enum EAccountType {
     /**
      * administrator
      */
-    ADMINISTRATOR((byte) 1, "管理员"),
-    TEACHER((byte) 2, "教师"),
+    ADMINISTRATOR(1, "管理员"),
+    TEACHER(2, "教师"),
     ;
 
-    private static final Map<Byte, EAccountType> ALL = new HashMap<Byte, EAccountType>();
+    private static final Map<Integer, EAccountType> ALL = new HashMap<Integer, EAccountType>();
 
     static {
         for (EAccountType item : EAccountType.values()) {
@@ -24,10 +24,10 @@ public enum EAccountType {
         }
     }
 
-    private final byte   code;
-    private final String name;
+    private final Integer code;
+    private final String  name;
 
-    EAccountType(byte code, String name) {
+    EAccountType(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -40,7 +40,7 @@ public enum EAccountType {
         return Objects.nonNull(instanceOf(code)) ? instanceOf(code).getName() : "";
     }
 
-    public byte getCode() {
+    public Integer getCode() {
         return code;
     }
 
