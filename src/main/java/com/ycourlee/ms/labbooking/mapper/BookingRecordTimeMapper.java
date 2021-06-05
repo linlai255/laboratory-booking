@@ -23,4 +23,6 @@ public interface BookingRecordTimeMapper {
     int updateByPrimaryKey(BookingRecordTimeEntity record);
 
     List<BookingRecordTimeEntity> listByBookingRecordIdList(@Param("bookingRecordIdList") List<Integer> bookingRecordIdList);
+
+    int batchInsertFcl(@Param("entityList") List<BookingRecordTimeEntity> entityList);
 }

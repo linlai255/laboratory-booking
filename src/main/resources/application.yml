@@ -15,7 +15,9 @@ spring:
   profiles:
     include: datasource,app
 
-logging:
-  level:
-    root: info
-
+swagger:
+  contact:
+    email: ycourlee@qq.com
+    name: yalden
+  title: Laboratory Booking management System Api
+  version: 1.0.0-SNAPSHOT

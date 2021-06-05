@@ -45,12 +45,15 @@ public class RbacServiceImpl implements RbacService {
     }
 
     @Override
-    public Integer menuCreate(MenuResCreateRequest request) {
+    public Integer menuSave(MenuResCreateRequest request) {
         return rbacManager.saveMenu(request);
     }
 
     @Override
-    public Integer apiCreate(ApiResCreateRequest request) {
+    public Integer apiSave(ApiResCreateRequest request) {
+        if (request.getContainPathVar() == null) {
+            request.setContainPathVar(0);
+        }
         return rbacManager.saveApi(request);
     }
 
@@ -65,7 +68,7 @@ public class RbacServiceImpl implements RbacService {
     }
 
     @Override
-    public Integer roleCreate(String name) {
+    public Integer roleSave(String name) {
         return rbacManager.saveRole(name);
     }
 

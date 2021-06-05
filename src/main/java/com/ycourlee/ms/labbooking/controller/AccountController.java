@@ -13,6 +13,8 @@ import com.ycourlee.ms.labbooking.service.LoginService;
 import com.ycourlee.ms.labbooking.util.CookieUtil;
 import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.core.domain.context.ApiResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author yongjiang
  */
+@Api
 @RestController
 @RequestMapping("/v1")
 public class AccountController {
@@ -41,6 +44,7 @@ public class AccountController {
     @Autowired
     private LabAppLoginProperties loginProperties;
 
+    @ApiOperation("获取验证码")
     @GetMapping("/verify-code/{account:.+}/{registerType:[1-2]}/{mode:[0-1]}")
     public ApiResponse<Boolean> verifyCode(@PathVariable("registerType") Integer registerType,
                                            @PathVariable("account") String account,
@@ -53,12 +57,14 @@ public class AccountController {
         return ApiResponse.success(true);
     }
 
+    @ApiOperation("校验验证码")
     @GetMapping("/check-verify-code/{account}/{verifyCode}")
     public ApiResponse<CheckVerifyCodeResponse> checkVerifyCode(@PathVariable("account") String account,
                                                                 @PathVariable("verifyCode") String verifyCode) {
         return ApiResponse.success(accountService.checkVerifyCode(account, verifyCode));
     }
 
+    @ApiOperation("注册")
     @PostMapping(value = {"/register", "sign-up"})
     public ApiResponse<Boolean> register(@Validated @RequestBody RegisterRequest request) {
         if (EDigit.ONE.getCode().equals(request.getMode())) {
@@ -70,6 +76,7 @@ public class AccountController {
         return ApiResponse.success(true);
     }
 
+    @ApiOperation("登录")
     @PostMapping("/login")
     public ApiResponse<LoginResponse> login(@Validated @RequestBody LoginRequest request,
                                             HttpServletRequest httpRequest,
@@ -90,11 +97,11 @@ public class AccountController {
         return ApiResponse.success(data);
     }
 
+    @ApiOperation("登出")
     @PostMapping("/logout")
     public ApiResponse<Object> logout(HttpServletRequest httpRequest,
                                       HttpServletResponse httpResponse) {
         accountService.logout(httpRequest.getHeader(authProperties.getTokenKey()));
-        // CookieUtil.addCookie(httpResponse, properties.getTokenKey(), "", 0, httpRequest.getServerName());
         return ApiResponse.success(true);
     }
 }

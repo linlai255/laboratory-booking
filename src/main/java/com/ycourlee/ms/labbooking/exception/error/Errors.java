@@ -16,6 +16,7 @@ public enum Errors implements CmReturn {
     INTERNAL_DATA_ERROR(10002, "内部数据错误"),
     DATA_ERROR(10003, "数据错误"),
     THE_LOGIN_MODE_DISABLED(10004, "该模式登录服务被禁用"),
+    REQUEST_PARAMETER_VALIDATION_ERROR(10005, "请求参数验证失败"),
 
     /**
      * 认证和鉴权
@@ -52,6 +53,13 @@ public enum Errors implements CmReturn {
     HAVE_ALREADY_BOUND_ROLE(10037, "存在已绑定过的角色"),
     ADMIN_NOT_FOUND(10038, "管理员不存在"),
     TEACHER_NOT_FOUND(10039, "教师不存在"),
+
+
+    /**
+     * 业务
+     */
+    LAB_NOT_FOUND(10050, "实验室不存在"),
+    COURSE_NOT_FOUND(10051, "课程不存在"),
     ;
 
     private final int    code;

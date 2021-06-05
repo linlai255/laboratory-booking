@@ -6,7 +6,7 @@
     <!--@Table t_booking_record-->
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="lab_id" jdbcType="INTEGER" property="labId"/>
-    <result column="lab_name" jdbcType="INTEGER" property="labName"/>
+    <result column="lab_name" jdbcType="VARCHAR" property="labName"/>
     <result column="course_id" jdbcType="INTEGER" property="courseId"/>
     <result column="course_name" jdbcType="INTEGER" property="courseName"/>
     <result column="memo" jdbcType="LONGVARCHAR" property="memo"/>
@@ -42,8 +42,8 @@
     create_user_id, create_username, update_time,
     update_user_id, update_username, is_delete
     )
-    values (#{labId,jdbcType=INTEGER}, #{labName,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
-    #{courseName,jdbcType=INTEGER}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+    values (#{labId,jdbcType=INTEGER}, #{labName,jdbcType=VARCHAR}, #{courseId,jdbcType=INTEGER},
+    #{courseName,jdbcType=VARCHAR}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
     #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
     #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
     )
@@ -94,13 +94,13 @@
         #{labId,jdbcType=INTEGER},
       </if>
       <if test="labName != null">
-        #{labName,jdbcType=INTEGER},
+        #{labName,jdbcType=VARCHAR},
       </if>
       <if test="courseId != null">
         #{courseId,jdbcType=INTEGER},
       </if>
       <if test="courseName != null">
-        #{courseName,jdbcType=INTEGER},
+        #{courseName,jdbcType=VARCHAR},
       </if>
       <if test="memo != null">
         #{memo,jdbcType=LONGVARCHAR},
@@ -136,13 +136,13 @@
         lab_id = #{labId,jdbcType=INTEGER},
       </if>
       <if test="labName != null">
-        lab_name = #{labName,jdbcType=INTEGER},
+        lab_name = #{labName,jdbcType=VARCHAR},
       </if>
       <if test="courseId != null">
         course_id = #{courseId,jdbcType=INTEGER},
       </if>
       <if test="courseName != null">
-        course_name = #{courseName,jdbcType=INTEGER},
+        course_name = #{courseName,jdbcType=VARCHAR},
       </if>
       <if test="memo != null">
         memo = #{memo,jdbcType=LONGVARCHAR},
@@ -175,9 +175,9 @@
     <!--@mbg.generated-->
     update t_booking_record
     set lab_id = #{labId,jdbcType=INTEGER},
-    lab_name = #{labName,jdbcType=INTEGER},
+    lab_name = #{labName,jdbcType=VARCHAR},
     course_id = #{courseId,jdbcType=INTEGER},
-    course_name = #{courseName,jdbcType=INTEGER},
+    course_name = #{courseName,jdbcType=VARCHAR},
     memo = #{memo,jdbcType=LONGVARCHAR},
     create_time = #{createTime,jdbcType=TIMESTAMP},
     create_user_id = #{createUserId,jdbcType=INTEGER},

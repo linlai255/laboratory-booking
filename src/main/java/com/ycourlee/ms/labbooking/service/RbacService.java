@@ -13,15 +13,15 @@ public interface RbacService {
 
     Integer menuBindRes(MenuBindResRequest request);
 
-    Integer menuCreate(MenuResCreateRequest request);
+    Integer menuSave(MenuResCreateRequest request);
 
-    Integer apiCreate(ApiResCreateRequest request);
+    Integer apiSave(ApiResCreateRequest request);
 
     void menuUpdate(MenuResUpdateRequest request);
 
     void apiUpdate(ApiResUpdateRequest request);
 
-    Integer roleCreate(String name);
+    Integer roleSave(String name);
 
     void roleUpdate(RoleUpdateRequest request);
 

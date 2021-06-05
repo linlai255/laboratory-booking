@@ -32,7 +32,7 @@ public class BookingRecordEntity {
      * 实验室name
      */
     @ApiModelProperty(value = "实验室name")
-    private Integer labName;
+    private String labName;
 
     /**
      * 实验课程id
@@ -44,7 +44,7 @@ public class BookingRecordEntity {
      * 实验课程name
      */
     @ApiModelProperty(value = "实验课程name")
-    private Integer courseName;
+    private String courseName;
 
     /**
      * 备注

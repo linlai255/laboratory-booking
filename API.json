@@ -1,10 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "contact": {},
-    "license": {},
-    "version": "",
-    "title": ""
+    "version": "1.0.0-SNAPSHOT",
+    "title": "Laboratory Booking management System Api",
+    "contact": {
+      "name": "yalden",
+      "email": "ycourlee@qq.com"
+    },
+    "license": {}
   },
   "host": "localhost:8000",
   "basePath": "/api",
@@ -18,6 +21,10 @@
       "description": "Basic Error Controller"
     },
     {
+      "name": "laboratory-controller",
+      "description": "Laboratory Controller"
+    },
+    {
       "name": "rbac-controller",
       "description": "Rbac Controller"
     }
@@ -28,17 +35,19 @@
         "tags": [
           "basic-error-controller"
         ],
-        "summary": "errorHtml",
-        "operationId": "errorHtmlUsingGET",
+        "summary": "error",
+        "operationId": "errorUsingGET",
         "produces": [
-          "text/html"
+          "*/*"
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ModelAndView",
-              "originalRef": "ModelAndView"
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "401": {
@@ -64,20 +73,22 @@
         "tags": [
           "basic-error-controller"
         ],
-        "summary": "errorHtml",
-        "operationId": "errorHtmlUsingHEAD",
+        "summary": "error",
+        "operationId": "errorUsingHEAD",
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "text/html"
+          "*/*"
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ModelAndView",
-              "originalRef": "ModelAndView"
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "204": {
@@ -103,20 +114,22 @@
         "tags": [
           "basic-error-controller"
         ],
-        "summary": "errorHtml",
-        "operationId": "errorHtmlUsingPOST",
+        "summary": "error",
+        "operationId": "errorUsingPOST",
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "text/html"
+          "*/*"
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ModelAndView",
-              "originalRef": "ModelAndView"
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "201": {
@@ -145,20 +158,22 @@
         "tags": [
           "basic-error-controller"
         ],
-        "summary": "errorHtml",
-        "operationId": "errorHtmlUsingPUT",
+        "summary": "error",
+        "operationId": "errorUsingPUT",
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "text/html"
+          "*/*"
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ModelAndView",
-              "originalRef": "ModelAndView"
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "201": {
@@ -187,17 +202,19 @@
         "tags": [
           "basic-error-controller"
         ],
-        "summary": "errorHtml",
-        "operationId": "errorHtmlUsingDELETE",
+        "summary": "error",
+        "operationId": "errorUsingDELETE",
         "produces": [
-          "text/html"
+          "*/*"
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ModelAndView",
-              "originalRef": "ModelAndView"
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "204": {
@@ -223,20 +240,22 @@
         "tags": [
           "basic-error-controller"
         ],
-        "summary": "errorHtml",
-        "operationId": "errorHtmlUsingOPTIONS",
+        "summary": "error",
+        "operationId": "errorUsingOPTIONS",
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "text/html"
+          "*/*"
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ModelAndView",
-              "originalRef": "ModelAndView"
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "204": {
@@ -262,20 +281,22 @@
         "tags": [
           "basic-error-controller"
         ],
-        "summary": "errorHtml",
-        "operationId": "errorHtmlUsingPATCH",
+        "summary": "error",
+        "operationId": "errorUsingPATCH",
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "text/html"
+          "*/*"
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ModelAndView",
-              "originalRef": "ModelAndView"
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
             }
           },
           "204": {
@@ -303,7 +324,7 @@
         "tags": [
           "account-controller"
         ],
-        "summary": "checkVerifyCode",
+        "summary": "校验验证码",
         "operationId": "checkVerifyCodeUsingGET",
         "produces": [
           "*/*"
@@ -352,12 +373,338 @@
         "deprecated": false
       }
     },
+    "/v1/lab": {
+      "get": {
+        "tags": [
+          "laboratory-controller"
+        ],
+        "summary": "搜索",
+        "operationId": "searchUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LabSearchRequest",
+              "originalRef": "LabSearchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«PageResponse«LabSearchVO»»",
+              "originalRef": "ApiResponse«PageResponse«LabSearchVO»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "laboratory-controller"
+        ],
+        "summary": "保存",
+        "operationId": "saveUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LabCreateRequest",
+              "originalRef": "LabCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "laboratory-controller"
+        ],
+        "summary": "更新",
+        "operationId": "updateUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LabUpdateRequest",
+              "originalRef": "LabUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/lab/delete/{id}": {
+      "delete": {
+        "tags": [
+          "laboratory-controller"
+        ],
+        "summary": "删除",
+        "operationId": "deleteUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/lab/{id}": {
+      "get": {
+        "tags": [
+          "laboratory-controller"
+        ],
+        "summary": "获取某个实验室详情",
+        "operationId": "getUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«LabDetailResponse»",
+              "originalRef": "ApiResponse«LabDetailResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/lab/{labId}/{courseId}": {
+      "put": {
+        "tags": [
+          "laboratory-controller"
+        ],
+        "summary": "booking",
+        "operationId": "bookingUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "courseId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "labId",
+            "in": "path",
+            "description": "labId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LabBookingRequest",
+              "originalRef": "LabBookingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
     "/v1/login": {
       "post": {
         "tags": [
           "account-controller"
         ],
-        "summary": "login",
+        "summary": "登录",
         "operationId": "loginUsingPOST",
         "consumes": [
           "application/json"
@@ -413,7 +760,7 @@
         "tags": [
           "account-controller"
         ],
-        "summary": "logout",
+        "summary": "登出",
         "operationId": "logoutUsingPOST",
         "consumes": [
           "application/json"
@@ -452,13 +799,13 @@
         "deprecated": false
       }
     },
-    "/v1/rbac/api/create": {
+    "/v1/rbac/api": {
       "post": {
         "tags": [
           "rbac-controller"
         ],
-        "summary": "apiCreate",
-        "operationId": "apiCreateUsingPOST",
+        "summary": "保存API",
+        "operationId": "apiSaveUsingPOST",
         "consumes": [
           "application/json"
         ],
@@ -506,15 +853,13 @@
           }
         ],
         "deprecated": false
-      }
-    },
-    "/v1/rbac/api/update": {
-      "post": {
+      },
+      "put": {
         "tags": [
           "rbac-controller"
         ],
-        "summary": "apiUpdate",
-        "operationId": "apiUpdateUsingPOST",
+        "summary": "更新API",
+        "operationId": "apiUpdateUsingPUT",
         "consumes": [
           "application/json"
         ],
@@ -564,12 +909,122 @@
         "deprecated": false
       }
     },
+    "/v1/rbac/menu": {
+      "post": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "保存菜单",
+        "operationId": "menuSaveUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuResCreateRequest",
+              "originalRef": "MenuResCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«int»",
+              "originalRef": "ApiResponse«int»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "更新菜单",
+        "operationId": "menuUpdateUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuResUpdateRequest",
+              "originalRef": "MenuResUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
     "/v1/rbac/menu/bind": {
       "post": {
         "tags": [
           "rbac-controller"
         ],
-        "summary": "menuBindRes",
+        "summary": "菜单绑定资源",
         "operationId": "menuBindResUsingPOST",
         "consumes": [
           "application/json"
@@ -620,128 +1075,13 @@
         "deprecated": false
       }
     },
-    "/v1/rbac/menu/create": {
-      "post": {
-        "tags": [
-          "rbac-controller"
-        ],
-        "summary": "menuCreate",
-        "operationId": "menuCreateUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "request",
-            "description": "request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MenuResCreateRequest",
-              "originalRef": "MenuResCreateRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ApiResponse«int»",
-              "originalRef": "ApiResponse«int»"
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/v1/rbac/menu/update": {
-      "post": {
-        "tags": [
-          "rbac-controller"
-        ],
-        "summary": "menuUpdate",
-        "operationId": "menuUpdateUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "request",
-            "description": "request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MenuResUpdateRequest",
-              "originalRef": "MenuResUpdateRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ApiResponse«boolean»",
-              "originalRef": "ApiResponse«boolean»"
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
     "/v1/rbac/resource/delete/{id}": {
-      "post": {
+      "delete": {
         "tags": [
           "rbac-controller"
         ],
-        "summary": "resourceDelete",
-        "operationId": "resourceDeleteUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
+        "summary": "删除资源",
+        "operationId": "resourceDeleteUsingDELETE",
         "produces": [
           "*/*"
         ],
@@ -753,6 +1093,59 @@
             "required": true,
             "type": "integer",
             "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/role": {
+      "put": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "更新角色",
+        "operationId": "roleUpdateUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleUpdateRequest",
+              "originalRef": "RoleUpdateRequest"
+            }
           }
         ],
         "responses": {
@@ -791,7 +1184,7 @@
         "tags": [
           "rbac-controller"
         ],
-        "summary": "roleBind",
+        "summary": "角色绑定资源",
         "operationId": "roleBindUsingPOST",
         "consumes": [
           "application/json"
@@ -842,13 +1235,61 @@
         "deprecated": false
       }
     },
-    "/v1/rbac/role/create/{name}": {
+    "/v1/rbac/role/{id}": {
+      "delete": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "删除角色",
+        "operationId": "roleDeleteIdUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«boolean»",
+              "originalRef": "ApiResponse«boolean»"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/rbac/role/{name}": {
       "post": {
         "tags": [
           "rbac-controller"
         ],
-        "summary": "roleCreate",
-        "operationId": "roleCreateUsingPOST",
+        "summary": "保存角色",
+        "operationId": "roleSaveUsingPOST",
         "consumes": [
           "application/json"
         ],
@@ -895,122 +1336,12 @@
         "deprecated": false
       }
     },
-    "/v1/rbac/role/delete/{id}": {
-      "post": {
-        "tags": [
-          "rbac-controller"
-        ],
-        "summary": "roleDeleteId",
-        "operationId": "roleDeleteIdUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "id",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ApiResponse«boolean»",
-              "originalRef": "ApiResponse«boolean»"
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/v1/rbac/role/update": {
-      "post": {
-        "tags": [
-          "rbac-controller"
-        ],
-        "summary": "roleUpdate",
-        "operationId": "roleUpdateUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "request",
-            "description": "request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RoleUpdateRequest",
-              "originalRef": "RoleUpdateRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ApiResponse«boolean»",
-              "originalRef": "ApiResponse«boolean»"
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
     "/v1/rbac/user/bind": {
       "post": {
         "tags": [
           "rbac-controller"
         ],
-        "summary": "userBind",
+        "summary": "用户绑定角色",
         "operationId": "userBindUsingPOST",
         "consumes": [
           "application/json"
@@ -1066,7 +1397,7 @@
         "tags": [
           "account-controller"
         ],
-        "summary": "register",
+        "summary": "注册",
         "operationId": "registerUsingPOST",
         "consumes": [
           "application/json"
@@ -1122,7 +1453,7 @@
         "tags": [
           "account-controller"
         ],
-        "summary": "register",
+        "summary": "注册",
         "operationId": "registerUsingPOST_1",
         "consumes": [
           "application/json"
@@ -1178,7 +1509,7 @@
         "tags": [
           "account-controller"
         ],
-        "summary": "verifyCode",
+        "summary": "获取验证码",
         "operationId": "verifyCodeUsingGET",
         "produces": [
           "*/*"
@@ -1318,6 +1649,23 @@
       },
       "title": "ApiResponse«CheckVerifyCodeResponse»"
     },
+    "ApiResponse«LabDetailResponse»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/LabDetailResponse",
+          "originalRef": "LabDetailResponse"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«LabDetailResponse»"
+    },
     "ApiResponse«LoginResponse»": {
       "type": "object",
       "properties": {
@@ -1334,6 +1682,23 @@
         }
       },
       "title": "ApiResponse«LoginResponse»"
+    },
+    "ApiResponse«PageResponse«LabSearchVO»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/PageResponse«LabSearchVO»",
+          "originalRef": "PageResponse«LabSearchVO»"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«PageResponse«LabSearchVO»»"
     },
     "ApiResponse«boolean»": {
       "type": "object",
@@ -1394,6 +1759,270 @@
       },
       "title": "CheckVerifyCodeResponse"
     },
+    "CodeNameVO": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "码"
+        },
+        "name": {
+          "type": "string",
+          "description": "名称"
+        }
+      },
+      "title": "CodeNameVO"
+    },
+    "LabBookingRequest": {
+      "type": "object",
+      "properties": {
+        "beginSectionNo": {
+          "type": "integer",
+          "format": "int32",
+          "description": "起始节次"
+        },
+        "beginWeekNo": {
+          "type": "integer",
+          "format": "int32",
+          "description": "起始周次"
+        },
+        "courseId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "课程id"
+        },
+        "endSectionNo": {
+          "type": "integer",
+          "format": "int32",
+          "description": "结束节次，不小于起始节次"
+        },
+        "endWeekNo": {
+          "type": "integer",
+          "format": "int32",
+          "description": "结束周次，不小于起始周次"
+        },
+        "labId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "要预约的实验室id"
+        },
+        "registerType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "LabBookingRequest"
+    },
+    "LabCreateRequest": {
+      "type": "object",
+      "properties": {
+        "closeTime": {
+          "type": "string",
+          "example": "17:30",
+          "description": "闭室时间"
+        },
+        "instrumentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "仪器数量"
+        },
+        "instrumentMemo": {
+          "type": "string",
+          "description": "仪器描述"
+        },
+        "location": {
+          "type": "string",
+          "description": "实验室位置描述"
+        },
+        "maxCapacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "实验室最大容纳学生数"
+        },
+        "memo": {
+          "type": "string",
+          "description": "实验室注意事项、描述"
+        },
+        "name": {
+          "type": "string",
+          "description": "实验室名称"
+        },
+        "openTime": {
+          "type": "string",
+          "example": "06:30",
+          "description": "开放时间"
+        },
+        "registerType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "LabCreateRequest"
+    },
+    "LabDetailResponse": {
+      "type": "object",
+      "properties": {
+        "closeTime": {
+          "type": "string",
+          "description": "关闭时间 24小时制"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "instrumentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "仪器数量"
+        },
+        "instrumentMemo": {
+          "type": "string",
+          "description": "仪器备注"
+        },
+        "location": {
+          "type": "string",
+          "description": "实验室位置"
+        },
+        "maxCapacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "最大容纳人数"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "实验室名称"
+        },
+        "openTime": {
+          "type": "string",
+          "description": "开放时间 24小时制"
+        },
+        "status": {
+          "description": "是否可用",
+          "$ref": "#/definitions/CodeNameVO",
+          "originalRef": "CodeNameVO"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "更新时间"
+        },
+        "updateUserId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "更新人id"
+        },
+        "updateUsername": {
+          "type": "string",
+          "description": "更新人name"
+        }
+      },
+      "title": "LabDetailResponse"
+    },
+    "LabSearchRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "名称, 支持全模糊"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "LabSearchRequest"
+    },
+    "LabSearchVO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "instrumentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "仪器数量"
+        },
+        "location": {
+          "type": "string",
+          "description": "实验室位置"
+        },
+        "maxCapacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "最大容纳人数"
+        },
+        "name": {
+          "type": "string",
+          "description": "实验室名称"
+        },
+        "status": {
+          "description": "是否可用",
+          "$ref": "#/definitions/CodeNameVO",
+          "originalRef": "CodeNameVO"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "更新时间"
+        },
+        "updateUsername": {
+          "type": "string",
+          "description": "更新人name"
+        }
+      },
+      "title": "LabSearchVO"
+    },
+    "LabUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "id"
+        },
+        "name": {
+          "type": "string",
+          "description": "名称"
+        },
+        "registerType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "LabUpdateRequest"
+    },
     "LoginRequest": {
       "type": "object",
       "properties": {
@@ -1413,9 +2042,7 @@
         "registerType": {
           "type": "integer",
           "format": "int32",
-          "description": "账户类型 1.管理员 2.教师",
-          "minimum": -128,
-          "maximum": 127
+          "description": "账户类型 1.管理员 2.教师"
         },
         "rememberMe": {
           "type": "boolean",
@@ -1449,9 +2076,7 @@
         "type": {
           "type": "integer",
           "format": "int32",
-          "description": "账户类型",
-          "minimum": -128,
-          "maximum": 127
+          "description": "账户类型"
         },
         "username": {
           "type": "string",
@@ -1630,6 +2255,31 @@
         }
       },
       "title": "ModelAndView"
+    },
+    "PageResponse«LabSearchVO»": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LabSearchVO",
+            "originalRef": "LabSearchVO"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageResponse«LabSearchVO»"
     },
     "RegisterRequest": {
       "type": "object",

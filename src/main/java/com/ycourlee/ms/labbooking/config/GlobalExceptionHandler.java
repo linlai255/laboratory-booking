@@ -1,5 +1,6 @@
 package com.ycourlee.ms.labbooking.config;
 
+import com.alibaba.fastjson.JSON;
 import com.ycourlee.ms.labbooking.exception.AuthenticationException;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.root.core.domain.context.ApiResponse;
@@ -32,14 +33,17 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = BindException.class)
     public ApiResponse bindExceptionHandler(HttpServletRequest request, BindingResult e) {
-        log.error("Failed to process the request, uri = {}", request.getRequestURI());
+        // multipart request will be logged.
+        log.error("Failed to process the request, uri: {}, parameter map: {}", request.getRequestURI(), JSON.toJSON(request.getParameterMap()));
         StringBuffer sb = new StringBuffer();
         e.getFieldErrors().forEach(fieldError ->
                 sb.append(fieldError.getField())
                         .append("-")
                         .append(fieldError.getDefaultMessage())
                         .append(";"));
-        return ApiResponse.error(-1, sb.toString(), null);
+        return ApiResponse.error(Errors.REQUEST_PARAMETER_VALIDATION_ERROR.getCode(),
+                Errors.REQUEST_PARAMETER_VALIDATION_ERROR.getMsg() + " " + sb.toString(),
+                null);
     }
 
     @ResponseStatus(HttpStatus.OK)

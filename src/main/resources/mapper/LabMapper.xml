@@ -236,4 +236,23 @@
         is_delete         = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listOrderedUpdateTimeByDclName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_lab
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', name, '%')
+      </if>
+      and is_delete = 0
+    </where>
+    order by update_time desc
+  </select>
+
+  <update id="removeByPrimaryKey">
+    update t_lab
+    set is_delete = 1
+    where id = #{id}
+  </update>
 </mapper>
