@@ -104,12 +104,6 @@ public class AccountManager {
         return userEntity;
     }
 
-    public String pullUpLoginStatus(Integer userId) {
-        UserEntity userEntity = getUser(userId);
-        List<RoleEntity> roleEntityList = rbacManager.listRole(userEntity.getId());
-        return cacheLoginStatus(buildJsonClaimValue(userEntity, roleEntityList), null);
-    }
-
     public String buildJsonClaimValue(UserEntity userEntity, List<RoleEntity> roleEntityList) {
         return JSON.toJSONString(ClaimValueBO.builder()
                 .userId(userEntity.getId())
@@ -130,10 +124,6 @@ public class AccountManager {
         }
         redis.setEx(KeyPool.token(token), jsonClaimValue, KeyPool.defaultTokenExpireTime());
         return token;
-    }
-
-    public UserEntity getUser(Integer userId) {
-        return userMapper.selectByPrimaryKey(userId);
     }
 
     public LoginResponse buildLoginResponse(UserEntity userEntity, boolean rememberMe) {

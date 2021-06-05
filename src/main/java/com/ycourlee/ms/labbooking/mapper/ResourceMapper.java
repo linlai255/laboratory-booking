@@ -19,6 +19,8 @@ public interface ResourceMapper {
 
     ResourceEntity selectByPrimaryKey(Integer id);
 
+    ResourceEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(ResourceEntity record);
 
     int updateByPrimaryKey(ResourceEntity record);

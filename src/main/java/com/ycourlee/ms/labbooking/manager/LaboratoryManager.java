@@ -1,17 +1,15 @@
 package com.ycourlee.ms.labbooking.manager;
 
 import com.github.pagehelper.PageHelper;
-import com.ycourlee.ms.labbooking.enums.EBookingRecordStatus;
 import com.ycourlee.ms.labbooking.enums.ELabStatus;
 import com.ycourlee.ms.labbooking.mapper.BookingRecordMapper;
 import com.ycourlee.ms.labbooking.mapper.BookingRecordTimeMapper;
 import com.ycourlee.ms.labbooking.mapper.LabMapper;
-import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSearchRequest;
-import com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity;
+import com.ycourlee.ms.labbooking.model.bo.request.LabUpdateRequest;
+import com.ycourlee.ms.labbooking.model.bo.response.LabDetailResponse;
 import com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity;
-import com.ycourlee.ms.labbooking.model.entity.CourseEntity;
 import com.ycourlee.ms.labbooking.model.entity.LabEntity;
 import com.ycourlee.ms.labbooking.model.vo.CodeNameVO;
 import com.ycourlee.ms.labbooking.model.vo.LabSearchVO;
@@ -60,7 +58,7 @@ public class LaboratoryManager {
         return labMapper.selectByPrimaryKey(id);
     }
 
-    public List<LabEntity> get(LabSearchRequest request, boolean needPaging) {
+    public List<LabEntity> list(LabSearchRequest request, boolean needPaging) {
         if (needPaging) {
             PageHelper.startPage(request.getPage(), request.getPageSize());
         }
@@ -87,41 +85,22 @@ public class LaboratoryManager {
         return labVoList;
     }
 
-    public int remove(Integer id) {
-        return labMapper.removeByPrimaryKey(id);
+    public void update(LabUpdateRequest request) {
+        LabEntity entity = new LabEntity();
+        entity.setId(request.getId());
+        entity.setName(request.getName());
+        entity.setMaxCapacity(request.getMaxCapacity());
+        entity.setInstrumentAmount(request.getInstrumentAmount());
+        entity.setInstrumentMemo(request.getInstrumentMemo());
+        entity.setLocation(request.getLocation());
+        entity.setOpenTime(request.getOpenTime());
+        entity.setCloseTime(request.getCloseTime());
+        entity.setMemo(request.getMemo());
+        labMapper.updateByPrimaryKeySelective(entity);
     }
 
-    public int saveBookingRecord(LabBookingRequest request, LabEntity labEntity, CourseEntity courseEntity) {
-        BookingRecordEntity record = buildBookingRecord(request);
-        bookingRecordMapper.insertSelective(record);
-        return record.getId();
-    }
-
-    public void saveBookingTime(LabBookingRequest request, int bookingRecordId) {
-        List<BookingRecordTimeEntity> entityList = new ArrayList<>();
-        for (int i = request.getBeginWeekNo(); i <= request.getEndWeekNo(); i++) {
-            for (int j = request.getBeginSectionNo(); j <= request.getEndSectionNo(); j++) {
-                BookingRecordTimeEntity entity = new BookingRecordTimeEntity();
-                entity.setWeekNo(i);
-                entity.setSectionNo(j);
-                entity.setBookingRecordId(bookingRecordId);
-                entity.setStatus(EBookingRecordStatus.WAITING_CLASS.getCode());
-                entityList.add(entity);
-            }
-        }
-        bookingRecordTimeMapper.batchInsertFcl(entityList);
-    }
-
-    public BookingRecordEntity buildBookingRecord(LabBookingRequest request) {
-        BookingRecordEntity entity = new BookingRecordEntity();
-        entity.setLabId(request.getLabId());
-        entity.setCourseId(request.getCourseId());
-        entity.setMemo("");
-        entity.setCreateUserId(request.getUserId());
-        entity.setCreateUsername(request.getUsername());
-        entity.setUpdateUserId(request.getUserId());
-        entity.setUpdateUsername(request.getUsername());
-        return entity;
+    public void remove(Integer id) {
+        labMapper.removeByPrimaryKey(id);
     }
 
     public LabEntity buildLabEntity(LabSaveRequest request) {
@@ -139,5 +118,23 @@ public class LaboratoryManager {
         record.setCreateUsername(request.getUsername());
         record.setUpdateUsername(request.getUsername());
         return record;
+    }
+
+    public LabDetailResponse buildLabDetailResponse(LabEntity entity) {
+        LabDetailResponse response = new LabDetailResponse();
+        response.setId(entity.getId());
+        response.setName(entity.getName());
+        response.setMaxCapacity(entity.getMaxCapacity());
+        response.setInstrumentAmount(entity.getInstrumentAmount());
+        response.setInstrumentMemo(entity.getInstrumentMemo());
+        response.setStatus(CodeNameVO.builder().code(entity.getStatus()).name(ELabStatus.getNameByCode(entity.getStatus())).build());
+        response.setLocation(entity.getLocation());
+        response.setOpenTime(entity.getOpenTime());
+        response.setCloseTime(entity.getCloseTime());
+        response.setMemo(entity.getMemo());
+        response.setUpdateTime(entity.getUpdateTime());
+        response.setUpdateUserId(entity.getUpdateUserId());
+        response.setUpdateUsername(entity.getUpdateUsername());
+        return response;
     }
 }

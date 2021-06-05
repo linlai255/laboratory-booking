@@ -15,6 +15,8 @@ public interface AdminMapper {
 
     AdminEntity selectByPrimaryKey(Integer id);
 
+    AdminEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(AdminEntity record);
 
     int updateByPrimaryKey(AdminEntity record);

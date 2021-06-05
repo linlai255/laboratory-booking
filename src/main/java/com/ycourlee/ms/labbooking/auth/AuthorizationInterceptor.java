@@ -54,7 +54,7 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
         ClaimValueBO claim = JSON.parseObject(redis.get(token), ClaimValueBO.class);
         claim.assertValid();
 
-        UserEntity user = rbacManager.getUser(claim.getUserId());
+        UserEntity user = rbacManager.getUserNoDel(claim.getUserId());
         AdminBO adminBO = null;
         TeacherBO teacherBO = null;
         if (user.getType().equals(EAccountType.ADMINISTRATOR.getCode())) {

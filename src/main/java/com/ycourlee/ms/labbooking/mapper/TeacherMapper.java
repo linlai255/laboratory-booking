@@ -15,6 +15,8 @@ public interface TeacherMapper {
 
     TeacherEntity selectByPrimaryKey(Integer id);
 
+    TeacherEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(TeacherEntity record);
 
     int updateByPrimaryKey(TeacherEntity record);

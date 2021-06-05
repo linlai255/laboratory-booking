@@ -21,6 +21,7 @@ public class LabBookingRequest extends BaseCurrentUserRequest {
     @NotNull
     @ApiModelProperty("课程id")
     private Integer courseId;
+
     @NotNull
     @ApiModelProperty("起始周次")
     private Integer beginWeekNo;

@@ -18,6 +18,8 @@ public interface RoleResourceMapper {
 
     RoleResourceEntity selectByPrimaryKey(Integer id);
 
+    RoleResourceEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(RoleResourceEntity record);
 
     int updateByPrimaryKey(RoleResourceEntity record);

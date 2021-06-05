@@ -23,10 +23,19 @@
     <include refid="Base_Column_List"/>
     from t_booking_record_time
     where id = #{id,jdbcType=INTEGER}
+    and is_delete = 0
+  </select>
+  <select id="selectByPrimaryKeyEvenIfRemoved" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from t_booking_record_time
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from t_booking_record_time
+    delete
+    from t_booking_record_time
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity" useGeneratedKeys="true">
@@ -144,4 +153,25 @@
       values (#{entity.bookingRecordId}, #{entity.weekNo}, #{entity.sectionNo}, #{entity.status})
     </foreach>
   </insert>
+
+  <update id="batchRemoveByIdList">
+    <foreach collection="idList" item="id" separator=";">
+      update t_booking_record_time
+      set is_delete = 1
+      where id = #{id}
+    </foreach>
+  </update>
+
+  <select id="countByBookingRecordId" resultType="int">
+    select count(1)
+    from t_booking_record_time
+    where booking_record_id = #{bookingRecordId}
+    and is_delete = 0
+  </select>
+
+  <update id="removeByBookingRecordId">
+    update t_booking_record_time
+    set is_delete = 1
+    where booking_record_id = #{bookingRecordId}
+  </update>
 </mapper>

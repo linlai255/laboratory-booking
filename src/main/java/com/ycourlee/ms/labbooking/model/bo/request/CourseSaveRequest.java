@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @Getter
 @ToString
-public class CourseSaveRequest {
+public class CourseSaveRequest extends BaseCurrentUserRequest {
 
     @NotEmpty
     @ApiModelProperty("课程名称")

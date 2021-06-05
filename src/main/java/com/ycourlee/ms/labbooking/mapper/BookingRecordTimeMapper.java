@@ -18,6 +18,8 @@ public interface BookingRecordTimeMapper {
 
     BookingRecordTimeEntity selectByPrimaryKey(Integer id);
 
+    BookingRecordTimeEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(BookingRecordTimeEntity record);
 
     int updateByPrimaryKey(BookingRecordTimeEntity record);
@@ -25,4 +27,10 @@ public interface BookingRecordTimeMapper {
     List<BookingRecordTimeEntity> listByBookingRecordIdList(@Param("bookingRecordIdList") List<Integer> bookingRecordIdList);
 
     int batchInsertFcl(@Param("entityList") List<BookingRecordTimeEntity> entityList);
+
+    int batchRemoveByIdList(@Param("idList") List<Integer> idList);
+
+    int countByBookingRecordId(Integer bookingRecordId);
+
+    int removeByBookingRecordId(Integer bookingRecordId);
 }

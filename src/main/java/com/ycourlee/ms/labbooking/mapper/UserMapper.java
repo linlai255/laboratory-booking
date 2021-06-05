@@ -16,6 +16,8 @@ public interface UserMapper {
 
     UserEntity selectByPrimaryKey(Integer id);
 
+    UserEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(UserEntity record);
 
     int updateByPrimaryKey(UserEntity record);

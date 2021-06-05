@@ -174,10 +174,10 @@ public class RbacManager {
     public void updateApi(ApiResUpdateRequest request) {
         ResourceEntity record = new ResourceEntity();
         record.setId(request.getId());
-        record.setType(EResourceType.API.getCode());
-        record.setPath(request.getPath());
-        record.setContainPathVar(request.getContainPathVar());
         record.setName(request.getName());
+        record.setPath(request.getPath());
+        record.setParentId(request.getParentId());
+        record.setContainPathVar(request.getContainPathVar());
         record.setMemo(request.getMemo());
         resourceMapper.updateByPrimaryKeySelective(record);
     }
@@ -225,6 +225,10 @@ public class RbacManager {
         return userMapper.selectByPrimaryKey(userId);
     }
 
+    public UserEntity getUserNoDel(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
     public List<RoleEntity> listRole(Collection<Integer> roleIdSet) {
         if (CollectionUtil.isEmpty(roleIdSet)) {
             return Collections.emptyList();
@@ -240,6 +244,10 @@ public class RbacManager {
     }
 
     public RoleEntity getRole(int roleId) {
+        return roleMapper.selectByPrimaryKey(roleId);
+    }
+
+    public RoleEntity getRoleNoDel(int roleId) {
         return roleMapper.selectByPrimaryKey(roleId);
     }
 

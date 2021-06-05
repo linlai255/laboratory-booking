@@ -18,6 +18,8 @@ public interface LabMapper {
 
     LabEntity selectByPrimaryKey(Integer id);
 
+    LabEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(LabEntity record);
 
     int updateByPrimaryKey(LabEntity record);

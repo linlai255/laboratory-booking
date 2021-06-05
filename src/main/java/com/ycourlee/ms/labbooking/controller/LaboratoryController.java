@@ -1,6 +1,5 @@
 package com.ycourlee.ms.labbooking.controller;
 
-import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSearchRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabUpdateRequest;
@@ -26,19 +25,6 @@ public class LaboratoryController {
     @Autowired
     private LaboratoryService laboratoryService;
 
-    @PutMapping("/{labId:[0-9]+}/{courseId:[0-9]+}")
-    public ApiResponse<Object> booking(
-            @PathVariable Integer labId,
-            @PathVariable Integer courseId,
-            @RequestBody LabBookingRequest request
-    ) {
-        request.fillCurrentUser();
-        request.setLabId(labId);
-        request.setCourseId(courseId);
-        laboratoryService.booking(request);
-        return ApiResponse.success(true);
-    }
-
     @ApiOperation("搜索")
     @GetMapping
     public ApiResponse<PageResponse<LabSearchVO>> search(@RequestBody LabSearchRequest request) {
@@ -62,12 +48,14 @@ public class LaboratoryController {
     @PutMapping
     public ApiResponse<Object> update(@Validated @RequestBody LabUpdateRequest request) {
         request.fillCurrentUser();
-        return ApiResponse.success(true);
+        laboratoryService.update(request);
+        return ApiResponse.success();
     }
 
     @ApiOperation("删除")
     @DeleteMapping("/delete/{id:[0-9]+}")
     public ApiResponse<Object> delete(@PathVariable Integer id) {
-        return ApiResponse.success(laboratoryService.delete(id));
+        laboratoryService.delete(id);
+        return ApiResponse.success();
     }
 }

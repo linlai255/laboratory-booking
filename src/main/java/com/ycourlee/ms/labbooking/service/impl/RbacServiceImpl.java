@@ -24,7 +24,7 @@ public class RbacServiceImpl implements RbacService {
 
     @Override
     public Integer userBindRole(UserBindRoleRequest request) {
-        UserEntity user = rbacManager.getUser(request.getUserId());
+        UserEntity user = rbacManager.getUserNoDel(request.getUserId());
         BizAssert.that(user != null, Errors.USER_NOT_EXISTS);
         BizAssert.that(rbacManager.countRole(request.getRoleIdSet()) == request.getRoleIdSet().size(), Errors.ROLE_NEED_BIND_NOT_EXISTS);
         return rbacManager.bindRolesToUser(user.getId(), request.getRoleIdSet());
@@ -32,7 +32,7 @@ public class RbacServiceImpl implements RbacService {
 
     @Override
     public Integer roleBindResource(RoleBindResRequest request) {
-        RoleEntity role = rbacManager.getRole(request.getRoleId());
+        RoleEntity role = rbacManager.getRoleNoDel(request.getRoleId());
         BizAssert.that(role != null, Errors.ROLE_NOT_EXISTS);
         List<ResourceEntity> roleVOList = rbacManager.listResource(request.getResIdSet());
         BizAssert.that(roleVOList.size() == request.getResIdSet().size(), Errors.RESOURCE_NEED_BIND_NOT_EXISTS);

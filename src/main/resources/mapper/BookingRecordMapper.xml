@@ -27,10 +27,19 @@
     <include refid="Base_Column_List"/>
     from t_booking_record
     where id = #{id,jdbcType=INTEGER}
+    and is_delete = 0
+  </select>
+  <select id="selectByPrimaryKeyEvenIfRemoved" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from t_booking_record
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from t_booking_record
+    delete
+    from t_booking_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity" useGeneratedKeys="true">
@@ -168,6 +177,25 @@
     select id
     from t_booking_record
     where lab_id = #{labId}
+    and is_delete = 0
+  </select>
+  <update id="removeByPrimaryKey">
+    update t_booking_record
+    set is_delete = 1
+    where id = #{id}
+  </update>
+
+  <update id="removeAndUpdateUserByPrimaryKey">
+    update t_booking_record
+    set is_delete = 1,
+    update_user_id = #{userId},
+    update_username = #{username}
+    where id = #{id}
+  </update>
+
+  <select id="countByCourseId" resultType="int">
+    select count(1) from t_booking_record
+    where course_id = #{courseId}
     and is_delete = 0
   </select>
 </mapper>

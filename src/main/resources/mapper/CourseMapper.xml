@@ -29,10 +29,19 @@
     <include refid="Base_Column_List"/>
     from t_course
     where id = #{id,jdbcType=INTEGER}
+    and is_delete = 0
+  </select>
+  <select id="selectByPrimaryKeyEvenIfRemoved" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from t_course
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from t_course
+    delete
+    from t_course
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.CourseEntity" useGeneratedKeys="true">
@@ -40,13 +49,11 @@
     insert into t_course (`name`, teacher_id, student_amount,
     class_hours, memo, create_time,
     create_user_id, create_username, update_time,
-    update_user_id, update_username, is_delete
-    )
+    update_user_id, update_username, is_delete)
     values (#{name,jdbcType=VARCHAR}, #{teacherId,jdbcType=INTEGER}, #{studentAmount,jdbcType=INTEGER},
     #{classHours,jdbcType=INTEGER}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
     #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
-    #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
-    )
+    #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.CourseEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -188,4 +195,20 @@
     is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="removeAndUpdateUserByPrimaryKey">
+    update t_course
+    set is_delete = 1,
+    update_user_id = #{userId},
+    update_username = #{username}
+    where id = #{id}
+  </update>
+
+  <select id="listOrderedUpdateTimeByDclName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_course
+    where name like concat('%', #{name}, '%')
+    order by update_time desc
+  </select>
 </mapper>

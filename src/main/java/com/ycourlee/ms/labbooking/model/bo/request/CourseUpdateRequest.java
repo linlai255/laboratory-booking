@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @ToString
-public class CourseUpdateRequest {
+public class CourseUpdateRequest extends BaseCurrentUserRequest {
 
     @NotNull
     @ApiModelProperty("课程id")

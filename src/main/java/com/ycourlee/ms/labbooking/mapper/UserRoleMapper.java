@@ -18,6 +18,8 @@ public interface UserRoleMapper {
 
     UserRoleEntity selectByPrimaryKey(Integer id);
 
+    UserRoleEntity selectByPrimaryKeyEvenIfRemoved(Integer id);
+
     int updateByPrimaryKeySelective(UserRoleEntity record);
 
     int updateByPrimaryKey(UserRoleEntity record);

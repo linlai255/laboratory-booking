@@ -24,7 +24,7 @@ public class BaseCurrentUserRequest {
     private Integer registerType;
     private boolean blank = true;
 
-    public void fillCurrentUser() {
+    public BaseCurrentUserRequest fillCurrentUser() {
         BizAssert.notNull(Context.getUserId());
         BizAssert.notNull(Context.getUsername());
         BizAssert.notNull(Context.getType());
@@ -32,6 +32,7 @@ public class BaseCurrentUserRequest {
         this.username = Context.getUsername();
         this.registerType = Context.getType();
         this.blank = false;
+        return this;
     }
 
     public Integer getUserId() {
