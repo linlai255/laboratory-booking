@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author yongjiang
  */
-@ApiModel(value = "com-ycourlee-ms-labbooking-entity-Course")
+@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-Course")
 @Getter
 @Setter
 @ToString
@@ -35,12 +35,6 @@ public class CourseEntity {
     private Integer teacherId;
 
     /**
-     * 上课教师name
-     */
-    @ApiModelProperty(value = "上课教师name")
-    private Integer teacherName;
-
-    /**
      * 上课人数
      */
     @ApiModelProperty(value = "上课人数")
@@ -51,12 +45,6 @@ public class CourseEntity {
      */
     @ApiModelProperty(value = "课时数")
     private Integer classHours;
-
-    /**
-     * 未预约实验室
-     */
-    @ApiModelProperty(value = "未预约实验室")
-    private Integer noBooking;
 
     /**
      * 备注
@@ -74,13 +62,13 @@ public class CourseEntity {
      * 创建人id
      */
     @ApiModelProperty(value = "创建人id")
-    private String createUserId;
+    private Integer createUserId;
 
     /**
      * 创建人name
      */
     @ApiModelProperty(value = "创建人name")
-    private Integer createUsername;
+    private String createUsername;
 
     /**
      * 更新时间

@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author yongjiang
  */
-@ApiModel(value = "com-ycourlee-ms-labbooking-entity-BookingRecord")
+@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-BookingRecord")
 @Getter
 @Setter
 @ToString
@@ -29,22 +29,10 @@ public class BookingRecordEntity {
     private Integer labId;
 
     /**
-     * 实验室name
-     */
-    @ApiModelProperty(value = "实验室name")
-    private String labName;
-
-    /**
      * 实验课程id
      */
     @ApiModelProperty(value = "实验课程id")
     private Integer courseId;
-
-    /**
-     * 实验课程name
-     */
-    @ApiModelProperty(value = "实验课程name")
-    private String courseName;
 
     /**
      * 备注

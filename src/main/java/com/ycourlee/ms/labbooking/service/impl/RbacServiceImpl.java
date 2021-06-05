@@ -45,12 +45,12 @@ public class RbacServiceImpl implements RbacService {
     }
 
     @Override
-    public Integer menuSave(MenuResCreateRequest request) {
+    public Integer menuSave(MenuResSaveRequest request) {
         return rbacManager.saveMenu(request);
     }
 
     @Override
-    public Integer apiSave(ApiResCreateRequest request) {
+    public Integer apiSave(ApiResSaveRequest request) {
         if (request.getContainPathVar() == null) {
             request.setContainPathVar(0);
         }

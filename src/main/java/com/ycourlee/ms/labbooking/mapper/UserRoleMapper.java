@@ -25,10 +25,10 @@ public interface UserRoleMapper {
     /**
      * batch insert fixed column (user_id, role_id).
      *
-     * @param userRoleEntityList userRoleEntityList
+     * @param userRoleEntityEntityList userRoleEntityList
      * @return effected rows.
      */
-    int batchInsertFcl(@Param("entityList") List<UserRoleEntity> userRoleEntityList);
+    int batchInsertFcl(@Param("userRoleEntityEntityList") List<UserRoleEntity> userRoleEntityEntityList);
 
     int removeByRoleId(Integer roleId);
 

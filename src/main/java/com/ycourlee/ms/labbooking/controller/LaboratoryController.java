@@ -1,7 +1,7 @@
 package com.ycourlee.ms.labbooking.controller;
 
 import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.LabCreateRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.LabSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSearchRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabUpdateRequest;
 import com.ycourlee.ms.labbooking.model.bo.response.LabDetailResponse;
@@ -47,7 +47,7 @@ public class LaboratoryController {
 
     @ApiOperation("保存")
     @PostMapping
-    public ApiResponse<Object> save(@Validated @RequestBody LabCreateRequest request) {
+    public ApiResponse<Object> save(@Validated @RequestBody LabSaveRequest request) {
         request.fillCurrentUser();
         return ApiResponse.success(laboratoryService.save(request));
     }

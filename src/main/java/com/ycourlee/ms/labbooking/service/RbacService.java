@@ -13,9 +13,9 @@ public interface RbacService {
 
     Integer menuBindRes(MenuBindResRequest request);
 
-    Integer menuSave(MenuResCreateRequest request);
+    Integer menuSave(MenuResSaveRequest request);
 
-    Integer apiSave(ApiResCreateRequest request);
+    Integer apiSave(ApiResSaveRequest request);
 
     void menuUpdate(MenuResUpdateRequest request);
 

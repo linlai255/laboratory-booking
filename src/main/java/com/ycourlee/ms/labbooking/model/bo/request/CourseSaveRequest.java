@@ -13,16 +13,19 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @Getter
 @ToString
-public class ApiResCreateRequest {
+public class CourseSaveRequest {
 
     @NotEmpty
-    @ApiModelProperty("名")
+    @ApiModelProperty("课程名称")
     private String  name;
-    @NotEmpty
-    @ApiModelProperty("uri")
-    private String  path;
-    @ApiModelProperty("是否包含路径变量 0.否 1.是")
-    private Integer containPathVar;
+    @ApiModelProperty("教师id")
+    private Integer teacherId;
+    @ApiModelProperty("学生数量")
+    private Integer studentAmount;
+    @ApiModelProperty("课时数")
+    private Integer classHours;
+    @ApiModelProperty("未预约实验室")
+    private Integer noBooking;
     @ApiModelProperty("备注")
     private String  memo;
 }

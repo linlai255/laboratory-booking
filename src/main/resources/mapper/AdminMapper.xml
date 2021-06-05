@@ -31,9 +31,9 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.AdminEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into t_admin (`name`, nickname, create_time,
-    update_time, is_delete)
+                         update_time, is_delete)
     values (#{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-    #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=INTEGER})
+            #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.AdminEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -98,11 +98,11 @@
   <update id="updateByPrimaryKey" parameterType="com.ycourlee.ms.labbooking.model.entity.AdminEntity">
     <!--@mbg.generated-->
     update t_admin
-    set `name` = #{name,jdbcType=VARCHAR},
-    nickname = #{nickname,jdbcType=VARCHAR},
-    create_time = #{createTime,jdbcType=TIMESTAMP},
-    update_time = #{updateTime,jdbcType=TIMESTAMP},
-    is_delete = #{isDelete,jdbcType=INTEGER}
+    set `name`      = #{name,jdbcType=VARCHAR},
+        nickname    = #{nickname,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        is_delete   = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

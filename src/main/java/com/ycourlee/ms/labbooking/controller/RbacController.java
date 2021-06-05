@@ -52,7 +52,7 @@ public class RbacController {
 
     @ApiOperation("保存菜单")
     @PostMapping("/menu")
-    public ApiResponse<Integer> menuSave(@Validated @RequestBody MenuResCreateRequest request) {
+    public ApiResponse<Integer> menuSave(@Validated @RequestBody MenuResSaveRequest request) {
         return ApiResponse.success(rbacService.menuSave(request));
     }
 
@@ -71,7 +71,7 @@ public class RbacController {
 
     @ApiOperation("保存API")
     @PostMapping("/api")
-    public ApiResponse<Integer> apiSave(@Validated @RequestBody ApiResCreateRequest request) {
+    public ApiResponse<Integer> apiSave(@Validated @RequestBody ApiResSaveRequest request) {
         return ApiResponse.success(rbacService.apiSave(request));
     }
 

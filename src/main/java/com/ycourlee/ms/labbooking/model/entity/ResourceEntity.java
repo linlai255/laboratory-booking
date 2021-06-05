@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author yongjiang
  */
-@ApiModel(value = "com-ycourlee-ms-labbooking-entity-Resource")
+@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-Resource")
 @Getter
 @Setter
 @ToString
@@ -23,16 +23,22 @@ public class ResourceEntity {
     private Integer id;
 
     /**
+     * 类型 1.菜单 2.API
+     */
+    @ApiModelProperty(value = "类型 1.菜单 2.API")
+    private Integer type;
+
+    /**
      * 资源名
      */
     @ApiModelProperty(value = "资源名")
     private String name;
 
     /**
-     * 类型 1.菜单 2.API
+     * 父id
      */
-    @ApiModelProperty(value = "类型 1.菜单 2.API")
-    private Integer type;
+    @ApiModelProperty(value = "父id")
+    private Integer parentId;
 
     /**
      * page route.
@@ -45,12 +51,6 @@ public class ResourceEntity {
      */
     @ApiModelProperty(value = "API path.")
     private String path;
-
-    /**
-     * 父id
-     */
-    @ApiModelProperty(value = "父id")
-    private Integer parentId;
 
     /**
      * 包含path variable.

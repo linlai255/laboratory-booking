@@ -13,9 +13,15 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @Getter
 @ToString
-public class RoleCreateRequest {
+public class MenuResSaveRequest {
 
     @NotEmpty
-    @ApiModelProperty("角色名")
-    private String name;
+    @ApiModelProperty("名")
+    private String  name;
+    @ApiModelProperty("页面路由")
+    private String  route;
+    @ApiModelProperty("父id")
+    private Integer parentId;
+    @ApiModelProperty("备注")
+    private String  memo;
 }

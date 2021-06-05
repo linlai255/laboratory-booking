@@ -5,10 +5,9 @@ import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.manager.CourseManager;
 import com.ycourlee.ms.labbooking.manager.LaboratoryManager;
 import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.LabCreateRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.LabSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSearchRequest;
 import com.ycourlee.ms.labbooking.model.bo.response.LabDetailResponse;
-import com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity;
 import com.ycourlee.ms.labbooking.model.entity.CourseEntity;
 import com.ycourlee.ms.labbooking.model.entity.LabEntity;
 import com.ycourlee.ms.labbooking.model.vo.CodeNameVO;
@@ -57,7 +56,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
     }
 
     @Override
-    public Integer save(LabCreateRequest request) {
+    public Integer save(LabSaveRequest request) {
         if (StringUtil.isNotEmpty(request.getOpenTime())) {
             BizAssert.that(RegexUtil.isHourMinute(request.getOpenTime()));
         }

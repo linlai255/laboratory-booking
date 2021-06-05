@@ -13,15 +13,16 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @Getter
 @ToString
-public class MenuResCreateRequest {
+public class ApiResSaveRequest {
 
     @NotEmpty
     @ApiModelProperty("名")
     private String  name;
-    @ApiModelProperty("页面路由")
-    private String  route;
-    @ApiModelProperty("父id")
-    private Integer parentId;
+    @NotEmpty
+    @ApiModelProperty("uri")
+    private String  path;
+    @ApiModelProperty("是否包含路径变量 0.否 1.是")
+    private Integer containPathVar;
     @ApiModelProperty("备注")
     private String  memo;
 }

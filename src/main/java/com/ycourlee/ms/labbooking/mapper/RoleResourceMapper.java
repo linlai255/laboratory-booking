@@ -25,10 +25,10 @@ public interface RoleResourceMapper {
     /**
      * fcl.role_id, resource_id
      *
-     * @param roleResourceEntityList roleResourceEntityList
+     * @param roleResourceEntityEntityList roleResourceEntityList
      * @return effected rows.
      */
-    int batchInsertFcl(@Param("entityList") List<RoleResourceEntity> roleResourceEntityList);
+    int batchInsertFcl(@Param("roleResourceEntityEntityList") List<RoleResourceEntity> roleResourceEntityEntityList);
 
     int removeByRoleId(Integer roleId);
 

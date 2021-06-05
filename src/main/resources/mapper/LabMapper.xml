@@ -8,7 +8,7 @@
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="max_capacity" jdbcType="INTEGER" property="maxCapacity"/>
     <result column="instrument_amount" jdbcType="INTEGER" property="instrumentAmount"/>
-    <result column="instrument_memo" jdbcType="VARCHAR" property="instrumentMemo"/>
+    <result column="instrument_memo" jdbcType="LONGVARCHAR" property="instrumentMemo"/>
     <result column="status" jdbcType="INTEGER" property="status"/>
     <result column="location" jdbcType="VARCHAR" property="location"/>
     <result column="open_time" jdbcType="VARCHAR" property="openTime"/>
@@ -24,9 +24,9 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `name`, max_capacity, instrument_amount, instrument_memo, status,
-    `location`, open_time, close_time, memo, create_time, create_user_id, create_username,
-    update_time, update_user_id, update_username, is_delete
+    id, `name`, max_capacity, instrument_amount, instrument_memo, `status`, location,open_time,
+    close_time, memo, create_time, create_user_id, create_username, update_time, update_user_id,
+    update_username, is_delete
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -44,17 +44,15 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.LabEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into t_lab (`name`, max_capacity, instrument_amount,
-                       instrument_memo, status,
-                       `location`, open_time, close_time,
-                       memo, create_time, create_user_id,
-                       create_username, update_time, update_user_id,
-                       update_username, is_delete)
+                       instrument_memo, `status`, location, open_time,
+                       close_time, memo, create_time,
+                       create_user_id, create_username, update_time,
+                       update_user_id, update_username, is_delete)
     values (#{name,jdbcType=VARCHAR}, #{maxCapacity,jdbcType=INTEGER}, #{instrumentAmount,jdbcType=INTEGER},
-            #{instrumentMemo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
-            #{location,jdbcType=VARCHAR}, #{openTime,jdbcType=VARCHAR}, #{closeTime,jdbcType=VARCHAR},
-            #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER},
-            #{createUsername,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER},
-            #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER})
+            #{instrumentMemo,jdbcType=LONGVARCHAR}, #{status,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{openTime,jdbcType=VARCHAR},
+            #{closeTime,jdbcType=VARCHAR}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+            #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+            #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.LabEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -73,10 +71,10 @@
         instrument_memo,
       </if>
       <if test="status != null">
-        status,
+        `status`,
       </if>
       <if test="location != null">
-        `location`,
+        location,
       </if>
       <if test="openTime != null">
         open_time,
@@ -120,7 +118,7 @@
         #{instrumentAmount,jdbcType=INTEGER},
       </if>
       <if test="instrumentMemo != null">
-        #{instrumentMemo,jdbcType=VARCHAR},
+        #{instrumentMemo,jdbcType=LONGVARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -174,13 +172,13 @@
         instrument_amount = #{instrumentAmount,jdbcType=INTEGER},
       </if>
       <if test="instrumentMemo != null">
-        instrument_memo = #{instrumentMemo,jdbcType=VARCHAR},
+        instrument_memo = #{instrumentMemo,jdbcType=LONGVARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="location != null">
-        `location` = #{location,jdbcType=VARCHAR},
+        location = #{location,jdbcType=VARCHAR},
       </if>
       <if test="openTime != null">
         open_time = #{openTime,jdbcType=VARCHAR},
@@ -221,9 +219,9 @@
     set `name`            = #{name,jdbcType=VARCHAR},
         max_capacity      = #{maxCapacity,jdbcType=INTEGER},
         instrument_amount = #{instrumentAmount,jdbcType=INTEGER},
-        instrument_memo   = #{instrumentMemo,jdbcType=VARCHAR},
-        status            = #{status,jdbcType=INTEGER},
-        `location`        = #{location,jdbcType=VARCHAR},
+        instrument_memo   = #{instrumentMemo,jdbcType=LONGVARCHAR},
+        `status`          = #{status,jdbcType=INTEGER},
+        location          = #{location,jdbcType=VARCHAR},
         open_time         = #{openTime,jdbcType=VARCHAR},
         close_time        = #{closeTime,jdbcType=VARCHAR},
         memo              = #{memo,jdbcType=LONGVARCHAR},

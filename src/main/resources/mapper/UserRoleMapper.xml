@@ -24,7 +24,8 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from t_user_role
+    delete
+    from t_user_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.UserRoleEntity" useGeneratedKeys="true">
@@ -104,20 +105,17 @@
     is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <insert id="batchInsertFcl">
-    <foreach collection="entityList" item="entity" separator=";">
+    <foreach collection="userRoleEntityEntityList" item="entity" separator=";">
       insert into t_user_role(user_id, role_id)
       values (#{entity.userId}, #{entity.roleId})
     </foreach>
   </insert>
-
   <update id="removeByRoleId">
     update t_user_role
     set is_delete = 1
     where role_id = #{roleId}
   </update>
-
   <select id="listByUserId" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -125,7 +123,6 @@
     where user_id = #{userId}
     and is_delete = 0
   </select>
-
   <select id="listRoleIdByUserId" resultType="java.lang.Integer">
     select role_id
     from t_user_role

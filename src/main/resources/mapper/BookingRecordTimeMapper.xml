@@ -26,18 +26,17 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete
-    from t_booking_record_time
+    delete from t_booking_record_time
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into t_booking_record_time (booking_record_id, week_no, section_no,
-                                       `status`, create_time, update_time,
-                                       is_delete)
+    `status`, create_time, update_time,
+    is_delete)
     values (#{bookingRecordId,jdbcType=INTEGER}, #{weekNo,jdbcType=INTEGER}, #{sectionNo,jdbcType=INTEGER},
-            #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-            #{isDelete,jdbcType=INTEGER})
+    #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+    #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -121,20 +120,19 @@
     <!--@mbg.generated-->
     update t_booking_record_time
     set booking_record_id = #{bookingRecordId,jdbcType=INTEGER},
-        week_no           = #{weekNo,jdbcType=INTEGER},
-        section_no        = #{sectionNo,jdbcType=INTEGER},
-        `status`          = #{status,jdbcType=INTEGER},
-        create_time       = #{createTime,jdbcType=TIMESTAMP},
-        update_time       = #{updateTime,jdbcType=TIMESTAMP},
-        is_delete         = #{isDelete,jdbcType=INTEGER}
+    week_no = #{weekNo,jdbcType=INTEGER},
+    section_no = #{sectionNo,jdbcType=INTEGER},
+    `status` = #{status,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <select id="listByBookingRecordIdList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_booking_record_time
-            where id in
+    where id in
     <foreach collection="bookingRecordIdList" item="recordId" open="(" separator="," close=")">
       #{recordId}
     </foreach>

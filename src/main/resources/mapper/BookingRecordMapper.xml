@@ -6,9 +6,7 @@
     <!--@Table t_booking_record-->
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="lab_id" jdbcType="INTEGER" property="labId"/>
-    <result column="lab_name" jdbcType="VARCHAR" property="labName"/>
     <result column="course_id" jdbcType="INTEGER" property="courseId"/>
-    <result column="course_name" jdbcType="INTEGER" property="courseName"/>
     <result column="memo" jdbcType="LONGVARCHAR" property="memo"/>
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
@@ -20,8 +18,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, lab_id, lab_name, course_id, course_name, memo, create_time, create_user_id,
-    create_username, update_time, update_user_id, update_username, is_delete
+    id, lab_id, course_id, memo, create_time, create_user_id, create_username, update_time,
+    update_user_id, update_username, is_delete
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -37,16 +35,14 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into t_booking_record (lab_id, lab_name, course_id,
-    course_name, memo, create_time,
-    create_user_id, create_username, update_time,
-    update_user_id, update_username, is_delete
-    )
-    values (#{labId,jdbcType=INTEGER}, #{labName,jdbcType=VARCHAR}, #{courseId,jdbcType=INTEGER},
-    #{courseName,jdbcType=VARCHAR}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-    #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
-    #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}
-    )
+    insert into t_booking_record (lab_id, course_id, memo,
+    create_time, create_user_id, create_username,
+    update_time, update_user_id, update_username,
+    is_delete)
+    values (#{labId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{memo,jdbcType=LONGVARCHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR},
+    #{updateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR},
+    #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -55,14 +51,8 @@
       <if test="labId != null">
         lab_id,
       </if>
-      <if test="labName != null">
-        lab_name,
-      </if>
       <if test="courseId != null">
         course_id,
-      </if>
-      <if test="courseName != null">
-        course_name,
       </if>
       <if test="memo != null">
         memo,
@@ -93,14 +83,8 @@
       <if test="labId != null">
         #{labId,jdbcType=INTEGER},
       </if>
-      <if test="labName != null">
-        #{labName,jdbcType=VARCHAR},
-      </if>
       <if test="courseId != null">
         #{courseId,jdbcType=INTEGER},
-      </if>
-      <if test="courseName != null">
-        #{courseName,jdbcType=VARCHAR},
       </if>
       <if test="memo != null">
         #{memo,jdbcType=LONGVARCHAR},
@@ -135,14 +119,8 @@
       <if test="labId != null">
         lab_id = #{labId,jdbcType=INTEGER},
       </if>
-      <if test="labName != null">
-        lab_name = #{labName,jdbcType=VARCHAR},
-      </if>
       <if test="courseId != null">
         course_id = #{courseId,jdbcType=INTEGER},
-      </if>
-      <if test="courseName != null">
-        course_name = #{courseName,jdbcType=VARCHAR},
       </if>
       <if test="memo != null">
         memo = #{memo,jdbcType=LONGVARCHAR},
@@ -175,9 +153,7 @@
     <!--@mbg.generated-->
     update t_booking_record
     set lab_id = #{labId,jdbcType=INTEGER},
-    lab_name = #{labName,jdbcType=VARCHAR},
     course_id = #{courseId,jdbcType=INTEGER},
-    course_name = #{courseName,jdbcType=VARCHAR},
     memo = #{memo,jdbcType=LONGVARCHAR},
     create_time = #{createTime,jdbcType=TIMESTAMP},
     create_user_id = #{createUserId,jdbcType=INTEGER},
@@ -188,11 +164,10 @@
     is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <select id="listIdByLabId" resultType="java.lang.Integer">
     select id
     from t_booking_record
     where lab_id = #{labId}
-      and is_delete = 0
+    and is_delete = 0
   </select>
 </mapper>

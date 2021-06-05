@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author yongjiang
  */
-@ApiModel(value = "com-ycourlee-ms-labbooking-entity-Teacher")
+@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-Teacher")
 @Getter
 @Setter
 @ToString

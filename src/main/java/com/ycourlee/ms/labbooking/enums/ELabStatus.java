@@ -15,20 +15,20 @@ public enum ELabStatus {
     AVAILABLE(0, "可用"),
     UNAVAILABLE(1, "不可用");
 
-    private final Integer code;
-    private final String  name;
-
-    ELabStatus(Integer code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
     private static final Map<Integer, ELabStatus> ALL = new HashMap<>();
 
     static {
         for (ELabStatus item : ELabStatus.values()) {
             ALL.put(item.getCode(), item);
         }
+    }
+
+    private final Integer code;
+    private final String  name;
+
+    ELabStatus(Integer code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
     public static ELabStatus instanceOf(Integer code) {

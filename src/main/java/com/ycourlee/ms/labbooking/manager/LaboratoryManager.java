@@ -7,7 +7,7 @@ import com.ycourlee.ms.labbooking.mapper.BookingRecordMapper;
 import com.ycourlee.ms.labbooking.mapper.BookingRecordTimeMapper;
 import com.ycourlee.ms.labbooking.mapper.LabMapper;
 import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.LabCreateRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.LabSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSearchRequest;
 import com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity;
 import com.ycourlee.ms.labbooking.model.entity.BookingRecordTimeEntity;
@@ -37,7 +37,7 @@ public class LaboratoryManager {
     @Autowired
     private BookingRecordTimeMapper bookingRecordTimeMapper;
 
-    public int saveLab(LabCreateRequest request) {
+    public int saveLab(LabSaveRequest request) {
         LabEntity record = buildLabEntity(request);
         labMapper.insertSelective(record);
         return record.getId();
@@ -92,7 +92,7 @@ public class LaboratoryManager {
     }
 
     public int saveBookingRecord(LabBookingRequest request, LabEntity labEntity, CourseEntity courseEntity) {
-        BookingRecordEntity record = buildBookingRecord(request, labEntity.getName(), courseEntity.getName());
+        BookingRecordEntity record = buildBookingRecord(request);
         bookingRecordMapper.insertSelective(record);
         return record.getId();
     }
@@ -112,12 +112,10 @@ public class LaboratoryManager {
         bookingRecordTimeMapper.batchInsertFcl(entityList);
     }
 
-    public BookingRecordEntity buildBookingRecord(LabBookingRequest request, String labName, String courseName) {
+    public BookingRecordEntity buildBookingRecord(LabBookingRequest request) {
         BookingRecordEntity entity = new BookingRecordEntity();
         entity.setLabId(request.getLabId());
-        entity.setLabName(labName);
         entity.setCourseId(request.getCourseId());
-        entity.setCourseName(courseName);
         entity.setMemo("");
         entity.setCreateUserId(request.getUserId());
         entity.setCreateUsername(request.getUsername());
@@ -126,7 +124,7 @@ public class LaboratoryManager {
         return entity;
     }
 
-    public LabEntity buildLabEntity(LabCreateRequest request) {
+    public LabEntity buildLabEntity(LabSaveRequest request) {
         LabEntity record = new LabEntity();
         record.setName(request.getName());
         record.setMaxCapacity(request.getMaxCapacity());

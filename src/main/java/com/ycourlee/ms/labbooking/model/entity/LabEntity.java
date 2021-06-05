@@ -47,9 +47,9 @@ public class LabEntity {
     private String instrumentMemo;
 
     /**
-     * 状态 0正常 其他
+     * 状态
      */
-    @ApiModelProperty(value = "是否可用")
+    @ApiModelProperty(value = "状态")
     private Integer status;
 
     /**
@@ -59,15 +59,15 @@ public class LabEntity {
     private String location;
 
     /**
-     * 开放时间 24小时制
+     * 开放时间 24小时制 02:00
      */
-    @ApiModelProperty(value = "开放时间 24小时制")
+    @ApiModelProperty(value = "开放时间 24小时制 02:00")
     private String openTime;
 
     /**
-     * 关闭时间 24小时制
+     * 关闭时间 24小时制 19:00
      */
-    @ApiModelProperty(value = "关闭时间 24小时制")
+    @ApiModelProperty(value = "关闭时间 24小时制 19:00")
     private String closeTime;
 
     /**

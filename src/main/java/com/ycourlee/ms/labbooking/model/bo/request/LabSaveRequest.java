@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @ToString
-public class LabCreateRequest extends BaseCurrentUserRequest {
+public class LabSaveRequest extends BaseCurrentUserRequest {
 
     @NotEmpty
     @ApiModelProperty("实验室名称")

@@ -17,20 +17,20 @@ public enum EBookingRecordStatus {
     CANCELED(3, "已取消"),
     ;
 
-    private final Integer code;
-    private final String  name;
-
-    EBookingRecordStatus(Integer code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
     private static final Map<Integer, EBookingRecordStatus> ALL = new HashMap<>();
 
     static {
         for (EBookingRecordStatus item : EBookingRecordStatus.values()) {
             ALL.put(item.getCode(), item);
         }
+    }
+
+    private final Integer code;
+    private final String  name;
+
+    EBookingRecordStatus(Integer code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
     public static EBookingRecordStatus instanceOf(Integer code) {

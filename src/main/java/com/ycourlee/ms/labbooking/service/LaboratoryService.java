@@ -1,7 +1,7 @@
 package com.ycourlee.ms.labbooking.service;
 
 import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.LabCreateRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.LabSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabSearchRequest;
 import com.ycourlee.ms.labbooking.model.bo.response.LabDetailResponse;
 import com.ycourlee.ms.labbooking.model.vo.LabSearchVO;
@@ -16,7 +16,7 @@ public interface LaboratoryService {
 
     PageResponse<LabSearchVO> search(LabSearchRequest request);
 
-    Integer save(LabCreateRequest request);
+    Integer save(LabSaveRequest request);
 
     LabDetailResponse get(Integer id);
 

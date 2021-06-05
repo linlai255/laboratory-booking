@@ -7,9 +7,9 @@ import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.*;
 import com.ycourlee.ms.labbooking.model.bo.AdminBO;
 import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
-import com.ycourlee.ms.labbooking.model.bo.request.ApiResCreateRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.ApiResSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.ApiResUpdateRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.MenuResCreateRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.MenuResSaveRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.MenuResUpdateRequest;
 import com.ycourlee.ms.labbooking.model.entity.*;
 import com.ycourlee.ms.labbooking.util.BizAssert;
@@ -50,7 +50,7 @@ public class RbacManager {
     private LabDefaultRoleProperties defaultTeacherRoleId;
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveUser(Integer type, String phone, String email, String password) {
+    public void saveUser(int type, String phone, String email, String password) {
         int primaryId;
         if (EAccountType.TEACHER.getCode() == type) {
             primaryId = createTeacher();
@@ -140,7 +140,7 @@ public class RbacManager {
         return roleResourceMapper.batchInsertFcl(roleResourceEntityList);
     }
 
-    public Integer saveMenu(MenuResCreateRequest request) {
+    public Integer saveMenu(MenuResSaveRequest request) {
         ResourceEntity record = new ResourceEntity();
         record.setType(EResourceType.MENU.getCode());
         record.setName(request.getName());
@@ -150,7 +150,7 @@ public class RbacManager {
         return record.getId();
     }
 
-    public Integer saveApi(ApiResCreateRequest request) {
+    public Integer saveApi(ApiResSaveRequest request) {
         ResourceEntity record = new ResourceEntity();
         record.setType(EResourceType.API.getCode());
         record.setPath(request.getPath());
@@ -306,11 +306,11 @@ public class RbacManager {
     }
 
     public String getName(Integer type, int refId) {
-        if (EAccountType.TEACHER.getCode() == type) {
+        if (EAccountType.TEACHER.getCode().equals(type)) {
             TeacherEntity teacherEntity = teacherMapper.selectByPrimaryKey(refId);
             BizAssert.impossible(teacherEntity == null, Errors.TEACHER_NOT_FOUND);
             return teacherEntity.getName();
-        } else if (EAccountType.ADMINISTRATOR.getCode() == type) {
+        } else if (EAccountType.ADMINISTRATOR.getCode().equals(type)) {
             AdminEntity adminEntity = adminMapper.selectByPrimaryKey(refId);
             BizAssert.impossible(adminEntity == null, Errors.ADMIN_NOT_FOUND);
             return adminEntity.getName();

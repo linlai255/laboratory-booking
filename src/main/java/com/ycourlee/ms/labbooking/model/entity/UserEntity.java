@@ -7,13 +7,11 @@ import lombok.*;
 import java.util.Date;
 
 /**
+ * RBAC 用户表
+ *
  * @author yongjiang
  */
-
-/**
- * RBAC 用户表
- */
-@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-UserEntity")
+@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-User")
 @Getter
 @Setter
 @ToString

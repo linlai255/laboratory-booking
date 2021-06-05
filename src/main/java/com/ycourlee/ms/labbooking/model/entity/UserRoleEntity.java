@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author yongjiang
  */
-@ApiModel(value = "com-ycourlee-ms-labbooking-entity-UserRole")
+@ApiModel(value = "com-ycourlee-ms-labbooking-model-entity-UserRole")
 @Getter
 @Setter
 @ToString
@@ -22,10 +22,16 @@ public class UserRoleEntity {
     @ApiModelProperty(value = "")
     private Integer id;
 
-    @ApiModelProperty(value = "")
+    /**
+     * 用户id
+     */
+    @ApiModelProperty(value = "用户id")
     private Integer userId;
 
-    @ApiModelProperty(value = "")
+    /**
+     * 角色id
+     */
+    @ApiModelProperty(value = "角色id")
     private Integer roleId;
 
     /**
