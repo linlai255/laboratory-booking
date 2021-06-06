@@ -17,7 +17,7 @@ aliyun:
   dysms:
     access-key-id:
     access-key-secret:
-    enabled: true
+    enabled: false
     verify-code-alive-timeout: 60
     endpoint: dysmsapi.aliyuncs.com
 

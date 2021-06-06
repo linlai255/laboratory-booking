@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3308/lab_booking_db?useSSL=false&timeZone=Asia/Shanghai
+    url: jdbc:mysql://@chelinlai.mysql.host@:@chelinlai.mysql.port@/lab_booking_db?useSSL=false&timeZone=Asia/Shanghai
     driver-class-name: com.alibaba.druid.proxy.DruidDriver
-    username: root
-    password: root
+    username: @chelinlai.mysql.username@
+    password: @chelinlai.mysql.password@

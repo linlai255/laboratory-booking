@@ -1,5 +1,7 @@
 FROM java:8
 
+EXPOSE 8000
+
 ARG JAR_FILE
 
 ADD target/${JAR_FILE} app.jar
