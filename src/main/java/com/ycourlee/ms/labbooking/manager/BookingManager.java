@@ -1,9 +1,11 @@
 package com.ycourlee.ms.labbooking.manager;
 
+import com.github.pagehelper.PageHelper;
 import com.ycourlee.ms.labbooking.enums.EBookingRecordStatus;
 import com.ycourlee.ms.labbooking.mapper.BookingRecordMapper;
 import com.ycourlee.ms.labbooking.mapper.BookingRecordTimeMapper;
 import com.ycourlee.ms.labbooking.model.bo.request.BaseCurrentUserRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.BookingRecordRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabCancelBookingRequest;
 import com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity;
@@ -85,5 +87,12 @@ public class BookingManager {
     public void saveCancelBooking(Integer id, BaseCurrentUserRequest request) {
         bookingRecordMapper.removeAndUpdateUserByPrimaryKey(id, request.getUserId(), request.getUsername());
         bookingRecordTimeMapper.removeByBookingRecordId(id);
+    }
+
+    public List<BookingRecordEntity> list(BookingRecordRequest request, boolean needPaging) {
+        if (needPaging) {
+            PageHelper.startPage(request.getPage(), request.getPageSize());
+        }
+        return bookingRecordMapper.listByCourseId(request.getCourseId());
     }
 }

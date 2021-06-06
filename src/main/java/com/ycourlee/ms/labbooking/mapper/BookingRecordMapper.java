@@ -31,4 +31,6 @@ public interface BookingRecordMapper {
     int removeAndUpdateUserByPrimaryKey(@Param("id") Integer id, @Param("userId") Integer userId, @Param("username") String username);
 
     int countByCourseId(Integer courseId);
+
+    List<BookingRecordEntity> listByCourseId(Integer courseId);
 }

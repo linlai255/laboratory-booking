@@ -148,8 +148,9 @@ create table t_booking_record_time
 (
     id                int primary key auto_increment,
     booking_record_id int      not null default 0 comment '预约记录id',
-    week_no           int      not null default 0 comment '周编号 1-18',
-    section_no        int      not null default 0 comment '节编号 1-5',
+    week_no           tinyint  not null default 0 comment '周编号 1-18',
+    day_no            tinyint  not null default 0 comment '周几 1-7',
+    section_no        tinyint  not null default 0 comment '节编号 1-5',
     status            tinyint  not null default 0 comment '1.等待上课 2.已下课 3.被取消',
     create_time       datetime not null default current_timestamp() comment '创建时间',
     update_time       datetime not null default current_timestamp() on update current_timestamp comment '更新时间',

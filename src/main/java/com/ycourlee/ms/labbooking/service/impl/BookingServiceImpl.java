@@ -5,14 +5,20 @@ import com.ycourlee.ms.labbooking.manager.BookingManager;
 import com.ycourlee.ms.labbooking.manager.CourseManager;
 import com.ycourlee.ms.labbooking.manager.LaboratoryManager;
 import com.ycourlee.ms.labbooking.model.bo.request.BaseCurrentUserRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.BookingRecordRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabBookingRequest;
 import com.ycourlee.ms.labbooking.model.bo.request.LabCancelBookingRequest;
+import com.ycourlee.ms.labbooking.model.entity.BookingRecordEntity;
 import com.ycourlee.ms.labbooking.model.entity.CourseEntity;
 import com.ycourlee.ms.labbooking.model.entity.LabEntity;
+import com.ycourlee.ms.labbooking.model.vo.BookingRecordVO;
 import com.ycourlee.ms.labbooking.service.BookingService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
+import com.ycourlee.root.core.dto.PageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author yongjiang
@@ -37,6 +43,13 @@ public class BookingServiceImpl implements BookingService {
         CourseEntity courseEntity = courseManager.get(request.getCourseId());
         BizAssert.that(courseEntity != null, Errors.COURSE_NOT_FOUND);
         return bookingManager.saveBooking(request);
+    }
+
+    @Override
+    public PageResponse<BookingRecordVO> bookingRecord(BookingRecordRequest request) {
+        List<BookingRecordEntity> entityList = bookingManager.list(request, true);
+        // todo
+        return new PageResponse<>();
     }
 
     @Override

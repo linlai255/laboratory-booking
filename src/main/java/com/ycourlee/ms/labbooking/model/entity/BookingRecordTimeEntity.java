@@ -35,6 +35,12 @@ public class BookingRecordTimeEntity {
     private Integer weekNo;
 
     /**
+     * 周几 1-7
+     */
+    @ApiModelProperty(value = "周几 1-7")
+    private Integer dayNo;
+
+    /**
      * 节编号 1-5
      */
     @ApiModelProperty(value = "节编号 1-5")
