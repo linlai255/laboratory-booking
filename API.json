@@ -21,6 +21,14 @@
       "description": "Basic Error Controller"
     },
     {
+      "name": "booking-controller",
+      "description": "Booking Controller"
+    },
+    {
+      "name": "course-controller",
+      "description": "Course Controller"
+    },
+    {
       "name": "laboratory-controller",
       "description": "Laboratory Controller"
     },
@@ -319,6 +327,206 @@
         "deprecated": false
       }
     },
+    "/v1/booking": {
+      "get": {
+        "tags": [
+          "booking-controller"
+        ],
+        "summary": "bookingRecord",
+        "operationId": "bookingRecordUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookingRecordRequest",
+              "originalRef": "BookingRecordRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«PageResponse«BookingRecordVO»»",
+              "originalRef": "ApiResponse«PageResponse«BookingRecordVO»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "booking-controller"
+        ],
+        "summary": "booking",
+        "operationId": "bookingUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LabBookingRequest",
+              "originalRef": "LabBookingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "booking-controller"
+        ],
+        "summary": "cancelBooking",
+        "operationId": "cancelBookingUsingDELETE_1",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LabCancelBookingRequest",
+              "originalRef": "LabCancelBookingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/booking/{id}": {
+      "delete": {
+        "tags": [
+          "booking-controller"
+        ],
+        "summary": "cancelBooking",
+        "operationId": "cancelBookingUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
     "/v1/check-verify-code/{account}/{verifyCode}": {
       "get": {
         "tags": [
@@ -373,13 +581,265 @@
         "deprecated": false
       }
     },
+    "/v1/course": {
+      "get": {
+        "tags": [
+          "course-controller"
+        ],
+        "summary": "搜索",
+        "operationId": "searchUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CourseSearchRequest",
+              "originalRef": "CourseSearchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«PageResponse«CourseSearchVO»»",
+              "originalRef": "ApiResponse«PageResponse«CourseSearchVO»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "course-controller"
+        ],
+        "summary": "保存课程",
+        "operationId": "saveUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CourseSaveRequest",
+              "originalRef": "CourseSaveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "course-controller"
+        ],
+        "summary": "更新",
+        "operationId": "updateUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CourseUpdateRequest",
+              "originalRef": "CourseUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/v1/course/{id}": {
+      "get": {
+        "tags": [
+          "course-controller"
+        ],
+        "summary": "获取某课程详细",
+        "operationId": "getUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«CourseDetailResponse»",
+              "originalRef": "ApiResponse«CourseDetailResponse»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "course-controller"
+        ],
+        "summary": "删除",
+        "operationId": "deleteUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«object»",
+              "originalRef": "ApiResponse«object»"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
     "/v1/lab": {
       "get": {
         "tags": [
           "laboratory-controller"
         ],
         "summary": "搜索",
-        "operationId": "searchUsingGET",
+        "operationId": "searchUsingGET_1",
         "produces": [
           "*/*"
         ],
@@ -427,7 +887,7 @@
           "laboratory-controller"
         ],
         "summary": "保存",
-        "operationId": "saveUsingPOST",
+        "operationId": "saveUsingPOST_1",
         "consumes": [
           "application/json"
         ],
@@ -441,8 +901,8 @@
             "description": "request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/LabCreateRequest",
-              "originalRef": "LabCreateRequest"
+              "$ref": "#/definitions/LabSaveRequest",
+              "originalRef": "LabSaveRequest"
             }
           }
         ],
@@ -481,7 +941,7 @@
           "laboratory-controller"
         ],
         "summary": "更新",
-        "operationId": "updateUsingPUT",
+        "operationId": "updateUsingPUT_1",
         "consumes": [
           "application/json"
         ],
@@ -537,7 +997,7 @@
           "laboratory-controller"
         ],
         "summary": "删除",
-        "operationId": "deleteUsingDELETE",
+        "operationId": "deleteUsingDELETE_1",
         "produces": [
           "*/*"
         ],
@@ -585,7 +1045,7 @@
           "laboratory-controller"
         ],
         "summary": "获取某个实验室详情",
-        "operationId": "getUsingGET",
+        "operationId": "getUsingGET_1",
         "produces": [
           "*/*"
         ],
@@ -606,78 +1066,6 @@
               "$ref": "#/definitions/ApiResponse«LabDetailResponse»",
               "originalRef": "ApiResponse«LabDetailResponse»"
             }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/v1/lab/{labId}/{courseId}": {
-      "put": {
-        "tags": [
-          "laboratory-controller"
-        ],
-        "summary": "booking",
-        "operationId": "bookingUsingPUT",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "courseId",
-            "in": "path",
-            "description": "courseId",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "labId",
-            "in": "path",
-            "description": "labId",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "body",
-            "name": "request",
-            "description": "request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/LabBookingRequest",
-              "originalRef": "LabBookingRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ApiResponse«object»",
-              "originalRef": "ApiResponse«object»"
-            }
-          },
-          "201": {
-            "description": "Created"
           },
           "401": {
             "description": "Unauthorized"
@@ -800,6 +1188,54 @@
       }
     },
     "/v1/rbac/api": {
+      "get": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "搜索API",
+        "operationId": "apiSearchUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiSearchRequest",
+              "originalRef": "ApiSearchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«PageResponse«ResourceApiVO»»",
+              "originalRef": "ApiResponse«PageResponse«ResourceApiVO»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
       "post": {
         "tags": [
           "rbac-controller"
@@ -819,8 +1255,8 @@
             "description": "request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ApiResCreateRequest",
-              "originalRef": "ApiResCreateRequest"
+              "$ref": "#/definitions/ApiResSaveRequest",
+              "originalRef": "ApiResSaveRequest"
             }
           }
         ],
@@ -910,6 +1346,42 @@
       }
     },
     "/v1/rbac/menu": {
+      "get": {
+        "tags": [
+          "rbac-controller"
+        ],
+        "summary": "全局菜单树",
+        "operationId": "menuGetUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse«List«MenuTreeVO»»",
+              "originalRef": "ApiResponse«List«MenuTreeVO»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
       "post": {
         "tags": [
           "rbac-controller"
@@ -929,8 +1401,8 @@
             "description": "request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MenuResCreateRequest",
-              "originalRef": "MenuResCreateRequest"
+              "$ref": "#/definitions/MenuResSaveRequest",
+              "originalRef": "MenuResSaveRequest"
             }
           }
         ],
@@ -1576,7 +2048,7 @@
     }
   },
   "definitions": {
-    "ApiResCreateRequest": {
+    "ApiResSaveRequest": {
       "type": "object",
       "properties": {
         "containPathVar": {
@@ -1597,7 +2069,7 @@
           "description": "uri"
         }
       },
-      "title": "ApiResCreateRequest"
+      "title": "ApiResSaveRequest"
     },
     "ApiResUpdateRequest": {
       "type": "object",
@@ -1649,6 +2121,23 @@
       },
       "title": "ApiResponse«CheckVerifyCodeResponse»"
     },
+    "ApiResponse«CourseDetailResponse»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/CourseDetailResponse",
+          "originalRef": "CourseDetailResponse"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«CourseDetailResponse»"
+    },
     "ApiResponse«LabDetailResponse»": {
       "type": "object",
       "properties": {
@@ -1665,6 +2154,26 @@
         }
       },
       "title": "ApiResponse«LabDetailResponse»"
+    },
+    "ApiResponse«List«MenuTreeVO»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuTreeVO",
+            "originalRef": "MenuTreeVO"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«List«MenuTreeVO»»"
     },
     "ApiResponse«LoginResponse»": {
       "type": "object",
@@ -1683,6 +2192,40 @@
       },
       "title": "ApiResponse«LoginResponse»"
     },
+    "ApiResponse«PageResponse«BookingRecordVO»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/PageResponse«BookingRecordVO»",
+          "originalRef": "PageResponse«BookingRecordVO»"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«PageResponse«BookingRecordVO»»"
+    },
+    "ApiResponse«PageResponse«CourseSearchVO»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/PageResponse«CourseSearchVO»",
+          "originalRef": "PageResponse«CourseSearchVO»"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«PageResponse«CourseSearchVO»»"
+    },
     "ApiResponse«PageResponse«LabSearchVO»»": {
       "type": "object",
       "properties": {
@@ -1699,6 +2242,23 @@
         }
       },
       "title": "ApiResponse«PageResponse«LabSearchVO»»"
+    },
+    "ApiResponse«PageResponse«ResourceApiVO»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/PageResponse«ResourceApiVO»",
+          "originalRef": "PageResponse«ResourceApiVO»"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "ApiResponse«PageResponse«ResourceApiVO»»"
     },
     "ApiResponse«boolean»": {
       "type": "object",
@@ -1749,6 +2309,56 @@
       },
       "title": "ApiResponse«object»"
     },
+    "ApiSearchRequest": {
+      "type": "object",
+      "properties": {
+        "containPathVar": {
+          "type": "integer",
+          "format": "int32",
+          "description": "包含路径变量 0不含 1含 默认0"
+        },
+        "name": {
+          "type": "string",
+          "description": "API名"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "path": {
+          "type": "string",
+          "description": "API path"
+        }
+      },
+      "title": "ApiSearchRequest"
+    },
+    "BookingRecordRequest": {
+      "type": "object",
+      "properties": {
+        "courseId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "课程id"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "BookingRecordRequest"
+    },
+    "BookingRecordVO": {
+      "type": "object",
+      "title": "BookingRecordVO"
+    },
     "CheckVerifyCodeResponse": {
       "type": "object",
       "properties": {
@@ -1773,6 +2383,212 @@
         }
       },
       "title": "CodeNameVO"
+    },
+    "CourseDetailResponse": {
+      "type": "object",
+      "properties": {
+        "classHours": {
+          "type": "integer",
+          "format": "int32",
+          "description": "课时数"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "课程名称"
+        },
+        "studentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "上课人数"
+        },
+        "teacherId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "上课教师id"
+        },
+        "teacherName": {
+          "type": "string",
+          "description": "上课教师name"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "更新时间"
+        },
+        "updateUserId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "更新人id"
+        },
+        "updateUsername": {
+          "type": "string",
+          "description": "更新人name"
+        }
+      },
+      "title": "CourseDetailResponse"
+    },
+    "CourseSaveRequest": {
+      "type": "object",
+      "properties": {
+        "classHours": {
+          "type": "integer",
+          "format": "int32",
+          "description": "课时数"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "课程名称"
+        },
+        "noBooking": {
+          "type": "integer",
+          "format": "int32",
+          "description": "未预约实验室"
+        },
+        "registerType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "studentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "学生数量"
+        },
+        "teacherId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "教师id"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "CourseSaveRequest"
+    },
+    "CourseSearchRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "课程名称"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "CourseSearchRequest"
+    },
+    "CourseSearchVO": {
+      "type": "object",
+      "properties": {
+        "classHours": {
+          "type": "integer",
+          "format": "int32",
+          "description": "课时数"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "课程名称"
+        },
+        "studentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "上课人数"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "更新时间"
+        },
+        "updateUserId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "更新人id"
+        },
+        "updateUsername": {
+          "type": "string",
+          "description": "更新人name"
+        }
+      },
+      "title": "CourseSearchVO"
+    },
+    "CourseUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "classHours": {
+          "type": "integer",
+          "format": "int32",
+          "description": "课时数"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "课程id"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "课程名称"
+        },
+        "noBooking": {
+          "type": "integer",
+          "format": "int32",
+          "description": "未预约实验室"
+        },
+        "registerType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "studentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "学生数量"
+        },
+        "teacherId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "教师id"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "CourseUpdateRequest"
     },
     "LabBookingRequest": {
       "type": "object",
@@ -1821,44 +2637,21 @@
       },
       "title": "LabBookingRequest"
     },
-    "LabCreateRequest": {
+    "LabCancelBookingRequest": {
       "type": "object",
       "properties": {
-        "closeTime": {
-          "type": "string",
-          "example": "17:30",
-          "description": "闭室时间"
-        },
-        "instrumentAmount": {
+        "bookingRecordId": {
           "type": "integer",
           "format": "int32",
-          "description": "仪器数量"
+          "description": "预定记录id"
         },
-        "instrumentMemo": {
-          "type": "string",
-          "description": "仪器描述"
-        },
-        "location": {
-          "type": "string",
-          "description": "实验室位置描述"
-        },
-        "maxCapacity": {
-          "type": "integer",
-          "format": "int32",
-          "description": "实验室最大容纳学生数"
-        },
-        "memo": {
-          "type": "string",
-          "description": "实验室注意事项、描述"
-        },
-        "name": {
-          "type": "string",
-          "description": "实验室名称"
-        },
-        "openTime": {
-          "type": "string",
-          "example": "06:30",
-          "description": "开放时间"
+        "idList": {
+          "type": "array",
+          "description": "预定时间记录id",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         },
         "registerType": {
           "type": "integer",
@@ -1872,7 +2665,7 @@
           "type": "string"
         }
       },
-      "title": "LabCreateRequest"
+      "title": "LabCancelBookingRequest"
     },
     "LabDetailResponse": {
       "type": "object",
@@ -1937,6 +2730,59 @@
       },
       "title": "LabDetailResponse"
     },
+    "LabSaveRequest": {
+      "type": "object",
+      "properties": {
+        "closeTime": {
+          "type": "string",
+          "example": "17:30",
+          "description": "闭室时间"
+        },
+        "instrumentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "仪器数量"
+        },
+        "instrumentMemo": {
+          "type": "string",
+          "description": "仪器描述"
+        },
+        "location": {
+          "type": "string",
+          "description": "实验室位置描述"
+        },
+        "maxCapacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "实验室最大容纳学生数"
+        },
+        "memo": {
+          "type": "string",
+          "description": "实验室注意事项、描述"
+        },
+        "name": {
+          "type": "string",
+          "description": "实验室名称"
+        },
+        "openTime": {
+          "type": "string",
+          "example": "06:30",
+          "description": "开放时间"
+        },
+        "registerType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "LabSaveRequest"
+    },
     "LabSearchRequest": {
       "type": "object",
       "properties": {
@@ -2000,14 +2846,44 @@
     "LabUpdateRequest": {
       "type": "object",
       "properties": {
+        "closeTime": {
+          "type": "string",
+          "description": "关闭时间 24小时制 19:00"
+        },
         "id": {
           "type": "integer",
           "format": "int32",
           "description": "id"
         },
+        "instrumentAmount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "仪器数量"
+        },
+        "instrumentMemo": {
+          "type": "string",
+          "description": "仪器备注"
+        },
+        "location": {
+          "type": "string",
+          "description": "实验室位置"
+        },
+        "maxCapacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "最大容纳人数"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
         "name": {
           "type": "string",
           "description": "名称"
+        },
+        "openTime": {
+          "type": "string",
+          "description": "开放时间 24小时制 02:00"
         },
         "registerType": {
           "type": "integer",
@@ -2028,7 +2904,7 @@
       "properties": {
         "account": {
           "type": "string",
-          "description": "账户（手机号或密码）"
+          "description": "账户（手机号或邮箱）"
         },
         "mode": {
           "type": "integer",
@@ -2071,7 +2947,7 @@
         },
         "token": {
           "type": "string",
-          "description": "凭证"
+          "description": "token凭证"
         },
         "type": {
           "type": "integer",
@@ -2104,7 +2980,7 @@
       },
       "title": "MenuBindResRequest"
     },
-    "MenuResCreateRequest": {
+    "MenuResSaveRequest": {
       "type": "object",
       "properties": {
         "memo": {
@@ -2125,7 +3001,7 @@
           "description": "页面路由"
         }
       },
-      "title": "MenuResCreateRequest"
+      "title": "MenuResSaveRequest"
     },
     "MenuResUpdateRequest": {
       "type": "object",
@@ -2154,6 +3030,42 @@
         }
       },
       "title": "MenuResUpdateRequest"
+    },
+    "MenuTreeVO": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "description": "子菜单",
+          "items": {
+            "$ref": "#/definitions/MenuTreeVO",
+            "originalRef": "MenuTreeVO"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "id"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "名"
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "父id"
+        },
+        "route": {
+          "type": "string",
+          "description": "路由"
+        }
+      },
+      "title": "MenuTreeVO"
     },
     "ModelAndView": {
       "type": "object",
@@ -2256,6 +3168,56 @@
       },
       "title": "ModelAndView"
     },
+    "PageResponse«BookingRecordVO»": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookingRecordVO",
+            "originalRef": "BookingRecordVO"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageResponse«BookingRecordVO»"
+    },
+    "PageResponse«CourseSearchVO»": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseSearchVO",
+            "originalRef": "CourseSearchVO"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageResponse«CourseSearchVO»"
+    },
     "PageResponse«LabSearchVO»": {
       "type": "object",
       "properties": {
@@ -2281,12 +3243,37 @@
       },
       "title": "PageResponse«LabSearchVO»"
     },
+    "PageResponse«ResourceApiVO»": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceApiVO",
+            "originalRef": "ResourceApiVO"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PageResponse«ResourceApiVO»"
+    },
     "RegisterRequest": {
       "type": "object",
       "properties": {
         "account": {
           "type": "string",
-          "description": "账户（手机号或密码）"
+          "description": "账户（手机号或邮箱）"
         },
         "mode": {
           "type": "integer",
@@ -2303,6 +3290,39 @@
         }
       },
       "title": "RegisterRequest"
+    },
+    "ResourceApiVO": {
+      "type": "object",
+      "properties": {
+        "containPathVar": {
+          "description": "是否包含路径变量",
+          "$ref": "#/definitions/CodeNameVO",
+          "originalRef": "CodeNameVO"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "id"
+        },
+        "memo": {
+          "type": "string",
+          "description": "备注"
+        },
+        "name": {
+          "type": "string",
+          "description": "API名"
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "父id"
+        },
+        "path": {
+          "type": "string",
+          "description": "API path"
+        }
+      },
+      "title": "ResourceApiVO"
     },
     "RoleBindResRequest": {
       "type": "object",
