@@ -7,6 +7,7 @@ import com.ycourlee.ms.labbooking.manager.spec.JwtIssuer;
 import com.ycourlee.ms.labbooking.manager.spec.Redis;
 import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.root.core.context.CmReturn;
+import com.ycourlee.root.util.CollectionUtil;
 import com.ycourlee.root.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,7 @@ public class AuthenticationFilter extends LabAuth implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        // 全局
         if (disabled()) {
             chain.doFilter(request, response);
             return;
@@ -54,10 +56,16 @@ public class AuthenticationFilter extends LabAuth implements Filter {
             return;
         }
 
+        // 认证
         if (!authenticationProperties.isEnabled()) {
             chain.doFilter(request, response);
             return;
         }
+        if (greenLight(httpRequest.getRequestURI())) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         String token = httpRequest.getHeader(properties.getTokenKey());
         tokenDiscuss(token, httpRequest, httpResponse);
     }
@@ -83,5 +91,18 @@ public class AuthenticationFilter extends LabAuth implements Filter {
 
     private void responseException(HttpServletRequest httpRequest, HttpServletResponse httpResponse, CmReturn error) {
         handlerExceptionResolver.resolveException(httpRequest, httpResponse, null, new AuthenticationException(error));
+    }
+
+    private boolean authenticationGreenLight(String uri) {
+        // 默认都不放行
+        if (CollectionUtil.isEmpty(authenticationProperties.getPathWhitelist())) {
+            return false;
+        }
+        for (String pathWhitelist : authenticationProperties.getPathWhitelist()) {
+            if (PATH_MATCHER.match(pathWhitelist, uri)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

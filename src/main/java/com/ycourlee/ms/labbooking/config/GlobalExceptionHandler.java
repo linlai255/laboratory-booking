@@ -1,8 +1,8 @@
 package com.ycourlee.ms.labbooking.config;
 
 import com.alibaba.fastjson.JSON;
-import com.ycourlee.ms.labbooking.exception.AuthenticationException;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
+import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.core.domain.context.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,8 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(value = AuthenticationException.class)
-    public ApiResponse authenticationException(AuthenticationException exception) {
+    @ExceptionHandler(value = BusinessException.class)
+    public ApiResponse businessException(BusinessException exception) {
         return ApiResponse.error(exception.getCmReturn());
     }
 
@@ -48,8 +48,12 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = Exception.class)
-    public ApiResponse exception(Exception exception) {
-        exception.printStackTrace();
-        return ApiResponse.error(Errors.UNKNOWN.getCode(), Errors.UNKNOWN.getMsg(), exception.getMessage());
+    public ApiResponse exception(Exception e) {
+        log.error("exception message: {}", e.getMessage());
+        e.printStackTrace();
+        // notice: null pointer exception's message is null. so e.getMessage() will be null.
+        return ApiResponse.error(Errors.UNKNOWN.getCode(),
+                Errors.UNKNOWN.getMsg(),
+                (e.getMessage() == null || e.getMessage().length() > 20) ? "internal error! Please try again later." : e.getMessage());
     }
 }

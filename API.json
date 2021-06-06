@@ -1547,7 +1547,7 @@
         "deprecated": false
       }
     },
-    "/v1/rbac/resource/delete/{id}": {
+    "/v1/rbac/resource/{id}": {
       "delete": {
         "tags": [
           "rbac-controller"

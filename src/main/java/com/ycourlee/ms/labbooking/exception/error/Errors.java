@@ -12,11 +12,11 @@ public enum Errors implements CmReturn {
      */
     UNKNOWN(-1, "不好意思, 出错了"),
     OPERATION_TOO_FAST(10000, "操作太快了"),
-    INTERNAL_CONFIGURATION_ERROR(10001, "内部配置错误"),
-    INTERNAL_DATA_ERROR(10002, "内部数据错误"),
-    DATA_ERROR(10003, "数据错误"),
-    THE_LOGIN_MODE_DISABLED(10004, "该模式登录服务被禁用"),
-    REQUEST_PARAMETER_VALIDATION_ERROR(10005, "请求参数验证失败"),
+    INTERNAL_CONFIGURATION_ERROR(10001, "Internal configuration error!"),
+    INTERNAL_DATA_ERROR(10002, "Internal data error!"),
+    DATA_ERROR(10003, "Data error"),
+    THE_LOGIN_REGISTRATION_MODE_DISABLED(10004, "The mode is disabled."),
+    REQUEST_PARAMETER_VALIDATION_ERROR(10005, "Request parameter validation error."),
 
     /**
      * 认证和鉴权

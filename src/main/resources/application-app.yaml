@@ -12,6 +12,9 @@ lab-app:
       - /api/v1/sign-up
   login:
     email-mode-enabled: true
+  registration:
+    admin-whitelist:
+      - ycourlee@qq.com
 
 aliyun:
   dysms:

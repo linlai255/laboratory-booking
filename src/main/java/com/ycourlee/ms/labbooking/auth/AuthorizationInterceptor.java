@@ -12,6 +12,7 @@ import com.ycourlee.ms.labbooking.model.bo.ClaimValueBO;
 import com.ycourlee.ms.labbooking.model.bo.RoleBO;
 import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
+import com.ycourlee.root.util.CollectionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,12 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // 全局
         if (disabled() || greenLight(request.getRequestURI())) {
             return true;
         }
-
-        if (!authorizationProperties.isEnabled()) {
+        // 授权
+        if (!authorizationProperties.isEnabled()||greenLight(request.getRequestURI())) {
             return true;
         }
 
@@ -104,5 +106,18 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         Context.clean();
+    }
+
+    private boolean authenticationGreenLight(String uri) {
+        // 默认都不放行
+        if (CollectionUtil.isEmpty(authorizationProperties.getPathWhitelist())) {
+            return false;
+        }
+        for (String pathWhitelist : authorizationProperties.getPathWhitelist()) {
+            if (PATH_MATCHER.match(pathWhitelist, uri)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

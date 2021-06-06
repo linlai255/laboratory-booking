@@ -37,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
         BizAssert.that(RegexUtil.isPhone(phone), "手机号格式不正确");
         BizAssert.isNull(accountManager.queryUserBy(type, phone, null), Errors.PHONE_NUMBER_ALREADY_EXISTS);
         accountManager.adminFilter(type, phone);
-        BizAssert.that(accountManager.noAliveCodeCurrentPhone(phone), "验证码只能每60s获取一次");
+        BizAssert.that(accountManager.noAliveCodeCurrentPhone(phone), "验证码每60s只可获取一次");
         String code = aliyunDysms.sendVerifyCodeWhenRegister(phone);
         redis.setEx(KeyPool.registerCode(phone), accountManager.bindType(type, code), VerifyCodeSender.VERIFY_CODE_TIMEOUT_IN_SECONDS);
     }

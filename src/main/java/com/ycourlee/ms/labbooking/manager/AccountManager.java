@@ -16,6 +16,7 @@ import com.ycourlee.ms.labbooking.model.entity.UserEntity;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.root.core.context.BusinessException;
+import com.ycourlee.root.util.CollectionUtil;
 import com.ycourlee.root.util.RandomUtil;
 import com.ycourlee.root.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,11 @@ public class AccountManager {
 
     @Deprecated
     public boolean noAliveCodeCurrentPhone(String phone) {
-        return StringUtil.isNotEmpty(redis.get(KeyPool.registerCode(phone)));
+        return StringUtil.isEmpty(redis.get(KeyPool.registerCode(phone)));
     }
 
     public boolean noAliveCodeCurrentAccount(String account) {
-        return StringUtil.isNotEmpty(redis.get(KeyPool.registerCodeApplyFrequencyLock(account)));
+        return StringUtil.isEmpty(redis.get(KeyPool.registerCodeApplyFrequencyLock(account)));
     }
 
     public String checkCodeAndReturnKey(String account, String verifyCode) {
@@ -63,9 +64,9 @@ public class AccountManager {
         return registerKey;
     }
 
-    public void adminFilter(Integer type, String phone) {
+    public void adminFilter(Integer type, String account) {
         if (type.compareTo(EAccountType.ADMINISTRATOR.getCode()) == 0) {
-            if (!properties.getAdminWhitelist().contains(phone)) {
+            if (CollectionUtil.isEmpty(properties.getAdminWhitelist()) || !properties.getAdminWhitelist().contains(account)) {
                 throw new BusinessException(Errors.YOU_ARE_NOT_ADMIN);
             }
         }

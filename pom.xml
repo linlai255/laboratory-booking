@@ -111,11 +111,10 @@
       <artifactId>yonn-core</artifactId>
       <version>${yonn.version}</version>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>com.ycourlee.starter</groupId>-->
-<!--      <artifactId>yonn-javamail-starter</artifactId>-->
-<!--      <version>${yonn.version}</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
   </dependencies>
 
   <repositories>

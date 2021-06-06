@@ -12,7 +12,7 @@ import org.springframework.util.AntPathMatcher;
 @Configuration
 public class LabAuth {
 
-    private static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
+    public static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
     @Autowired
     protected LabAuthProperties properties;

@@ -100,7 +100,7 @@ public class RbacController {
     }
 
     @ApiOperation("删除资源")
-    @DeleteMapping("/resource/delete/{id:[0-9]+}")
+    @DeleteMapping("/resource/{id:[0-9]+}")
     public ApiResponse<Boolean> resourceDelete(@PathVariable Integer id) {
         rbacService.resourceRemove(id);
         return ApiResponse.success(true);

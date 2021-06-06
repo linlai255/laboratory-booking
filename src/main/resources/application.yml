@@ -21,3 +21,6 @@ swagger:
     name: yalden
   title: Laboratory Booking management System Api
   version: 1.0.0-SNAPSHOT
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml

@@ -13,7 +13,7 @@ import java.util.List;
 public class LabAppRegistrationProperties {
 
     /**
-     * the phone list of administrators. Phone cannot be registered as administrator before write here.
+     * the phone(or email) list of administrators. Phone(or email) cannot be registered as administrator before write here.
      */
     private List<String> adminWhitelist;
 }

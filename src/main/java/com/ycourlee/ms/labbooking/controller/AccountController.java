@@ -50,9 +50,17 @@ public class AccountController {
                                            @PathVariable("account") String account,
                                            @PathVariable(value = "mode", required = false) Integer mode) {
         if (EDigit.ONE.getCode().equals(mode)) {
+            if (!loginProperties.isPhoneModeEnabled()) {
+                throw new BusinessException(Errors.THE_LOGIN_REGISTRATION_MODE_DISABLED);
+            }
             accountService.verifyCode(registerType, account);
-        } else {
+        } else if (EDigit.ZERO.getCode().equals(mode)) {
+            if (!loginProperties.isEmailModeEnabled()) {
+                throw new BusinessException(Errors.THE_LOGIN_REGISTRATION_MODE_DISABLED);
+            }
             accountService.verifyCodeByEmail(registerType, account);
+        } else {
+            throw new BusinessException(Errors.THE_LOGIN_REGISTRATION_MODE_DISABLED);
         }
         return ApiResponse.success(true);
     }
@@ -84,16 +92,16 @@ public class AccountController {
         LoginResponse data;
         if (EDigit.ONE.getCode().equals(request.getMode())) {
             if (!loginProperties.isPhoneModeEnabled()) {
-                throw new BusinessException(Errors.THE_LOGIN_MODE_DISABLED);
+                throw new BusinessException(Errors.THE_LOGIN_REGISTRATION_MODE_DISABLED);
             }
             data = phoneLoginService.login(request);
         } else if (EDigit.ZERO.getCode().equals(request.getMode())) {
             if (!loginProperties.isEmailModeEnabled()) {
-                throw new BusinessException(Errors.THE_LOGIN_MODE_DISABLED);
+                throw new BusinessException(Errors.THE_LOGIN_REGISTRATION_MODE_DISABLED);
             }
             data = emailLoginService.login(request);
         } else {
-            throw new BusinessException(Errors.THE_LOGIN_MODE_DISABLED);
+            throw new BusinessException(Errors.THE_LOGIN_REGISTRATION_MODE_DISABLED);
         }
         CookieUtil.addCookie(httpResponse, authProperties.getTokenKey(), data.getToken(), 0, httpRequest.getServerName());
         return ApiResponse.success(data);
