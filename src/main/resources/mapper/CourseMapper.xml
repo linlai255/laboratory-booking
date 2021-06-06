@@ -29,7 +29,7 @@
     <include refid="Base_Column_List"/>
     from t_course
     where id = #{id,jdbcType=INTEGER}
-    and is_delete = 0
+      and is_delete = 0
   </select>
   <select id="selectByPrimaryKeyEvenIfRemoved" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -47,13 +47,13 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.CourseEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into t_course (`name`, teacher_id, student_amount,
-    class_hours, memo, create_time,
-    create_user_id, create_username, update_time,
-    update_user_id, update_username, is_delete)
+                          class_hours, memo, create_time,
+                          create_user_id, create_username, update_time,
+                          update_user_id, update_username, is_delete)
     values (#{name,jdbcType=VARCHAR}, #{teacherId,jdbcType=INTEGER}, #{studentAmount,jdbcType=INTEGER},
-    #{classHours,jdbcType=INTEGER}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-    #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
-    #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER})
+            #{classHours,jdbcType=INTEGER}, #{memo,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+            #{createUserId,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+            #{updateUserId,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.CourseEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -181,34 +181,42 @@
   <update id="updateByPrimaryKey" parameterType="com.ycourlee.ms.labbooking.model.entity.CourseEntity">
     <!--@mbg.generated-->
     update t_course
-    set `name` = #{name,jdbcType=VARCHAR},
-    teacher_id = #{teacherId,jdbcType=INTEGER},
-    student_amount = #{studentAmount,jdbcType=INTEGER},
-    class_hours = #{classHours,jdbcType=INTEGER},
-    memo = #{memo,jdbcType=LONGVARCHAR},
-    create_time = #{createTime,jdbcType=TIMESTAMP},
-    create_user_id = #{createUserId,jdbcType=INTEGER},
-    create_username = #{createUsername,jdbcType=VARCHAR},
-    update_time = #{updateTime,jdbcType=TIMESTAMP},
-    update_user_id = #{updateUserId,jdbcType=INTEGER},
-    update_username = #{updateUsername,jdbcType=VARCHAR},
-    is_delete = #{isDelete,jdbcType=INTEGER}
+    set `name`          = #{name,jdbcType=VARCHAR},
+        teacher_id      = #{teacherId,jdbcType=INTEGER},
+        student_amount  = #{studentAmount,jdbcType=INTEGER},
+        class_hours     = #{classHours,jdbcType=INTEGER},
+        memo            = #{memo,jdbcType=LONGVARCHAR},
+        create_time     = #{createTime,jdbcType=TIMESTAMP},
+        create_user_id  = #{createUserId,jdbcType=INTEGER},
+        create_username = #{createUsername,jdbcType=VARCHAR},
+        update_time     = #{updateTime,jdbcType=TIMESTAMP},
+        update_user_id  = #{updateUserId,jdbcType=INTEGER},
+        update_username = #{updateUsername,jdbcType=VARCHAR},
+        is_delete       = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
   <update id="removeAndUpdateUserByPrimaryKey">
     update t_course
-    set is_delete = 1,
-    update_user_id = #{userId},
-    update_username = #{username}
+    set is_delete       = 1,
+        update_user_id  = #{userId},
+        update_username = #{username}
     where id = #{id}
   </update>
 
-  <select id="listOrderedUpdateTimeByDclName" resultMap="BaseResultMap">
+  <select id="listOrderedUpdateTimeByDclNameTeacherId" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_course
-    where name like concat('%', #{name}, '%')
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="teacherId != null and teacherId > 0">
+        and teacher_id = #{teacherId,jdbcType=INTEGER}
+      </if>
+      and is_delete = 0
+    </where>
     order by update_time desc
   </select>
 </mapper>

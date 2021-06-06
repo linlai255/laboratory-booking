@@ -22,7 +22,7 @@ public class LoginResponse {
     private String       name;
     @ApiModelProperty("昵称")
     private String       nickname;
-    @ApiModelProperty("凭证")
+    @ApiModelProperty("token凭证")
     private String       token;
     @ApiModelProperty("账户类型")
     private Integer      type;

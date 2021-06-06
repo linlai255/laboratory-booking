@@ -1,6 +1,11 @@
 package com.ycourlee.ms.labbooking.service;
 
 import com.ycourlee.ms.labbooking.model.bo.request.*;
+import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
+import com.ycourlee.ms.labbooking.model.vo.MenuTreeVO;
+import com.ycourlee.root.core.dto.PageResponse;
+
+import java.util.List;
 
 /**
  * @author yongjiang
@@ -15,9 +20,13 @@ public interface RbacService {
 
     Integer menuSave(MenuResSaveRequest request);
 
-    Integer apiSave(ApiResSaveRequest request);
+    List<MenuTreeVO> menuTree();
 
     void menuUpdate(MenuResUpdateRequest request);
+
+    PageResponse<ResourceApiVO> apiSearch(ApiSearchRequest request);
+
+    Integer apiSave(ApiResSaveRequest request);
 
     void apiUpdate(ApiResUpdateRequest request);
 

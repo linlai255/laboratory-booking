@@ -59,6 +59,12 @@ public class ResourceEntity {
     private Integer containPathVar;
 
     /**
+     * 排序
+     */
+    @ApiModelProperty(value = "排序")
+    private Integer sort;
+
+    /**
      * 备注
      */
     @ApiModelProperty(value = "备注")

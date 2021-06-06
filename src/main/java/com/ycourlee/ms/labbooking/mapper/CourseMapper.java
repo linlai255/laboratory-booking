@@ -26,5 +26,5 @@ public interface CourseMapper {
 
     int removeAndUpdateUserByPrimaryKey(@Param("id") Integer id, @Param("userId") Integer userId, @Param("username") String username);
 
-    List<CourseEntity> listOrderedUpdateTimeByDclName(String name);
+    List<CourseEntity> listOrderedUpdateTimeByDclNameTeacherId(@Param("name") String name, @Param("teacherId") Integer teacherId);
 }

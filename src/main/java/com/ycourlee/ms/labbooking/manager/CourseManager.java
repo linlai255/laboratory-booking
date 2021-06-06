@@ -96,7 +96,7 @@ public class CourseManager {
         if (needPaging) {
             PageHelper.startPage(request.getPage(), request.getPageSize());
         }
-        return courseMapper.listOrderedUpdateTimeByDclName(request.getName());
+        return courseMapper.listOrderedUpdateTimeByDclNameTeacherId(request.getName(), request.getTeacherId());
     }
 
     public List<CourseSearchVO> buildSearchVoList(List<CourseEntity> entityList) {

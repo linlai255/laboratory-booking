@@ -1,4 +1,4 @@
-package com.ycourlee.ms.labbooking.model.bo;
+package com.ycourlee.ms.labbooking.model.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -12,14 +12,16 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class ResourceApiBO {
+public class ResourceApiVO {
 
+    @ApiModelProperty("id")
     private Integer id;
+    @ApiModelProperty("API名")
     private String  name;
-    @ApiModelProperty("uri")
+    @ApiModelProperty("API path")
     private String  path;
-    @ApiModelProperty("是否包含路径变量 0.否 1.是")
-    private Integer containPathVar;
+    @ApiModelProperty("是否包含路径变量")
+    private CodeNameVO containPathVar;
     @ApiModelProperty("父id")
     private Integer parentId;
     @ApiModelProperty("备注")

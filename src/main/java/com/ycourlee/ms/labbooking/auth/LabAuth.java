@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.AntPathMatcher;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-
 /**
  * @author yongjiang
  */
@@ -24,13 +21,13 @@ public class LabAuth {
         return !properties.isEnabled();
     }
 
-    protected final boolean greenLight(String uri) throws IOException, ServletException {
+    protected final boolean greenLight(String uri) {
         // 默认都不放行
         if (CollectionUtil.isEmpty(properties.getPathWhitelist())) {
             return false;
         }
         for (String pathWhitelist : properties.getPathWhitelist()) {
-            if (PATH_MATCHER.matchStart(pathWhitelist, uri)) {
+            if (PATH_MATCHER.match(pathWhitelist, uri)) {
                 return true;
             }
         }

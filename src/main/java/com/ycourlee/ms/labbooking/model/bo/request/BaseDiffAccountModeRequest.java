@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
 public class BaseDiffAccountModeRequest {
 
     @NotEmpty
-    @ApiModelProperty("账户（手机号或密码）")
+    @ApiModelProperty("账户（手机号或邮箱）")
     private String  account;
     @ApiModelProperty("登录模式 0.邮箱 1.手机号 默认0")
     private Integer mode;

@@ -1,22 +1,26 @@
 package com.ycourlee.ms.labbooking.manager;
 
+import com.github.pagehelper.PageHelper;
 import com.ycourlee.ms.labbooking.config.properties.LabDefaultRoleProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
+import com.ycourlee.ms.labbooking.enums.EContainPathVar;
 import com.ycourlee.ms.labbooking.enums.EResourceType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.*;
 import com.ycourlee.ms.labbooking.model.bo.AdminBO;
 import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
-import com.ycourlee.ms.labbooking.model.bo.request.ApiResSaveRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.ApiResUpdateRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.MenuResSaveRequest;
-import com.ycourlee.ms.labbooking.model.bo.request.MenuResUpdateRequest;
+import com.ycourlee.ms.labbooking.model.bo.request.*;
 import com.ycourlee.ms.labbooking.model.entity.*;
+import com.ycourlee.ms.labbooking.model.vo.CodeNameVO;
+import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
+import com.ycourlee.ms.labbooking.model.vo.MenuTreeVO;
 import com.ycourlee.ms.labbooking.util.BizAssert;
+import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.util.CollectionUtil;
 import com.ycourlee.root.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -243,6 +247,17 @@ public class RbacManager {
         return resourceMapper.listByIdCollection(resIdSet);
     }
 
+    public List<ResourceEntity> listResourceApi(ApiSearchRequest request, boolean needPaging) {
+        if (needPaging) {
+            PageHelper.startPage(request.getPage(), request.getPageSize());
+        }
+        return resourceMapper.listApiByDclNamePathContainPathVar(request.getName(), request.getPath(), request.getContainPathVar());
+    }
+
+    public List<ResourceEntity> listResource(@Nullable Integer type, @Nullable Integer parentId) {
+        return resourceMapper.listOrderedSortByDclTypeParentId(type, parentId);
+    }
+
     public RoleEntity getRole(int roleId) {
         return roleMapper.selectByPrimaryKey(roleId);
     }
@@ -325,5 +340,73 @@ public class RbacManager {
         } else {
             throw new BusinessException(Errors.DATA_ERROR);
         }
+    }
+
+    /**
+     * optimize 缓存用户拥有的菜单、API到{@linkplain KeyPool#token(java.lang.String) token}
+     *
+     * @param userEntity     user
+     * @param roleEntityList role list
+     * @return token value
+     */
+    public String buildTokenValue(UserEntity userEntity, List<RoleEntity> roleEntityList) {
+        return null;
+    }
+
+    public List<MenuTreeVO> wholeMenuTree() {
+        return menuPieceRecursion(0);
+    }
+
+    public List<MenuTreeVO> menuPieceRecursion(Integer parentId) {
+        List<MenuTreeVO> menuTreeVoList = getMenuByParentId(parentId);
+        if (CollectionUtil.isEmpty(menuTreeVoList)) {
+            return menuTreeVoList;
+        }
+        for (MenuTreeVO menuTreeVO : menuTreeVoList) {
+            menuTreeVO.setChildren(menuPieceRecursion(menuTreeVO.getId()));
+        }
+        return menuTreeVoList;
+    }
+
+    public List<MenuTreeVO> getMenuByParentId(Integer parentId) {
+        List<ResourceEntity> firstLevelMenu = listResource(EResourceType.MENU.getCode(), parentId);
+        return buildMenuTree(firstLevelMenu);
+    }
+
+    private List<MenuTreeVO> buildMenuTree(List<ResourceEntity> menuList) {
+        if (CollectionUtil.isEmpty(menuList)) {
+            return Collections.emptyList();
+        }
+        List<MenuTreeVO> retList = new ArrayList<>(menuList.size());
+        for (ResourceEntity entity : menuList) {
+            MenuTreeVO vo = new MenuTreeVO();
+            vo.setId(entity.getId());
+            vo.setName(entity.getName());
+            vo.setRoute(entity.getRoute());
+            vo.setMemo(entity.getMemo());
+            vo.setParentId(entity.getParentId());
+            retList.add(vo);
+        }
+        return retList;
+    }
+
+    public List<ResourceApiVO> buildApiSearchResponse(List<ResourceEntity> entityList) {
+        if (CollectionUtil.isEmpty(entityList)) {
+            return Collections.emptyList();
+        }
+        List<ResourceApiVO> retList = new ArrayList<>();
+        for (ResourceEntity entity : entityList) {
+            ResourceApiVO vo = new ResourceApiVO();
+            vo.setId(entity.getId());
+            vo.setName(entity.getName());
+            vo.setPath(entity.getPath());
+            vo.setContainPathVar(CodeNameVO.builder()
+                    .code(entity.getContainPathVar())
+                    .name(EContainPathVar.getNameByCode(entity.getContainPathVar()))
+                    .build());
+            vo.setParentId(entity.getParentId());
+            vo.setMemo(entity.getMemo());
+        }
+        return retList;
     }
 }

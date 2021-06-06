@@ -34,6 +34,7 @@ create table t_resource
     route            varchar(100) not null default '' comment 'page route.',
     path             varchar(250) not null default '' comment 'API path.',
     contain_path_var tinyint      not null default 0 comment '包含path variable.',
+    sort             int          not null default 0 comment '排序',
     memo             varchar(50)  not null default '' comment '备注',
     create_time      datetime     not null default current_timestamp() comment '创建时间',
     update_time      datetime     not null default current_timestamp() on update current_timestamp comment '更新时间',

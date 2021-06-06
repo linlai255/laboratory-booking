@@ -87,11 +87,13 @@ public class AccountController {
                 throw new BusinessException(Errors.THE_LOGIN_MODE_DISABLED);
             }
             data = phoneLoginService.login(request);
-        } else {
+        } else if (EDigit.ZERO.getCode().equals(request.getMode())) {
             if (!loginProperties.isEmailModeEnabled()) {
                 throw new BusinessException(Errors.THE_LOGIN_MODE_DISABLED);
             }
             data = emailLoginService.login(request);
+        } else {
+            throw new BusinessException(Errors.THE_LOGIN_MODE_DISABLED);
         }
         CookieUtil.addCookie(httpResponse, authProperties.getTokenKey(), data.getToken(), 0, httpRequest.getServerName());
         return ApiResponse.success(data);

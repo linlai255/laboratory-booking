@@ -1,12 +1,17 @@
 package com.ycourlee.ms.labbooking.controller;
 
 import com.ycourlee.ms.labbooking.model.bo.request.*;
+import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
+import com.ycourlee.ms.labbooking.model.vo.MenuTreeVO;
 import com.ycourlee.ms.labbooking.service.RbacService;
 import com.ycourlee.root.core.domain.context.ApiResponse;
+import com.ycourlee.root.core.dto.PageResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author yongjiang
@@ -50,6 +55,12 @@ public class RbacController {
         return ApiResponse.success(true);
     }
 
+    @ApiOperation("全局菜单树")
+    @GetMapping("/menu")
+    public ApiResponse<List<MenuTreeVO>> menuGet() {
+        return ApiResponse.success(rbacService.menuTree());
+    }
+
     @ApiOperation("保存菜单")
     @PostMapping("/menu")
     public ApiResponse<Integer> menuSave(@Validated @RequestBody MenuResSaveRequest request) {
@@ -67,6 +78,12 @@ public class RbacController {
     @PostMapping("/menu/bind")
     public ApiResponse<Integer> menuBindRes(@Validated @RequestBody MenuBindResRequest request) {
         return ApiResponse.success(rbacService.menuBindRes(request));
+    }
+
+    @ApiOperation("搜索API")
+    @GetMapping("/api")
+    public ApiResponse<PageResponse<ResourceApiVO>> apiSearch(@Validated @RequestBody ApiSearchRequest request) {
+        return ApiResponse.success(rbacService.apiSearch(request));
     }
 
     @ApiOperation("保存API")

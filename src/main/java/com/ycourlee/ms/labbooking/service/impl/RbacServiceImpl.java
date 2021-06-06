@@ -1,13 +1,17 @@
 package com.ycourlee.ms.labbooking.service.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.manager.RbacManager;
 import com.ycourlee.ms.labbooking.model.bo.request.*;
 import com.ycourlee.ms.labbooking.model.entity.ResourceEntity;
 import com.ycourlee.ms.labbooking.model.entity.RoleEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
+import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
+import com.ycourlee.ms.labbooking.model.vo.MenuTreeVO;
 import com.ycourlee.ms.labbooking.service.RbacService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
+import com.ycourlee.root.core.dto.PageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +54,11 @@ public class RbacServiceImpl implements RbacService {
     }
 
     @Override
+    public List<MenuTreeVO> menuTree() {
+        return rbacManager.wholeMenuTree();
+    }
+
+    @Override
     public Integer apiSave(ApiResSaveRequest request) {
         if (request.getContainPathVar() == null) {
             request.setContainPathVar(0);
@@ -60,6 +69,12 @@ public class RbacServiceImpl implements RbacService {
     @Override
     public void menuUpdate(MenuResUpdateRequest request) {
         rbacManager.updateMenu(request);
+    }
+
+    @Override
+    public PageResponse<ResourceApiVO> apiSearch(ApiSearchRequest request) {
+        List<ResourceEntity> entityList = rbacManager.listResourceApi(request, true);
+        return new PageResponse<>(request.getPage(), request.getPageSize(), new PageInfo<>().getTotal(), rbacManager.buildApiSearchResponse(entityList));
     }
 
     @Override

@@ -12,10 +12,12 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class CourseSearchRequest extends BasicPageRequest {
+public class ApiSearchRequest extends BasicPageRequest {
 
-    @ApiModelProperty("课程名称")
+    @ApiModelProperty("API名")
     private String  name;
-    @ApiModelProperty(value = "教师id", hidden = true)
-    private Integer teacherId;
+    @ApiModelProperty("API path")
+    private String  path;
+    @ApiModelProperty("包含路径变量 0不含 1含 默认0")
+    private Integer containPathVar;
 }
