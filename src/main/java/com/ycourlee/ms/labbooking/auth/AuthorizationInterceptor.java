@@ -5,14 +5,16 @@ import com.ycourlee.ms.labbooking.config.properties.LabSwitchProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.exception.AuthorizationException;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
+import com.ycourlee.ms.labbooking.manager.AccountCacheManager;
 import com.ycourlee.ms.labbooking.manager.RbacManager;
+import com.ycourlee.ms.labbooking.manager.spec.JwtIssuer;
 import com.ycourlee.ms.labbooking.manager.spec.Redis;
-import com.ycourlee.ms.labbooking.model.bo.AdminBO;
 import com.ycourlee.ms.labbooking.model.bo.ClaimValueBO;
 import com.ycourlee.ms.labbooking.model.bo.RoleBO;
-import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
-import com.ycourlee.ms.labbooking.model.entity.UserEntity;
+import com.ycourlee.ms.labbooking.model.bo.UserBO;
+import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.root.util.CollectionUtil;
+import com.ycourlee.root.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +38,14 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
     @Autowired
     private Redis               redis;
     @Autowired
+    private JwtIssuer           jwtIssuer;
+    @Autowired
     @Qualifier("authorizationProperties")
     private LabSwitchProperties authorizationProperties;
     @Autowired
     private RbacManager         rbacManager;
+    @Autowired
+    private AccountCacheManager accountCacheManager;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -48,54 +54,51 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
             return true;
         }
         // 授权
-        if (!authorizationProperties.isEnabled()||greenLight(request.getRequestURI())) {
+        if (!authorizationProperties.isEnabled() || authenticationGreenLight(request.getRequestURI())) {
             return true;
         }
 
         String token = request.getHeader(properties.getTokenKey());
-        ClaimValueBO claim = JSON.parseObject(redis.get(token), ClaimValueBO.class);
-        claim.assertValid();
+        if (StringUtil.isEmpty(token)) {
+            throw new AuthorizationException(Errors.TOKEN_NOT_FOUND);
+        }
 
-        UserEntity user = rbacManager.getUserNoDel(claim.getUserId());
-        AdminBO adminBO = null;
-        TeacherBO teacherBO = null;
-        if (user.getType().equals(EAccountType.ADMINISTRATOR.getCode())) {
-            adminBO = rbacManager.getAdminBo(user.getRefId());
-        } else if (user.getType().equals(EAccountType.TEACHER.getCode())) {
-            teacherBO = rbacManager.getTeacherBo(user.getRefId());
+        String userIdString = redis.get(KeyPool.tokenMapUid(token));
+        Integer userId;
+        ClaimValueBO claimValueBO = null;
+        if (StringUtil.isEmpty(userIdString)) {
+            claimValueBO = JSON.parseObject(jwtIssuer.parse(token), ClaimValueBO.class);
+            userId = claimValueBO.getUserId();
         } else {
-            throw new AuthorizationException(Errors.UNKNOWN_ACCOUNT_TYPE);
+            userId = Integer.parseInt(userIdString);
         }
-        if (adminBO == null && teacherBO == null) {
-            throw new AuthorizationException(Errors.UNKNOWN_USER);
+        String userBoJsonString = redis.get(KeyPool.uidMapContextInfo(userId));
+
+        if (StringUtil.isEmpty(userBoJsonString)) {
+            if (claimValueBO == null) {
+                claimValueBO = JSON.parseObject(jwtIssuer.parse(token), ClaimValueBO.class);
+            }
+            accountCacheManager.cacheUserContext(rbacManager.getUserNoDel(userId), claimValueBO.getRoles());
+            userBoJsonString = redis.get(KeyPool.uidMapContextInfo(userId));
         }
-        if (rbacManager.apiCheckErrored(request.getRequestURI(), claim.getRoles().stream().map(RoleBO::getId).collect(Collectors.toList()), claim.getUserId())) {
-            log.error("user[id: {}] want to access {}, it's illegal.", claim.getUserId(), request.getRequestURI());
+
+        UserBO userBO = JSON.parseObject(userBoJsonString, UserBO.class);
+
+        if (rbacManager.apiCheckErrored(request.getRequestURI(), request.getMethod(), userBO.getRoleList().stream().map(RoleBO::getId).collect(Collectors.toList()), userId)) {
+            log.error("user[id: {}, name: {}, username: {}, nickname: {}] want to access {}, it's illegal.",
+                    userId, userBO.getName(), userBO.getUsername(), userBO.getNickname(), request.getRequestURI());
             throw new AuthorizationException(Errors.AUTHORIZATION_FAILED);
         }
-        if (user.getType().equals(EAccountType.ADMINISTRATOR.getCode())) {
-            Context.builder()
-                    .userId(claim.getUserId())
-                    .phone(user.getPhone())
-                    .username(user.getUsername())
-                    .name(adminBO.getName())
-                    .type(EAccountType.ADMINISTRATOR.getCode())
-                    .adminBO(adminBO)
-                    .build();
-            return true;
-        }
-        if (user.getType().equals(EAccountType.TEACHER.getCode())) {
-            Context.builder()
-                    .userId(claim.getUserId())
-                    .phone(user.getPhone())
-                    .username(user.getUsername())
-                    .name(teacherBO.getName())
-                    .type(EAccountType.TEACHER.getCode())
-                    .teacherBO(teacherBO)
-                    .build();
-            return true;
-        }
-        return false;
+        Context.builder()
+                .userId(userId)
+                .refId(userBO.getRefId())
+                .phone(userBO.getPhone())
+                .nickname(userBO.getNickname())
+                .username(userBO.getUsername())
+                .name(userBO.getName())
+                .type(EAccountType.ADMINISTRATOR.getCode())
+                .build();
+        return true;
     }
 
     @Override

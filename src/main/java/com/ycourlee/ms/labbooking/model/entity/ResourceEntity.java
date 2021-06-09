@@ -47,6 +47,12 @@ public class ResourceEntity {
     private String route;
 
     /**
+     * 请求方法
+     */
+    @ApiModelProperty(value = "请求方法")
+    private String method;
+
+    /**
      * API path.
      */
     @ApiModelProperty(value = "API path.")

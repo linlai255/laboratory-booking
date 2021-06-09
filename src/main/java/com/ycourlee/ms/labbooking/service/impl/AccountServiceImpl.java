@@ -1,6 +1,7 @@
 package com.ycourlee.ms.labbooking.service.impl;
 
 import com.ycourlee.ms.labbooking.exception.error.Errors;
+import com.ycourlee.ms.labbooking.manager.AccountCacheManager;
 import com.ycourlee.ms.labbooking.manager.AccountManager;
 import com.ycourlee.ms.labbooking.manager.RbacManager;
 import com.ycourlee.ms.labbooking.manager.spec.AliyunDysms;
@@ -12,6 +13,7 @@ import com.ycourlee.ms.labbooking.service.AccountService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.ms.labbooking.util.RegexUtil;
+import com.ycourlee.root.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +24,17 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    private AccountManager   accountManager;
+    private AccountManager      accountManager;
     @Autowired
-    private RbacManager      rbacManager;
+    private RbacManager         rbacManager;
     @Autowired
-    private AliyunDysms      aliyunDysms;
+    private AliyunDysms         aliyunDysms;
     @Autowired
-    private Redis            redis;
+    private Redis               redis;
     @Autowired
-    private VerifyCodeSender verifyCodeSender;
+    private VerifyCodeSender    verifyCodeSender;
+    @Autowired
+    private AccountCacheManager accountCacheManager;
 
     @Override
     public void verifyCode(Integer type, String phone) {
@@ -67,6 +71,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void logout(String token) {
-        redis.delete(KeyPool.token(token));
+        String userIdString = redis.get(KeyPool.tokenMapUid(token));
+        if (StringUtil.isNotEmpty(userIdString)) {
+            accountCacheManager.expireUserContextCache(Integer.parseInt(userIdString));
+        }
+        accountCacheManager.expireToken(token);
     }
 }

@@ -9,6 +9,7 @@
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
     <result column="route" jdbcType="VARCHAR" property="route"/>
+    <result column="method" jdbcType="VARCHAR" property="method"/>
     <result column="path" jdbcType="VARCHAR" property="path"/>
     <result column="contain_path_var" jdbcType="INTEGER" property="containPathVar"/>
     <result column="sort" jdbcType="INTEGER" property="sort"/>
@@ -19,7 +20,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `type`, `name`, parent_id, route, `path`, contain_path_var, sort, memo, create_time,
+    id, `type`, `name`, parent_id, route, method, `path`, contain_path_var, sort, memo, create_time,
     update_time, is_delete
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -45,11 +46,11 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ycourlee.ms.labbooking.model.entity.ResourceEntity" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into t_resource (`type`, `name`, parent_id,
-                            route, `path`, contain_path_var, sort,
+                            route, method, `path`, contain_path_var, sort,
                             memo, create_time, update_time,
                             is_delete)
     values (#{type,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
-            #{route,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{containPathVar,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER},
+            #{route,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{containPathVar,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER},
             #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
             #{isDelete,jdbcType=INTEGER})
   </insert>
@@ -68,6 +69,9 @@
       </if>
       <if test="route != null">
         route,
+      </if>
+      <if test="method != null">
+        method,
       </if>
       <if test="path != null">
         `path`,
@@ -103,6 +107,9 @@
       </if>
       <if test="route != null">
         #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
       </if>
       <if test="path != null">
         #{path,jdbcType=VARCHAR},
@@ -143,6 +150,9 @@
       <if test="route != null">
         route = #{route,jdbcType=VARCHAR},
       </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
       <if test="path != null">
         `path` = #{path,jdbcType=VARCHAR},
       </if>
@@ -174,6 +184,7 @@
         `name`           = #{name,jdbcType=VARCHAR},
         parent_id        = #{parentId,jdbcType=INTEGER},
         route            = #{route,jdbcType=VARCHAR},
+        method           = #{method,jdbcType=VARCHAR},
         `path`           = #{path,jdbcType=VARCHAR},
         contain_path_var = #{containPathVar,jdbcType=INTEGER},
         sort             = #{sort,jdbcType=INTEGER},
@@ -225,11 +236,11 @@
        or parent_id = #{id}
   </update>
 
-  <select id="selectByApiPath" resultMap="BaseResultMap">
+  <select id="selectByFclApiPathMethod" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_resource
-    where path = #{uri}
+    where path = #{uri} and method = #{method}
       and is_delete = 0
   </select>
 
@@ -247,18 +258,21 @@
     order by sort asc
   </select>
 
-  <select id="listApiByDclNamePathContainPathVar" resultMap="BaseResultMap">
+  <select id="listApiByDclSearchBo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_resource where type = 2
-    <if test="path != null and path != ''">
-      and path like concat('', #{path}, '%')
+    <if test="bo.path != null and bo.path != ''">
+      and path like concat('', #{bo.path}, '%')
     </if>
-    <if test="name != null and name != ''">
-      and name like concat('%', #{name}, '%')
+    <if test="bo.method != null and bo.method != ''">
+      and method = #{bo.method}
     </if>
-    <if test="containPathVar != null">
-      and contain_path_var = #{containPathVar}
+    <if test="bo.name != null and bo.name != ''">
+      and name like concat('%', #{bo.name}, '%')
+    </if>
+    <if test="bo.containPathVar != null">
+      and contain_path_var = #{bo.containPathVar}
     </if>
     and is_delete = 0
   </select>

@@ -15,15 +15,15 @@ import lombok.ToString;
 public class ResourceApiVO {
 
     @ApiModelProperty("id")
-    private Integer id;
+    private Integer    id;
     @ApiModelProperty("API名")
-    private String  name;
+    private String     name;
     @ApiModelProperty("API path")
-    private String  path;
-    @ApiModelProperty("是否包含路径变量")
+    private String     path;
+    @ApiModelProperty("是否包含路径变量 0否 1是")
     private CodeNameVO containPathVar;
     @ApiModelProperty("父id")
-    private Integer parentId;
+    private Integer    parentId;
     @ApiModelProperty("备注")
-    private String  memo;
+    private String     memo;
 }

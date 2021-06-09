@@ -1,7 +1,5 @@
 package com.ycourlee.ms.labbooking.auth;
 
-import com.ycourlee.ms.labbooking.model.bo.AdminBO;
-import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
 import lombok.Builder;
 
 /**
@@ -16,26 +14,26 @@ public class Context {
      * 用户名
      */
     private              String               username;
+    private              String               nickname;
     /**
      * 真实姓名
      */
     private              String               name;
     private              String               phone;
     private              Integer              type;
-    private              AdminBO              adminBO;
-    private              TeacherBO            teacherBO;
+    private              Integer              refId;
 
     private Context() {}
 
-    private Context(Integer userId, String username, String name, String phone, Integer type, AdminBO adminBO, TeacherBO teacherBO) {
+    private Context(Integer userId, String username, String nickname, String name, String phone, Integer type, Integer refId) {
         this.userId = userId;
         this.username = username;
+        this.nickname = nickname;
         this.name = name;
         this.phone = phone;
         this.type = type;
-        this.adminBO = adminBO;
-        this.teacherBO = teacherBO;
-        this.setContext(this);
+        this.refId = refId;
+        setContext(this);
     }
 
     public static void clean() {
@@ -66,12 +64,12 @@ public class Context {
         return threadInstance().type;
     }
 
-    public static AdminBO getAdminBO() {
-        return threadInstance().adminBO;
+    public static String getNickname() {
+        return threadInstance().nickname;
     }
 
-    public static TeacherBO getTeacherBO() {
-        return threadInstance().teacherBO;
+    public static Integer getRefId() {
+        return threadInstance().refId;
     }
 
     public void setContext(Context context) {

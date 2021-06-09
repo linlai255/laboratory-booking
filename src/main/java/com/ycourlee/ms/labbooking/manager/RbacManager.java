@@ -4,16 +4,18 @@ import com.github.pagehelper.PageHelper;
 import com.ycourlee.ms.labbooking.config.properties.LabDefaultRoleProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.enums.EContainPathVar;
+import com.ycourlee.ms.labbooking.enums.ERequestMethod;
 import com.ycourlee.ms.labbooking.enums.EResourceType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
 import com.ycourlee.ms.labbooking.mapper.*;
 import com.ycourlee.ms.labbooking.model.bo.AdminBO;
+import com.ycourlee.ms.labbooking.model.bo.ApiSearchBO;
 import com.ycourlee.ms.labbooking.model.bo.TeacherBO;
 import com.ycourlee.ms.labbooking.model.bo.request.*;
 import com.ycourlee.ms.labbooking.model.entity.*;
 import com.ycourlee.ms.labbooking.model.vo.CodeNameVO;
-import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
 import com.ycourlee.ms.labbooking.model.vo.MenuTreeVO;
+import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.root.core.context.BusinessException;
@@ -158,6 +160,7 @@ public class RbacManager {
         ResourceEntity record = new ResourceEntity();
         record.setType(EResourceType.API.getCode());
         record.setPath(request.getPath());
+        record.setMethod(ERequestMethod.getNameByCode(request.getMethod()));
         record.setContainPathVar(request.getContainPathVar());
         record.setName(request.getName());
         record.setMemo(request.getMemo());
@@ -180,6 +183,7 @@ public class RbacManager {
         record.setId(request.getId());
         record.setName(request.getName());
         record.setPath(request.getPath());
+        record.setMethod(request.getMethod());
         record.setParentId(request.getParentId());
         record.setContainPathVar(request.getContainPathVar());
         record.setMemo(request.getMemo());
@@ -251,7 +255,12 @@ public class RbacManager {
         if (needPaging) {
             PageHelper.startPage(request.getPage(), request.getPageSize());
         }
-        return resourceMapper.listApiByDclNamePathContainPathVar(request.getName(), request.getPath(), request.getContainPathVar());
+        ApiSearchBO searchBO = new ApiSearchBO();
+        searchBO.setName(request.getName());
+        searchBO.setPath(request.getPath());
+        searchBO.setMethod(ERequestMethod.getNameByCode(request.getMethod()));
+        searchBO.setContainPathVar(request.getContainPathVar());
+        return resourceMapper.listApiByDclSearchBo(searchBO);
     }
 
     public List<ResourceEntity> listResource(@Nullable Integer type, @Nullable Integer parentId) {
@@ -317,8 +326,8 @@ public class RbacManager {
         return teacherBO;
     }
 
-    public boolean apiCheckErrored(String uri, List<Integer> roleIdList, int userId) {
-        ResourceEntity resourceEntity = resourceMapper.selectByApiPath(uri);
+    public boolean apiCheckErrored(String uri, String method, List<Integer> roleIdList, int userId) {
+        ResourceEntity resourceEntity = resourceMapper.selectByFclApiPathMethod(uri, method);
         List<Integer> haveAccessAbilityRoleIdList = roleResourceMapper.listOrderedRoleIdByResId(resourceEntity.getId());
         for (Integer roleId : roleIdList) {
             if (Collections.binarySearch(haveAccessAbilityRoleIdList, roleId) >= 0) {
@@ -343,7 +352,7 @@ public class RbacManager {
     }
 
     /**
-     * optimize 缓存用户拥有的菜单、API到{@linkplain KeyPool#token(java.lang.String) token}
+     * optimize 缓存用户拥有的菜单、API到{@linkplain KeyPool#tokenMapUid(java.lang.String) token}
      *
      * @param userEntity     user
      * @param roleEntityList role list

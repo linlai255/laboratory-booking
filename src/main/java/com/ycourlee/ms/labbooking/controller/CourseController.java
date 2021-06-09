@@ -43,7 +43,7 @@ public class CourseController {
     @GetMapping
     public ApiResponse<PageResponse<CourseSearchVO>> search(@RequestBody CourseSearchRequest request) {
         if (EAccountType.TEACHER.getCode().equals(Context.getType())) {
-            request.setTeacherId(Context.getTeacherBO().getId());
+            request.setTeacherId(Context.getRefId());
         }
         return ApiResponse.success(courseService.search(request));
     }

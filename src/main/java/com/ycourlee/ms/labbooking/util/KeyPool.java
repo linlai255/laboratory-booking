@@ -9,17 +9,25 @@ public class KeyPool {
      * @param token issued token
      * @return key
      */
-    public static String token(String token) {
+    public static String tokenMapUid(String token) {
         return "TOKEN:" + token;
     }
 
+    public static String uidMapContextInfo(Integer uid) {
+        return "UID:" + uid;
+    }
+
+    public static String uidMapUserType(Integer uid) {
+        return "U_TYPE:" + uid;
+    }
+
     /**
-     * two hours.
+     * 1 day
      *
      * @return duration
      */
     public static long defaultTokenExpireTime() {
-        return 60L * 60 * 2;
+        return 60L * 60 * 24;
     }
 
     /**

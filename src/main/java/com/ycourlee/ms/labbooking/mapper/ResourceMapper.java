@@ -1,8 +1,8 @@
 package com.ycourlee.ms.labbooking.mapper;
 
+import com.ycourlee.ms.labbooking.model.bo.ApiSearchBO;
 import com.ycourlee.ms.labbooking.model.entity.ResourceEntity;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 import java.util.List;
@@ -36,11 +36,9 @@ public interface ResourceMapper {
 
     int removeFromResourceAndParentResource(Integer id);
 
-    ResourceEntity selectByApiPath(String uri);
+    ResourceEntity selectByFclApiPathMethod(@Param("uri") String uri, @Param("method") String method);
 
     List<ResourceEntity> listOrderedSortByDclTypeParentId(@Param("type") Integer type, @Param("parentId") Integer parentId);
 
-    List<ResourceEntity> listApiByDclNamePathContainPathVar(@Param("name") @Nullable String name,
-                                                            @Param("path") @Nullable String path,
-                                                            @Param("containPathVar") @Nullable Integer containPathVar);
+    List<ResourceEntity> listApiByDclSearchBo(@Param("bo") ApiSearchBO bo);
 }

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.ycourlee.ms.labbooking.config.properties.LabAppRegistrationProperties;
 import com.ycourlee.ms.labbooking.enums.EAccountType;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
-import com.ycourlee.ms.labbooking.manager.spec.JwtIssuer;
 import com.ycourlee.ms.labbooking.manager.spec.Redis;
 import com.ycourlee.ms.labbooking.mapper.UserMapper;
 import com.ycourlee.ms.labbooking.model.bo.ClaimValueBO;
@@ -39,9 +38,9 @@ public class AccountManager {
     @Autowired
     private Redis                        redis;
     @Autowired
-    private JwtIssuer                    jwtIssuer;
-    @Autowired
     private LabAppRegistrationProperties properties;
+    @Autowired
+    private AccountCacheManager          accountCacheManager;
 
     @Deprecated
     public boolean noAliveCodeCurrentPhone(String phone) {
@@ -105,38 +104,31 @@ public class AccountManager {
         return userEntity;
     }
 
-    public String buildJsonClaimValue(UserEntity userEntity, List<RoleEntity> roleEntityList) {
+    public String buildJsonClaimValue(UserEntity userEntity, List<RoleBO> roleBoList) {
         return JSON.toJSONString(ClaimValueBO.builder()
                 .userId(userEntity.getId())
                 .refId(userEntity.getRefId())
-                .roles(roleEntityList.stream()
-                        .map(entity -> RoleBO.builder()
-                                .id(entity.getId())
-                                .name(entity.getName()).build())
-                        .collect(Collectors.toList()))
+                .roles(roleBoList)
                 .build());
     }
 
-    public String cacheLoginStatus(String jsonClaimValue, Boolean rememberMe) {
-        String token = jwtIssuer.issue(jsonClaimValue);
-        if (rememberMe != null && rememberMe) {
-            redis.setEx(KeyPool.token(token), jsonClaimValue, KeyPool.days7InSeconds());
-            return token;
-        }
-        redis.setEx(KeyPool.token(token), jsonClaimValue, KeyPool.defaultTokenExpireTime());
-        return token;
-    }
-
     public LoginResponse buildLoginResponse(UserEntity userEntity, boolean rememberMe) {
-        List<RoleEntity> roleEntityList = rbacManager.listRole(userEntity.getId());
+        List<RoleBO> roleBOList = buildRoleBoList(rbacManager.listRole(userEntity.getId()));
         return LoginResponse.builder()
                 .username(userEntity.getUsername())
                 .name(rbacManager.getName(userEntity.getType(), userEntity.getRefId()))
-                .token(cacheLoginStatus(buildJsonClaimValue(userEntity, roleEntityList), rememberMe))
+                .token(accountCacheManager.cacheLoginStatus(userEntity, roleBOList, buildJsonClaimValue(userEntity, roleBOList), rememberMe))
                 .type(userEntity.getType())
-                .roles(roleEntityList.stream()
-                        .map(RoleEntity::getName)
+                .roles(roleBOList.stream()
+                        .map(RoleBO::getName)
                         .collect(Collectors.toList()))
                 .build();
+    }
+
+    public List<RoleBO> buildRoleBoList(List<RoleEntity> roleEntityList) {
+        return roleEntityList.stream()
+                .map(entity -> RoleBO.builder()
+                        .id(entity.getId())
+                        .name(entity.getName()).build()).collect(Collectors.toList());
     }
 }

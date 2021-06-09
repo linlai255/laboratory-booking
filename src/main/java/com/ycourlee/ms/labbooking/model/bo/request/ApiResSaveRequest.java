@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author yongjiang
@@ -21,6 +22,9 @@ public class ApiResSaveRequest {
     @NotEmpty
     @ApiModelProperty("uri")
     private String  path;
+    @NotNull
+    @ApiModelProperty("方法")
+    private Integer method;
     @ApiModelProperty("是否包含路径变量 0.否 1.是")
     private Integer containPathVar;
     @ApiModelProperty("备注")

@@ -53,7 +53,7 @@ public class LaboratoryController {
     }
 
     @ApiOperation("删除")
-    @DeleteMapping("/delete/{id:[0-9]+}")
+    @DeleteMapping("/{id:[0-9]+}")
     public ApiResponse<Object> delete(@PathVariable Integer id) {
         laboratoryService.delete(id);
         return ApiResponse.success();

@@ -79,7 +79,7 @@ public class AuthenticationFilter extends LabAuth implements Filter {
             responseException(httpRequest, httpResponse, Errors.UNAVAILABLE_TOKEN);
             return;
         }
-        if (StringUtil.isEmpty(redis.get(KeyPool.token(token)))) {
+        if (StringUtil.isEmpty(redis.get(KeyPool.tokenMapUid(token)))) {
             responseException(httpRequest, httpResponse, Errors.TOKEN_EXPIRED);
         }
     }

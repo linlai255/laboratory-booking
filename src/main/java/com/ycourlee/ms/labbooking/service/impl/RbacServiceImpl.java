@@ -2,13 +2,14 @@ package com.ycourlee.ms.labbooking.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.ycourlee.ms.labbooking.exception.error.Errors;
+import com.ycourlee.ms.labbooking.manager.AccountCacheManager;
 import com.ycourlee.ms.labbooking.manager.RbacManager;
 import com.ycourlee.ms.labbooking.model.bo.request.*;
 import com.ycourlee.ms.labbooking.model.entity.ResourceEntity;
 import com.ycourlee.ms.labbooking.model.entity.RoleEntity;
 import com.ycourlee.ms.labbooking.model.entity.UserEntity;
-import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
 import com.ycourlee.ms.labbooking.model.vo.MenuTreeVO;
+import com.ycourlee.ms.labbooking.model.vo.ResourceApiVO;
 import com.ycourlee.ms.labbooking.service.RbacService;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.root.core.dto.PageResponse;
@@ -24,14 +25,18 @@ import java.util.List;
 public class RbacServiceImpl implements RbacService {
 
     @Autowired
-    private RbacManager rbacManager;
+    private RbacManager         rbacManager;
+    @Autowired
+    private AccountCacheManager accountCacheManager;
 
     @Override
     public Integer userBindRole(UserBindRoleRequest request) {
         UserEntity user = rbacManager.getUserNoDel(request.getUserId());
         BizAssert.that(user != null, Errors.USER_NOT_EXISTS);
         BizAssert.that(rbacManager.countRole(request.getRoleIdSet()) == request.getRoleIdSet().size(), Errors.ROLE_NEED_BIND_NOT_EXISTS);
-        return rbacManager.bindRolesToUser(user.getId(), request.getRoleIdSet());
+        int rows = rbacManager.bindRolesToUser(user.getId(), request.getRoleIdSet());
+        accountCacheManager.expireUserContextCache(request.getUserId());
+        return rows;
     }
 
     @Override

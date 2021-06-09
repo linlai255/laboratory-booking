@@ -7,19 +7,23 @@ import java.util.Objects;
 /**
  * @author yongjiang
  */
-public enum EContainPathVar {
+public enum ERequestMethod {
 
     /**
-     * 0否 1否
+     *
      */
-    NO(0, "否"),
-    YES(1, "是"),
+    GET(1, "get"),
+    POST(2, "post"),
+    PUT(3, "put"),
+    DELETE(4, "delete"),
+    OPTION(5, "option"),
+
     ;
 
-    private static final Map<Integer, EContainPathVar> ALL = new HashMap<>();
+    private static final Map<Integer, ERequestMethod> ALL = new HashMap<>();
 
     static {
-        for (EContainPathVar item : EContainPathVar.values()) {
+        for (ERequestMethod item : ERequestMethod.values()) {
             ALL.put(item.getCode(), item);
         }
     }
@@ -27,17 +31,17 @@ public enum EContainPathVar {
     private final Integer code;
     private final String  name;
 
-    EContainPathVar(Integer code, String name) {
+    ERequestMethod(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static EContainPathVar instanceOf(Integer code) {
+    public static ERequestMethod instanceOf(Integer code) {
         return ALL.get(code);
     }
 
     public static String getNameByCode(Integer code) {
-        EContainPathVar e = instanceOf(code);
+        ERequestMethod e = instanceOf(code);
         return Objects.nonNull(e) ? e.getName() : "";
     }
 

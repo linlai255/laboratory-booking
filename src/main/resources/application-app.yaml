@@ -16,21 +16,13 @@ lab-app:
     admin-whitelist:
       - ycourlee@qq.com
 
-aliyun:
-  dysms:
-    access-key-id:
-    access-key-secret:
-    enabled: false
-    verify-code-alive-timeout: 60
-    endpoint: dysmsapi.aliyuncs.com
-
 logging:
   level:
     root: info
 
 spring:
   mail:
-    host: smtp.qq.com
-    port: 587
-    username: ycourlee@qq.com
-    password: @ycourlee.email.smtp.password@
+    host: @lab-booking.noreply.email.smtp.host@
+    port: @lab-booking.noreply.email.smtp.host@
+    username: @lab-booking.noreply.email.smtp.username@
+    password: @lab-booking.noreply.email.smtp.password@

@@ -7,6 +7,7 @@ import com.ycourlee.root.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
@@ -24,23 +25,25 @@ public class VerifyCodeSender {
     @Autowired
     private              MailSender mailSender;
     @Autowired
-    private              Redis      redis;
+    private MailProperties mailProperties;
+    @Autowired
+    private Redis          redis;
 
     public String sendEmailVerifyCodeWhenRegistration(String email) {
         String code = String.valueOf(RandomUtil.RANDOM.nextInt(1000000));
         try {
             mailSender.send(buildRegistrationVerifyCode(email, code));
-            redis.setEx(KeyPool.registerCodeApplyFrequencyLock(email), code, APPLY_VERIFY_CODE_INTERVAL_IN_SECONDS);
         } catch (Exception e) {
             log.error("registration verify code send error. e message: {}", e.getMessage());
             throw new BusinessException(Errors.EMAIL_SEND_FAILED);
         }
+        redis.setEx(KeyPool.registerCodeApplyFrequencyLock(email), code, APPLY_VERIFY_CODE_INTERVAL_IN_SECONDS);
         return code;
     }
 
     private SimpleMailMessage buildRegistrationVerifyCode(String email, String code) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("ycourlee@qq.com");
+        mailMessage.setFrom(mailProperties.getUsername());
         mailMessage.setSubject("Lab-booking");
         mailMessage.setTo(email);
         mailMessage.setCc(email);
