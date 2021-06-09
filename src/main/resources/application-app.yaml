@@ -23,6 +23,6 @@ logging:
 spring:
   mail:
     host: @lab-booking.noreply.email.smtp.host@
-    port: @lab-booking.noreply.email.smtp.host@
+    port: @lab-booking.noreply.email.smtp.port@
     username: @lab-booking.noreply.email.smtp.username@
     password: @lab-booking.noreply.email.smtp.password@
