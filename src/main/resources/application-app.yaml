@@ -10,11 +10,15 @@ lab-app:
       - /api/v1/login
       - /api/v1/register
       - /api/v1/sign-up
+    enabled: false
   login:
     email-mode-enabled: true
   registration:
     admin-whitelist:
       - ycourlee@qq.com
+    admin:
+      default-role-id:
+        - 1
 
 logging:
   level:

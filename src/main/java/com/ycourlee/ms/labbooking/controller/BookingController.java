@@ -29,7 +29,7 @@ public class BookingController {
     }
 
     @GetMapping
-    public ApiResponse<PageResponse<BookingRecordVO>> bookingRecord(@Validated @RequestBody BookingRecordRequest request) {
+    public ApiResponse<PageResponse<BookingRecordVO>> bookingRecord(@Validated BookingRecordRequest request) {
         return ApiResponse.success(bookingService.bookingRecord(request));
     }
 

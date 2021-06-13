@@ -20,6 +20,8 @@ public class ResourceApiVO {
     private String     name;
     @ApiModelProperty("API path")
     private String     path;
+    @ApiModelProperty("方法")
+    private String     method;
     @ApiModelProperty("是否包含路径变量 0否 1是")
     private CodeNameVO containPathVar;
     @ApiModelProperty("父id")

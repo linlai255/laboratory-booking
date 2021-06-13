@@ -27,7 +27,7 @@ public class LaboratoryController {
 
     @ApiOperation("搜索")
     @GetMapping
-    public ApiResponse<PageResponse<LabSearchVO>> search(@RequestBody LabSearchRequest request) {
+    public ApiResponse<PageResponse<LabSearchVO>> search(LabSearchRequest request) {
         return ApiResponse.success(laboratoryService.search(request));
     }
 

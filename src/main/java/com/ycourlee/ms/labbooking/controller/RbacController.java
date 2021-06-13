@@ -82,7 +82,7 @@ public class RbacController {
 
     @ApiOperation("搜索API")
     @GetMapping("/api")
-    public ApiResponse<PageResponse<ResourceApiVO>> apiSearch(@Validated @RequestBody ApiSearchRequest request) {
+    public ApiResponse<PageResponse<ResourceApiVO>> apiSearch(@Validated ApiSearchRequest request) {
         return ApiResponse.success(rbacService.apiSearch(request));
     }
 

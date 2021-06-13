@@ -41,7 +41,7 @@ public class CourseController {
 
     @ApiOperation("搜索")
     @GetMapping
-    public ApiResponse<PageResponse<CourseSearchVO>> search(@RequestBody CourseSearchRequest request) {
+    public ApiResponse<PageResponse<CourseSearchVO>> search(CourseSearchRequest request) {
         if (EAccountType.TEACHER.getCode().equals(Context.getType())) {
             request.setTeacherId(Context.getRefId());
         }

@@ -409,12 +409,14 @@ public class RbacManager {
             vo.setId(entity.getId());
             vo.setName(entity.getName());
             vo.setPath(entity.getPath());
+            vo.setMethod(entity.getMethod());
             vo.setContainPathVar(CodeNameVO.builder()
                     .code(entity.getContainPathVar())
                     .name(EContainPathVar.getNameByCode(entity.getContainPathVar()))
                     .build());
             vo.setParentId(entity.getParentId());
             vo.setMemo(entity.getMemo());
+            retList.add(vo);
         }
         return retList;
     }
