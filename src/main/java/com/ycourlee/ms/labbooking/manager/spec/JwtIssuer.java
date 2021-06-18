@@ -1,6 +1,8 @@
 package com.ycourlee.ms.labbooking.manager.spec;
 
 import com.ycourlee.ms.labbooking.config.properties.LabJwtProperties;
+import com.ycourlee.ms.labbooking.exception.error.Errors;
+import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.util.Assert;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -49,20 +51,25 @@ public class JwtIssuer {
             Claims claims = claimsOf(jwt);
             Assert.that(claims.getIssuer().equals(properties.getIssuer()), "[ jwt ] unknown issuer. it's: " + jwt);
             Assert.that(claims.getSubject().equals(properties.getSubject()), "[ jwt ] unknown subject. it's: " + jwt);
-            return true;
+            return false;
         } catch (ExpiredJwtException e) {
             log.warn("[ jwt ] expired. it's: {}. e:{}.", jwt, e.getMessage());
-            return false;
         } catch (Exception e) {
             log.error("[ jwt ] parse error. it's: {}. e: {}.", jwt, e.getMessage());
-            return false;
         }
+        return true;
     }
 
     public Claims claimsOf(String jwt) {
-        return Jwts.parser()
-                .setSigningKey(properties.getBase64EncodedSecretKey())
-                .parseClaimsJws(unwrapJwt(jwt)).getBody();
+        try {
+            return Jwts.parser()
+                    .setSigningKey(properties.getBase64EncodedSecretKey())
+                    .parseClaimsJws(unwrapJwt(jwt)).getBody();
+        } catch (ExpiredJwtException e) {
+            throw new BusinessException(Errors.TOKEN_EXPIRED);
+        } catch (Exception e) {
+            throw new BusinessException(Errors.UNKNOWN);
+        }
     }
 
     private String wrapJwt(String jwt) {

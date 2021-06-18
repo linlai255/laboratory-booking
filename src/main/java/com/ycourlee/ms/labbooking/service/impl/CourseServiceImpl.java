@@ -44,7 +44,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public PageResponse<CourseSearchVO> search(CourseSearchRequest request) {
         List<CourseEntity> entityList = courseManager.list(request, true);
-        return new PageResponse<>(request.getPage(), request.getPageSize(), new PageInfo<>().getTotal(), courseManager.buildSearchVoList(entityList));
+        return new PageResponse<>(request.getPage(), request.getPageSize(), new PageInfo<>(entityList).getTotal(), courseManager.buildSearchVoList(entityList));
     }
 
     @Override

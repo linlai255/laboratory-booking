@@ -38,20 +38,20 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void verifyCode(Integer type, String phone) {
-        BizAssert.that(RegexUtil.isPhone(phone), "手机号格式不正确");
+        BizAssert.that(RegexUtil.isPhone(phone), Errors.PHONE_FORMAT_ERROR);
         BizAssert.isNull(accountManager.queryUserBy(type, phone, null), Errors.PHONE_NUMBER_ALREADY_EXISTS);
         accountManager.adminFilter(type, phone);
-        BizAssert.that(accountManager.noAliveCodeCurrentPhone(phone), "验证码每60s只可获取一次");
+        BizAssert.that(accountManager.noAliveCodeCurrentPhone(phone), Errors.VERIFY_CODE_RETURN_PRE_60S);
         String code = aliyunDysms.sendVerifyCodeWhenRegister(phone);
         redis.setEx(KeyPool.registerCode(phone), accountManager.bindType(type, code), VerifyCodeSender.VERIFY_CODE_TIMEOUT_IN_SECONDS);
     }
 
     @Override
     public void verifyCodeByEmail(Integer type, String email) {
-        BizAssert.that(RegexUtil.isEmail(email), "邮箱格式不正确");
+        BizAssert.that(RegexUtil.isEmail(email), Errors.EMAIL_FORMAT_ERROR);
         BizAssert.isNull(accountManager.queryUserBy(type, null, email), Errors.EMAIL_ALREADY_EXISTS);
         accountManager.adminFilter(type, email);
-        BizAssert.that(accountManager.noAliveCodeCurrentAccount(email), "验证码每60s只可获取一次");
+        BizAssert.that(accountManager.noAliveCodeCurrentAccount(email), Errors.VERIFY_CODE_RETURN_PRE_60S);
         String code = verifyCodeSender.sendEmailVerifyCodeWhenRegistration(email);
         redis.setEx(KeyPool.registerCode(email), accountManager.bindType(type, code), VerifyCodeSender.VERIFY_CODE_TIMEOUT_IN_SECONDS);
     }

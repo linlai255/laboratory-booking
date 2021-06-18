@@ -112,6 +112,7 @@ public class AccountController {
     public ApiResponse<Object> logout(HttpServletRequest httpRequest,
                                       HttpServletResponse httpResponse) {
         accountService.logout(httpRequest.getHeader(authProperties.getTokenKey()));
+        CookieUtil.addCookie(httpResponse, authProperties.getTokenKey(), "", 0, httpRequest.getServerName());
         return ApiResponse.success(true);
     }
 }

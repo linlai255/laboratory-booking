@@ -11,6 +11,7 @@ import com.ycourlee.ms.labbooking.model.entity.CourseEntity;
 import com.ycourlee.ms.labbooking.model.vo.CourseSearchVO;
 import com.ycourlee.ms.labbooking.util.BizAssert;
 import com.ycourlee.root.util.CollectionUtil;
+import com.ycourlee.root.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,8 @@ public class CourseManager {
     private BookingRecordMapper bookingRecordMapper;
 
     public Integer save(CourseEntity entity) {
-        return courseMapper.updateByPrimaryKeySelective(entity);
+        courseMapper.insertSelective(entity);
+        return entity.getId();
     }
 
     public void update(CourseEntity entity) {
@@ -68,7 +70,7 @@ public class CourseManager {
     public CourseEntity buildCourseEntity(CourseSaveRequest request) {
         CourseEntity entity = new CourseEntity();
         entity.setName(request.getName());
-        entity.setTeacherId(request.getTeacherId());
+        entity.setTeacherId(request.getRefId());
         entity.setStudentAmount(request.getStudentAmount());
         entity.setClassHours(request.getClassHours());
         entity.setMemo(request.getMemo());
@@ -111,7 +113,7 @@ public class CourseManager {
             courseVO.setStudentAmount(entity.getStudentAmount());
             courseVO.setClassHours(entity.getClassHours());
             courseVO.setMemo(entity.getMemo());
-            courseVO.setUpdateTime(entity.getUpdateTime());
+            courseVO.setUpdateTime(DateUtil.format(entity.getUpdateTime(), DateUtil.NO_SECOND));
             courseVO.setUpdateUserId(entity.getUpdateUserId());
             courseVO.setUpdateUsername(entity.getUpdateUsername());
             courseVoList.add(courseVO);

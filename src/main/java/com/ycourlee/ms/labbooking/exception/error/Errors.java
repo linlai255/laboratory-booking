@@ -53,6 +53,10 @@ public enum Errors implements CmReturn {
     HAVE_ALREADY_BOUND_ROLE(10037, "存在已绑定过的角色"),
     ADMIN_NOT_FOUND(10038, "管理员不存在"),
     TEACHER_NOT_FOUND(10039, "教师不存在"),
+    VERIFY_CODE_ERROR(10040, "验证码错误"),
+    PHONE_FORMAT_ERROR(10041, "手机号格式不正确"),
+    EMAIL_FORMAT_ERROR(10042, "邮箱格式不正确"),
+    VERIFY_CODE_RETURN_PRE_60S(10043, "验证码只能每60s获取一次"),
 
 
     /**

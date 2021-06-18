@@ -19,7 +19,7 @@ public class LoginServiceEmailImpl implements LoginService {
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        UserEntity userEntity = accountManager.verifyAccountAndPasswordByEmail(request.getRegisterType(), request.getAccount(), request.getPassword());
+        UserEntity userEntity = accountManager.verifyAccountAndPasswordByEmail(request.getRegisterType(), request.getPassword(), request.getAccount());
         return accountManager.buildLoginResponse(userEntity, request.getRememberMe());
     }
 }

@@ -21,6 +21,7 @@ import com.ycourlee.ms.labbooking.util.KeyPool;
 import com.ycourlee.root.core.context.BusinessException;
 import com.ycourlee.root.util.CollectionUtil;
 import com.ycourlee.root.util.RandomUtil;
+import com.ycourlee.root.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -68,17 +69,24 @@ public class RbacManager {
         UserEntity user = new UserEntity();
         user.setPhone(phone);
         user.setEmail(email);
+        if (StringUtil.isNotEmpty(phone)) {
+            user.setUsername(phone.substring(3));
+        } else if (StringUtil.isNotEmpty(email)) {
+            user.setUsername(email.substring(0, email.lastIndexOf('@')));
+        } else {
+            BizAssert.that(StringUtil.isNotEmpty(user.getUsername()), Errors.INTERNAL_DATA_ERROR);
+        }
         user.setPassword(password);
         user.setRefId(primaryId);
         user.setType(type);
         userMapper.insertSelective(user);
 
         if (EAccountType.TEACHER.getCode() == type) {
-            BizAssert.that(CollectionUtil.isNotEmpty(defaultAdminRoleId.getDefaultRoleId()), Errors.INTERNAL_CONFIGURATION_ERROR);
-            bindRolesToUser(user.getId(), defaultAdminRoleId.getDefaultRoleId());
-        } else {
             BizAssert.that(CollectionUtil.isNotEmpty(defaultTeacherRoleId.getDefaultRoleId()), Errors.INTERNAL_CONFIGURATION_ERROR);
             bindRolesToUser(user.getId(), defaultTeacherRoleId.getDefaultRoleId());
+        } else {
+            BizAssert.that(CollectionUtil.isNotEmpty(defaultAdminRoleId.getDefaultRoleId()), Errors.INTERNAL_CONFIGURATION_ERROR);
+            bindRolesToUser(user.getId(), defaultAdminRoleId.getDefaultRoleId());
         }
     }
 
@@ -331,10 +339,10 @@ public class RbacManager {
         List<Integer> haveAccessAbilityRoleIdList = roleResourceMapper.listOrderedRoleIdByResId(resourceEntity.getId());
         for (Integer roleId : roleIdList) {
             if (Collections.binarySearch(haveAccessAbilityRoleIdList, roleId) >= 0) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public String getName(Integer type, int refId) {

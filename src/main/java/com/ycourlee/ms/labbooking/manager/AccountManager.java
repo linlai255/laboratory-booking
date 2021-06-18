@@ -57,7 +57,7 @@ public class AccountManager {
         String type = unbindType[0];
         String trueCode = unbindType[1];
 
-        BizAssert.that(trueCode.equalsIgnoreCase(verifyCode), "验证码错误");
+        BizAssert.that(trueCode.equalsIgnoreCase(verifyCode), Errors.VERIFY_CODE_ERROR);
         String registerKey = RandomUtil.nextRandomString16();
         redis.set(KeyPool.registerCode(account), bindType(Integer.parseInt(type), registerKey));
         return registerKey;

@@ -79,7 +79,7 @@ public class RbacServiceImpl implements RbacService {
     @Override
     public PageResponse<ResourceApiVO> apiSearch(ApiSearchRequest request) {
         List<ResourceEntity> entityList = rbacManager.listResourceApi(request, true);
-        return new PageResponse<>(request.getPage(), request.getPageSize(), new PageInfo<>().getTotal(), rbacManager.buildApiSearchResponse(entityList));
+        return new PageResponse<>(request.getPage(), request.getPageSize(), new PageInfo<>(entityList).getTotal(), rbacManager.buildApiSearchResponse(entityList));
     }
 
     @Override

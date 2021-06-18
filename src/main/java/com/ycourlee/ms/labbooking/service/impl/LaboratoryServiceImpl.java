@@ -30,7 +30,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
     @Override
     public PageResponse<LabSearchVO> search(LabSearchRequest request) {
         List<LabEntity> entityList = laboratoryManager.list(request, true);
-        return new PageResponse<>(request.getPage(), request.getPageSize(), new PageInfo<>().getTotal(), laboratoryManager.buildSearchVoList(entityList));
+        return new PageResponse<>(request.getPage(), request.getPageSize(), new PageInfo<>(entityList).getTotal(), laboratoryManager.buildSearchVoList(entityList));
     }
 
     @Override

@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * @author yongjiang
  */
-@Configuration
+@Component
 public class AuthorizationInterceptor extends LabAuth implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(AuthorizationInterceptor.class);
@@ -96,7 +97,7 @@ public class AuthorizationInterceptor extends LabAuth implements HandlerIntercep
                 .nickname(userBO.getNickname())
                 .username(userBO.getUsername())
                 .name(userBO.getName())
-                .type(EAccountType.ADMINISTRATOR.getCode())
+                .type(userBO.getType())
                 .build();
         return true;
     }

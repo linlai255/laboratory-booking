@@ -17,8 +17,11 @@ public class JwtIssuerTest extends LabBookingApplicationTests {
         String hello = jwtIssuer.issue("i am fine.");
         System.out.println("hello = " + hello);
 
-        System.out.println("jwtIssuer.claimsOf(hello) = " + jwtIssuer.claimsOf(hello));
-
-        System.out.println("jwtIssuer.parse(hello) = " + jwtIssuer.parse(hello));
+        try {
+            System.out.println("jwtIssuer.claimsOf(hello) = " + jwtIssuer.claimsOf(hello));
+            System.out.println("jwtIssuer.parse(hello) = " + jwtIssuer.parse(hello));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

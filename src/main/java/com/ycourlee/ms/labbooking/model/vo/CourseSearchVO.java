@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-
 /**
  * @author yongjiang
  */
@@ -26,7 +24,7 @@ public class CourseSearchVO {
     @ApiModelProperty(value = "备注")
     private String  memo;
     @ApiModelProperty(value = "更新时间")
-    private Date    updateTime;
+    private String  updateTime;
     @ApiModelProperty(value = "更新人id")
     private Integer updateUserId;
     @ApiModelProperty(value = "更新人name")

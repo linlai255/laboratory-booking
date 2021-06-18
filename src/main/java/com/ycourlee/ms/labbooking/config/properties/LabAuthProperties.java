@@ -1,5 +1,6 @@
 package com.ycourlee.ms.labbooking.config.properties;
 
+import com.ycourlee.ms.labbooking.model.bo.UserBO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,4 +29,8 @@ public class LabAuthProperties {
      * token key in the header.
      */
     private String tokenKey = "Authorization";
+
+    private UserBO mockedAdmin;
+
+    private UserBO mockedTeacher;
 }

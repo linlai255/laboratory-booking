@@ -7,13 +7,14 @@ import com.ycourlee.root.core.domain.context.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.BindException;
 
 /**
  * @author yongjiang
@@ -26,17 +27,26 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = BusinessException.class)
-    public ApiResponse businessException(BusinessException exception) {
-        return ApiResponse.error(exception.getCmReturn());
+    public ApiResponse businessException(BusinessException e) {
+        e.printStackTrace();
+        return ApiResponse.error(e.getCmReturn());
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(value = BindException.class)
-    public ApiResponse bindExceptionHandler(HttpServletRequest request, BindingResult e) {
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class, BindException.class})
+    public ApiResponse bindExceptionHandler(HttpServletRequest request, Exception e) {
         // multipart request will be logged.
         log.error("Failed to process the request, uri: {}, parameter map: {}", request.getRequestURI(), JSON.toJSON(request.getParameterMap()));
+        e.printStackTrace();
+        BindingResult bindingResult;
+        if (e instanceof MethodArgumentNotValidException) {
+            bindingResult = ((MethodArgumentNotValidException) e).getBindingResult();
+        } else {
+            bindingResult = ((BindException) e);
+        }
+
         StringBuffer sb = new StringBuffer();
-        e.getFieldErrors().forEach(fieldError ->
+        bindingResult.getFieldErrors().forEach(fieldError ->
                 sb.append(fieldError.getField())
                         .append("-")
                         .append(fieldError.getDefaultMessage())
@@ -54,6 +64,6 @@ public class GlobalExceptionHandler {
         // notice: null pointer exception's message is null. so e.getMessage() will be null.
         return ApiResponse.error(Errors.UNKNOWN.getCode(),
                 Errors.UNKNOWN.getMsg(),
-                (e.getMessage() == null || e.getMessage().length() > 20) ? "internal error! Please try again later." : e.getMessage());
+                null);
     }
 }

@@ -10,7 +10,25 @@ lab-app:
       - /api/v1/login
       - /api/v1/register
       - /api/v1/sign-up
-    enabled: false
+    enabled: true
+    mocked-admin:
+      id: 100100
+      username: mocked.admin
+      name: admin
+      nickname: yoon
+      phone: 13012345678
+      email: mock@me.com
+      type: 1
+      refId: 100100
+    mocked-teacher:
+      id: 100101
+      username: mocked.teacher
+      name: teacher
+      nickname: yoon
+      phone: 13012345678
+      email: mock@me.com
+      type: 2
+      refId: 100101
   login:
     email-mode-enabled: true
   registration:
@@ -19,6 +37,9 @@ lab-app:
     admin:
       default-role-id:
         - 1
+    teacher:
+      default-role-id:
+        - 2
 
 logging:
   level:
